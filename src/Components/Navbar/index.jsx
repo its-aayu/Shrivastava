@@ -8,7 +8,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center gap-2">
           <span className="text-xl font-bold tracking-wide">
-            Shrivastava
+            Name Loading
           </span>
         </div>
 

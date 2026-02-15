@@ -6,7 +6,7 @@ export default function Footer() {
 
         {/* Logo */}
         <div className="flex justify-center mb-8">
-          <h1 className="text-2xl font-bold tracking-wide">Shrivastava</h1>
+          <h1 className="text-2xl font-bold tracking-wide">Name Loading</h1>
         </div>
 
         {/* Divider */}
@@ -40,7 +40,7 @@ export default function Footer() {
             <h3 className="font-semibold mb-3">Contact Us</h3>
             <ul className="space-y-2 text-indigo-300">
               <li>📞 +91 546 84272</li>
-              <li>✉️ Shrivastava@domain.com</li>
+              <li>✉️ Name Loading@domain.com</li>
               <li>📍 George Tower, 123, Burn Swiss</li>
             </ul>
           </div>
@@ -66,7 +66,7 @@ export default function Footer() {
 
         {/* Bottom divider */}
         <div className="border-t border-[#FF9247] mt-10 pt-4 text-center text-xs text-indigo-400">
-          © copyright Shrivastava2023 all right reserved
+          © copyright Name Loading2023 all right reserved
         </div>
 
       </div>
