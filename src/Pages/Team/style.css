@@ -1,0 +1,69 @@
+.teamPage {
+  padding: var(--section-space);
+  background: var(--ghost);
+}
+
+.teamCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.teamCards article {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--persian);
+  box-shadow: var(--shadow-soft);
+  animation: liftIn 680ms ease both;
+  animation-delay: var(--delay);
+}
+
+.teamCards img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.95);
+  transition: transform 800ms ease;
+}
+
+.teamCards article:hover img {
+  transform: scale(1.07);
+}
+
+.teamCards article::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, transparent 36%, rgba(39, 24, 126, 0.9));
+}
+
+.teamCards div {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+  color: white;
+}
+
+.teamCards span {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.teamCards h3 {
+  margin: 8px 0 0;
+  font-size: 34px;
+}
+
+@media (max-width: 960px) {
+  .teamPage {
+    padding: var(--section-space-mobile);
+  }
+
+  .teamCards {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,84 @@
+.aboutStory {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 58px;
+  align-items: center;
+  padding: var(--section-space);
+  background: var(--ghost);
+}
+
+.aboutStory__timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.aboutStory__timeline article,
+.aboutValues article {
+  border: 1px solid rgba(39, 24, 126, 0.14);
+  border-radius: var(--radius-md);
+  background: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.aboutStory__timeline article {
+  padding: 20px;
+}
+
+.aboutStory__timeline span {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: var(--persian);
+  color: white;
+  font-weight: 900;
+}
+
+.aboutValues {
+  padding: var(--section-space);
+  background: linear-gradient(180deg, white, var(--ghost));
+}
+
+.aboutValues > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.aboutValues article {
+  padding: 30px;
+}
+
+.aboutValues strong {
+  color: var(--accent);
+  font-family: "Space Grotesk", Inter, sans-serif;
+  font-size: 42px;
+}
+
+.aboutValues h3 {
+  margin: 12px 0 10px;
+  color: var(--persian);
+}
+
+.aboutValues p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 960px) {
+  .aboutStory,
+  .aboutValues > div,
+  .aboutStory__timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .aboutStory,
+  .aboutValues {
+    padding: var(--section-space-mobile);
+  }
+}

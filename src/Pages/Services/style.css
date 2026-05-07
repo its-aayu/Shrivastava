@@ -1,0 +1,116 @@
+.servicesPage,
+.serviceDetail,
+.serviceQuote {
+  padding: var(--section-space);
+  background: var(--ghost);
+}
+
+.servicesPage__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.servicesPage__grid button {
+  position: relative;
+  min-height: 430px;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: var(--persian);
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+}
+
+.servicesPage__grid button::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, transparent 24%, rgba(9, 8, 24, 0.9));
+}
+
+.servicesPage__grid button.isActive {
+  outline: 4px solid var(--accent);
+  transform: translateY(-10px);
+}
+
+.servicesPage__grid img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms ease;
+}
+
+.servicesPage__grid button:hover img {
+  transform: scale(1.08);
+}
+
+.servicesPage__grid span,
+.servicesPage__grid h3,
+.servicesPage__grid p {
+  position: relative;
+  z-index: 2;
+}
+
+.servicesPage__grid span {
+  display: block;
+  padding: 250px 22px 0;
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.servicesPage__grid h3 {
+  margin: 8px 22px;
+  font-size: 26px;
+}
+
+.servicesPage__grid p {
+  margin: 0 22px 24px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.6;
+}
+
+.serviceDetail {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 58px;
+  align-items: center;
+  background: white;
+}
+
+.serviceDetail ul {
+  display: grid;
+  gap: 12px;
+  margin: 0 0 30px;
+  padding: 0;
+  list-style: none;
+}
+
+.serviceDetail li {
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  background: var(--ghost);
+  color: var(--persian);
+  font-weight: 900;
+}
+
+.serviceQuote {
+  background: linear-gradient(180deg, var(--ghost), white);
+}
+
+@media (max-width: 960px) {
+  .servicesPage,
+  .serviceDetail,
+  .serviceQuote {
+    padding: var(--section-space-mobile);
+  }
+
+  .servicesPage__grid,
+  .serviceDetail {
+    grid-template-columns: 1fr;
+  }
+}

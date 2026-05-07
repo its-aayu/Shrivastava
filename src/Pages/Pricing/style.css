@@ -1,0 +1,21 @@
+.pricingPage {
+  padding: var(--section-space);
+  background: var(--ghost);
+}
+
+.pricingCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .pricingPage {
+    padding: var(--section-space-mobile);
+  }
+
+  .pricingCards {
+    grid-template-columns: 1fr;
+  }
+}
