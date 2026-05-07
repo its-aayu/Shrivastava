@@ -358,7 +358,7 @@ main {
   border-radius: var(--radius-lg);
   background:
     linear-gradient(135deg, rgba(39, 24, 126, 0.42), rgba(255, 146, 71, 0.18)),
-    url("https://picsum.photos/seed/aayu-footer-map/500/300");
+    url("/images/studio-map.svg");
   background-size: cover;
   background-position: center;
 }
@@ -484,7 +484,7 @@ main {
   border-radius: var(--radius-lg);
   background:
     linear-gradient(135deg, rgba(39, 24, 126, 0.42), rgba(255, 146, 71, 0.18)),
-    url("https://picsum.photos/seed/aayu-footer-map/500/300");
+    url("/images/studio-map.svg");
   background-size: cover;
   background-position: center;
 }

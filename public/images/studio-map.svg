@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-label="Studio location map">
+  <rect width="1200" height="600" fill="#f7f7ff"/>
+  <path d="M0 120h1200M0 300h1200M0 480h1200M180 0v600M410 0v600M740 0v600M1010 0v600" stroke="#d9d8ef" stroke-width="22"/>
+  <path d="M160 470C310 335 440 360 560 250s285-120 500 20" fill="none" stroke="#ff9247" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="680" cy="240" r="70" fill="#24146f"/>
+  <circle cx="680" cy="240" r="24" fill="#21c26b"/>
+</svg>

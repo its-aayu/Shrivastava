@@ -218,7 +218,7 @@
   color: white;
   background:
     linear-gradient(135deg, rgba(39, 24, 126, 0.94), rgba(12, 9, 39, 0.92)),
-    url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Modern_printing_press_%28Unsplash%29.jpg/1600px-Modern_printing_press_%28Unsplash%29.jpg");
+    url("/images/print-press.svg");
   background-size: cover;
   background-position: center;
 }

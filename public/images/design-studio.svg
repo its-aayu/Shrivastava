@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Design studio desk">
+  <rect width="1200" height="900" fill="#f7f7ff"/>
+  <rect x="120" y="130" width="960" height="640" rx="28" fill="#ffffff"/>
+  <rect x="190" y="210" width="410" height="330" rx="18" fill="#24146f"/>
+  <rect x="650" y="210" width="310" height="90" rx="14" fill="#ff9247"/>
+  <rect x="650" y="340" width="390" height="56" rx="12" fill="#d9d8ef"/>
+  <rect x="650" y="430" width="300" height="56" rx="12" fill="#d9d8ef"/>
+  <circle cx="280" cy="630" r="62" fill="#21c26b"/>
+  <circle cx="420" cy="630" r="62" fill="#ff9247"/>
+  <circle cx="560" cy="630" r="62" fill="#24146f"/>
+</svg>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Colorful paper sheets">
+  <rect width="1200" height="900" fill="#24146f"/>
+  <rect x="180" y="130" width="520" height="660" rx="24" fill="#ffffff" transform="rotate(-8 440 460)"/>
+  <rect x="280" y="120" width="520" height="660" rx="24" fill="#ff9247" transform="rotate(2 540 450)"/>
+  <rect x="410" y="150" width="520" height="660" rx="24" fill="#21c26b" transform="rotate(10 670 480)"/>
+  <rect x="510" y="190" width="500" height="620" rx="24" fill="#f7f7ff" transform="rotate(16 760 500)"/>
+</svg>

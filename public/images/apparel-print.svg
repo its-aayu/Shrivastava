@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Printed apparel">
+  <rect width="1200" height="900" fill="#10101a"/>
+  <path d="M380 140h440l130 170-130 105v345H380V415L250 310z" fill="#f7f7ff"/>
+  <path d="M460 140c22 70 64 106 140 106s118-36 140-106" fill="none" stroke="#d9d8ef" stroke-width="42"/>
+  <rect x="470" y="385" width="260" height="170" rx="18" fill="#24146f"/>
+  <path d="M520 470h160" stroke="#ff9247" stroke-width="34" stroke-linecap="round"/>
+  <circle cx="600" cy="470" r="42" fill="#21c26b"/>
+</svg>

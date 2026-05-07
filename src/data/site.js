@@ -11,16 +11,16 @@ export const navItems = [
 ];
 
 export const imageBank = {
-  hero: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Modern_printing_press_%28Unsplash%29.jpg/1600px-Modern_printing_press_%28Unsplash%29.jpg",
-  studio: "https://picsum.photos/seed/aayu-design-studio/1200/900",
-  press: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Modern_printing_press_%28Unsplash%29.jpg/1280px-Modern_printing_press_%28Unsplash%29.jpg",
-  paper: "https://picsum.photos/seed/aayu-paper-colors/1200/900",
-  apparel: "https://picsum.photos/seed/aayu-apparel-print/1200/900",
-  cards: "https://picsum.photos/seed/aayu-business-card/1200/900",
-  packaging: "https://picsum.photos/seed/aayu-packaging-design/1200/900",
-  team: "https://picsum.photos/seed/aayu-creative-team/1200/900",
-  map: "https://picsum.photos/seed/aayu-studio-street/1200/600",
-  fallback: "https://picsum.photos/seed/aayu-print-fallback/1200/900",
+  hero: "/images/print-press.svg",
+  studio: "/images/design-studio.svg",
+  press: "/images/print-press.svg",
+  paper: "/images/paper-colors.svg",
+  apparel: "/images/apparel-print.svg",
+  cards: "/images/business-cards.svg",
+  packaging: "/images/packaging-labels.svg",
+  team: "/images/studio-team.svg",
+  map: "/images/studio-map.svg",
+  fallback: "/images/print-fallback.svg",
 };
 
 export const stats = [
@@ -73,9 +73,9 @@ export const galleryItems = [
 ];
 
 export const team = [
-  { name: "Aarav Mehta", role: "Creative Director", image: "https://picsum.photos/seed/aayu-aarav/700/850" },
-  { name: "Ira Kapoor", role: "Production Lead", image: "https://picsum.photos/seed/aayu-ira/700/850" },
-  { name: "Neel Shah", role: "Color Specialist", image: "https://picsum.photos/seed/aayu-neel/700/850" },
+  { name: "Aarav Mehta", role: "Creative Director", image: "/images/team-aarav.svg" },
+  { name: "Ira Kapoor", role: "Production Lead", image: "/images/team-ira.svg" },
+  { name: "Neel Shah", role: "Color Specialist", image: "/images/team-neel.svg" },
 ];
 
 export const blogs = [

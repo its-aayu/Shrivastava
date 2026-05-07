@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Print studio artwork">
+  <rect width="1200" height="900" fill="#24146f"/>
+  <rect x="260" y="220" width="680" height="460" rx="32" fill="#f7f7ff"/>
+  <rect x="340" y="310" width="360" height="44" rx="10" fill="#24146f"/>
+  <rect x="340" y="410" width="520" height="34" rx="9" fill="#d9d8ef"/>
+  <rect x="340" y="490" width="420" height="34" rx="9" fill="#d9d8ef"/>
+  <circle cx="830" cy="335" r="58" fill="#ff9247"/>
+</svg>
