@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import { galleryItems, imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { PageHero, PromoBand, SectionHeader } from "../shared";
-import "./style.css";
 
 export default function Gallery({ onNavigate }) {
   const [filter, setFilter] = useState("All");

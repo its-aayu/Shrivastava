@@ -1,0 +1,120 @@
+@media (max-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .homeHero,
+  .homeIntro,
+  .aboutStory,
+  .serviceDetail,
+  .contactPage,
+  .reviewBlock,
+  .blogLayout,
+  .premiumPromo {
+    grid-template-columns: 1fr;
+  }
+
+  .aboutStory__timeline,
+  .servicesPage__grid,
+  .serviceShowcase,
+  .trustStrip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 70px 24px;
+  }
+
+  .display-title {
+    font-size: 4rem;
+  }
+
+  .section-title {
+    font-size: 2.8rem;
+  }
+
+  .nav-links,
+  .nav-inner > .btn {
+    display: none;
+  }
+
+  .mobile-select {
+    display: block;
+  }
+
+  .homeHero,
+  .homeIntro,
+  .homeServices,
+  .homeGallery,
+  .aboutStory,
+  .aboutValues,
+  .servicesPage,
+  .serviceDetail,
+  .serviceQuote,
+  .blogPage,
+  .pricingPage,
+  .galleryPage,
+  .faqPage,
+  .teamPage,
+  .contactPage,
+  .reviewBlock {
+    padding: var(--section-space-mobile);
+  }
+
+  .homeHero {
+    min-height: auto;
+  }
+
+  .heroShowcase {
+    min-height: 460px;
+  }
+
+  .homeIntro__points,
+  .aboutValues > div,
+  .pricingCards,
+  .teamCards,
+  .homeGallery__grid,
+  .galleryMasonry,
+  .statsStrip,
+  .trustStrip,
+  .aboutStory__timeline,
+  .servicesPage__grid,
+  .serviceShowcase,
+  .quoteForm {
+    grid-template-columns: 1fr;
+  }
+
+  .premiumPromo {
+    padding: 48px 24px;
+  }
+
+  .blogList button {
+    grid-template-columns: 1fr;
+  }
+
+  .blogList img {
+    width: 100%;
+    height: 220px;
+  }
+
+  .galleryMasonry {
+    grid-auto-rows: 320px;
+  }
+}
+
+@media (max-width: 540px) {
+  .display-title {
+    font-size: 3rem;
+  }
+
+  .brand-mark {
+    font-size: 2rem;
+  }
+}

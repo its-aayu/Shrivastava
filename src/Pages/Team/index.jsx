@@ -1,7 +1,6 @@
 import { imageBank, team } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { PageHero, PromoBand, SectionHeader } from "../shared";
-import "./style.css";
 
 export default function Team({ onNavigate }) {
   return (

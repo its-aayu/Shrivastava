@@ -1,6 +1,5 @@
 import { imageBank, stats } from "../../data/site";
 import { ImagePanel, PageHero, PromoBand, ReviewSection, SectionHeader, StatsStrip } from "../shared";
-import "./style.css";
 
 export default function About({ onNavigate }) {
   return (

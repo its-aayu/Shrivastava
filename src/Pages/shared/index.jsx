@@ -1,7 +1,6 @@
-import Button from "../../Components/Button";
+import Button from "../../components/ui/Button";
 import { imageBank, services, stats, trustSignals } from "../../data/site";
 import { handleImageError } from "../../utils/images";
-import "./style.css";
 
 function SmartImage({ alt, eager = false, ...props }) {
   return (

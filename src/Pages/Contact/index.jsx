@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { imageBank } from "../../data/site";
 import { ImagePanel, PageHero, QuoteForm, SectionHeader } from "../shared";
-import "./style.css";
 
 export default function Contact() {
   const [sent, setSent] = useState(false);

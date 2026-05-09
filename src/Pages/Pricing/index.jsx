@@ -1,7 +1,6 @@
-import Card from "../../Components/Card";
+import Card from "../../components/ui/Card";
 import { imageBank, pricingPlans } from "../../data/site";
 import { PageHero, PromoBand, SectionHeader } from "../shared";
-import "./style.css";
 
 export default function Pricing({ onNavigate }) {
   return (

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { faqs, imageBank } from "../../data/site";
 import { PageHero, PromoBand, SectionHeader } from "../shared";
-import "./style.css";
 
 export default function FAQ({ onNavigate }) {
   const [open, setOpen] = useState(0);

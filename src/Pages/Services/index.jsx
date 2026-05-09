@@ -1,9 +1,8 @@
 import { useState } from "react";
-import Button from "../../Components/Button";
+import Button from "../../components/ui/Button";
 import { imageBank, services } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { ImagePanel, PageHero, PromoBand, QuoteForm, ReviewSection, SectionHeader } from "../shared";
-import "./style.css";
 
 export default function Services({ onNavigate }) {
   const [active, setActive] = useState(0);

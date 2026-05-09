@@ -1,8 +1,7 @@
-import Button from "../../Components/Button";
+import Button from "../../components/ui/Button";
 import { galleryItems, imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { ImagePanel, PromoBand, ReviewSection, SectionHeader, ServiceCards, StatsStrip, TrustStrip } from "../shared";
-import "./style.css";
 
 export default function Home({ onNavigate }) {
   return (

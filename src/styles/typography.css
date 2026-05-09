@@ -1,0 +1,31 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  line-height: 1.1;
+}
+
+.display-title {
+  font-size: clamp(4rem, 8vw, 7rem);
+}
+
+.section-title {
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  text-align: center;
+}
+
+.script-text {
+  font-family: var(--font-script);
+  color: var(--primary);
+}
+
+.text-muted {
+  color: var(--text-light);
+}
+
+.text-center {
+  text-align: center;
+}

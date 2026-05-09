@@ -1,17 +1,16 @@
 import { useMemo, useState } from "react";
-import Footer from "./Components/Footer";
-import Navbar from "./Components/Navbar";
-import About from "./Pages/About";
-import Blog from "./Pages/Blog";
-import Contact from "./Pages/Contact";
-import FAQ from "./Pages/FAQ";
-import Gallery from "./Pages/Gallery";
-import Home from "./Pages/Home";
-import Pricing from "./Pages/Pricing";
-import Services from "./Pages/Services";
-import Team from "./Pages/Team";
+import Footer from "./components/layout/footer";
+import Navbar from "./components/layout/Navbar";
+import About from "./pages/About";
+import Blog from "./pages/Blog";
+import Contact from "./pages/Contact";
+import FAQ from "./pages/FAQ";
+import Gallery from "./pages/Gallery";
+import Home from "./pages/Home";
+import Pricing from "./pages/Pricing";
+import Services from "./pages/Services";
+import Team from "./pages/Team";
 import { navItems } from "./data/site";
-import "./App.css";
 
 const pages = {
   home: Home,

@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Allura&display=swap");
+
+:root {
+  /* COLORS */
+  --primary: #feb4a7;
+  --secondary: #fed5cd;
+  --background: #f8edeb;
+  --cream: #fadbc6;
+  --accent: #ffc69e;
+
+  --text-dark: #4b3b38;
+  --text-light: #7b6d6a;
+
+  --white: #ffffff;
+  --black: #000000;
+
+  --border: rgba(75, 59, 56, 0.08);
+  --line: var(--border);
+
+  /* GLASS */
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.3);
+
+  /* TYPOGRAPHY */
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Inter", sans-serif;
+  --font-script: "Allura", cursive;
+
+  /* SPACING */
+  --section-padding: clamp(70px, 8vw, 120px);
+  --page-padding: clamp(20px, 5vw, 80px);
+
+  /* RADIUS */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-xl: 42px;
+  --radius-full: 999px;
+
+  /* SHADOWS */
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --shadow-large: 0 25px 60px rgba(0, 0, 0, 0.12);
+  --shadow-hover: var(--shadow-medium);
+
+  /* TRANSITION */
+  --transition: all 0.3s ease;
+
+  /* CONTAINER */
+  --container-width: 1400px;
+
+  /* Compatibility aliases for existing page markup */
+  --page-pad: var(--page-padding);
+  --section-space: var(--section-padding) var(--page-padding);
+  --section-space-mobile: 70px 24px;
+  --ghost: var(--background);
+  --paper: var(--cream);
+  --ink: var(--text-dark);
+  --muted: var(--text-light);
+  --persian: var(--text-dark);
+  --accent-text: var(--primary);
+  --green: #2f8f5b;
+  --space-3: 24px;
+}
