@@ -825,7 +825,8 @@
   resize: vertical;
 }
 
-.quoteForm .btn {
+.quoteForm .btn,
+.quoteForm .ui-btn {
   justify-self: start;
 }
 

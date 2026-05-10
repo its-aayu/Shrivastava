@@ -1,4 +1,5 @@
 import Button from "../../components/ui/Button";
+import Input from "../../components/ui/input/input";
 import { imageBank, services, stats, trustSignals } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 
@@ -131,17 +132,14 @@ export function QuoteForm({ compact = false, onSubmit }) {
   return (
     <form className={`quoteForm ${compact ? "quoteForm--compact" : ""}`} onSubmit={handleSubmit}>
       <div className="formField">
-        <label htmlFor="quote-name">Name</label>
-        <input id="quote-name" name="name" required autoComplete="name" placeholder="Your name" />
+        <Input id="quote-name" name="name" label="Name" required autoComplete="name" placeholder="Your name" />
       </div>
       <div className="formField">
-        <label htmlFor="quote-email">Email address</label>
-        <input id="quote-email" name="email" required type="email" autoComplete="email" placeholder="you@example.com" />
+        <Input id="quote-email" name="email" label="Email address" required type="email" autoComplete="email" placeholder="you@example.com" />
         <small>We use this only to reply with your quote.</small>
       </div>
       <div className="formField">
-        <label htmlFor="quote-phone">Phone number</label>
-        <input id="quote-phone" name="phone" required type="tel" autoComplete="tel" placeholder="+91 98765 43210" />
+        <Input id="quote-phone" name="phone" label="Phone number" required type="tel" autoComplete="tel" placeholder="+91 98765 43210" />
       </div>
       <div className="formField">
         <label htmlFor="quote-service">Service</label>

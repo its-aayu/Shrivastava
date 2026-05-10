@@ -1,0 +1,117 @@
+.ui-card {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 38px;
+
+  border-radius: var(--radius-lg);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.72),
+      rgba(248, 233, 227, 0.56)
+    );
+
+  border:
+    1px solid var(--glass-border);
+
+  backdrop-filter: blur(18px);
+
+  box-shadow:
+    var(--shadow-soft);
+
+  transition: var(--transition);
+}
+
+.ui-card:hover {
+  transform: translateY(-10px);
+
+  box-shadow:
+    0 22px 44px rgba(0, 0, 0, 0.06);
+}
+
+.ui-card-featured {
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--accent)
+    );
+
+  color: var(--white);
+}
+
+.ui-card-label {
+  display: inline-flex;
+
+  margin-bottom: 24px;
+
+  padding:
+    8px
+    14px;
+
+  border-radius: var(--radius-full);
+
+  background:
+    rgba(255, 255, 255, 0.22);
+
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.ui-card-price {
+  margin-bottom: 14px;
+
+  font-size: 3rem;
+
+  line-height: 1;
+}
+
+.ui-card-price span {
+  margin-left: 8px;
+
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.ui-card-description {
+  margin-bottom: 28px;
+
+  line-height: 1.7;
+
+  opacity: 0.85;
+}
+
+.ui-card-features {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+
+  margin-bottom: 36px;
+}
+
+.ui-card-features li {
+  position: relative;
+
+  padding-left: 22px;
+
+  line-height: 1.7;
+}
+
+.ui-card-features li::before {
+  content: "";
+
+  position: absolute;
+  top: 0.75em;
+  left: 0;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: var(--radius-full);
+
+  background: currentColor;
+}

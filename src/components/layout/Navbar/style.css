@@ -1,0 +1,289 @@
+.app-nav {
+  position: sticky;
+  top: 18px;
+  z-index: 1000;
+
+  width: calc(100% - 40px);
+  max-width: 1450px;
+
+  margin-inline: auto;
+
+  border-radius: 28px;
+
+  background: rgba(255, 255, 255, 0.42);
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+  transition: all 0.35s ease;
+}
+
+.app-nav:hover {
+  background: rgba(255, 255, 255, 0.52);
+
+  box-shadow:
+    0 12px 42px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* NAV INNER */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 82px;
+
+  padding: 0 32px;
+}
+
+/* LOGO */
+.brand-mark {
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  transition: transform 0.3s ease;
+}
+
+.brand-mark:hover {
+  transform: translateY(-2px);
+}
+
+.brand-script {
+  position: relative;
+
+  font-family: var(--font-script);
+
+  font-size: 3rem;
+  line-height: 1;
+
+  color: var(--text-dark);
+
+  letter-spacing: 1px;
+}
+
+/* NAVIGATION */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.24);
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+/* NAV BUTTON */
+.nav-link {
+  position: relative;
+
+  padding: 13px 20px;
+
+  border: none;
+  border-radius: 999px;
+
+  background: transparent;
+
+  color: var(--text-dark);
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+/* UNDERLINE ANIMATION */
+.nav-link::after {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+
+  width: 0%;
+  height: 2px;
+
+  background: var(--primary);
+
+  border-radius: 999px;
+
+  transition: all 0.3s ease;
+
+  transform: translateX(-50%);
+}
+
+/* HOVER */
+.nav-link:hover {
+  color: var(--primary);
+
+  transform: translateY(-1px);
+}
+
+.nav-link:hover::after {
+  width: 50%;
+}
+
+/* ACTIVE */
+.nav-link.active {
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--accent)
+  );
+
+  color: white;
+
+  box-shadow:
+    0 8px 20px rgba(254, 180, 167, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.nav-link.active::after {
+  display: none;
+}
+
+/* ACTIONS */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* CTA BUTTON */
+.nav-cta {
+  position: relative;
+
+  overflow: hidden;
+
+  padding-inline: 28px !important;
+
+  border-radius: 999px;
+
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--accent)
+  ) !important;
+
+  color: white !important;
+
+  font-weight: 600;
+
+  box-shadow:
+    0 10px 24px rgba(254, 180, 167, 0.35);
+
+  transition: all 0.3s ease;
+}
+
+.nav-cta:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 16px 32px rgba(254, 180, 167, 0.45);
+}
+
+/* LIGHT EFFECT */
+.nav-cta::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -120%;
+
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+
+  transition: all 0.5s ease;
+}
+
+.nav-cta:hover::before {
+  left: 120%;
+}
+
+/* MOBILE SELECT */
+.mobile-select {
+  display: none;
+
+  padding: 12px 18px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.5);
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  backdrop-filter: blur(10px);
+
+  color: var(--text-dark);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1150px) {
+  .nav-links {
+    gap: 2px;
+  }
+
+  .nav-link {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .nav-links {
+    display: none;
+  }
+
+  .mobile-select {
+    display: block;
+  }
+
+  .nav-inner {
+    min-height: 76px;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-nav {
+    width: calc(100% - 20px);
+
+    top: 10px;
+  }
+
+  .nav-inner {
+    padding: 0 18px;
+  }
+
+  .brand-script {
+    font-size: 2.4rem;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .mobile-select {
+    max-width: 140px;
+  }
+}
