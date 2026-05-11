@@ -196,6 +196,6 @@ The long-term goal is to transform this into:
 
 # 👨‍💻 Developer
 
-Built by Steve Raysion
+Built by Shrivastava Ayush
 
 Building in public • Learning daily • Improving consistently
