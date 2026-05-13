@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { motion as Motion } from "framer-motion";
 import { faqs, imageBank } from "../../data/site";
+import { cardItem, gridContainer } from "../../animations/motion";
 import { PageHero, PromoBand, SectionHeader } from "../shared";
+import "./style.css";
 
 export default function FAQ({ onNavigate }) {
   const [open, setOpen] = useState(0);
@@ -13,22 +16,39 @@ export default function FAQ({ onNavigate }) {
         image={imageBank.paper}
       />
       <section className="faqPage">
-        <SectionHeader align="center" eyebrow="FAQ" title="Good print starts with clear decisions." />
-        <div className="faqList">
+        <Motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
+        >
+          <SectionHeader align="center" eyebrow="FAQ" title="Good print starts with clear decisions." />
+        </Motion.div>
+        <Motion.div
+          className="faqList"
+          variants={gridContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {faqs.map(([question, answer], index) => (
-            <button
-              className={open === index ? "isOpen" : ""}
+            <Motion.div
               key={question}
-              onClick={() => setOpen(open === index ? -1 : index)}
-              aria-expanded={open === index}
-              type="button"
+              className={`faqItem${open === index ? " isOpen" : ""}`}
+              variants={cardItem}
             >
-              <span>{question}</span>
-              <strong>{open === index ? "-" : "+"}</strong>
-              {open === index && <p>{answer}</p>}
-            </button>
+              <button
+                onClick={() => setOpen(open === index ? -1 : index)}
+                aria-expanded={open === index}
+                type="button"
+              >
+                <span>{question}</span>
+                <strong aria-hidden="true" className="faqItem__icon" />
+              </button>
+              <p>{answer}</p>
+            </Motion.div>
           ))}
-        </div>
+        </Motion.div>
       </section>
       <PromoBand onNavigate={onNavigate} />
     </>

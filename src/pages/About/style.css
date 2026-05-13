@@ -1,84 +1,150 @@
-.aboutStory {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 58px;
-  align-items: center;
-  padding: var(--section-space);
-  background: var(--ghost);
-}
+/* ── About page enhancements (layered on top of components.css) ── */
 
-.aboutStory__timeline {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-top: 34px;
-}
-
-.aboutStory__timeline article,
-.aboutValues article {
-  border: 1px solid rgba(39, 24, 126, 0.14);
-  border-radius: var(--radius-md);
-  background: white;
-  box-shadow: var(--shadow-soft);
-}
-
+/* Timeline cards: hover lift + description text */
 .aboutStory__timeline article {
-  padding: 20px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.aboutStory__timeline span {
+.aboutStory__timeline article:hover {
+  transform: translateY(-7px);
+  border-color: rgba(254, 180, 167, 0.55);
+  box-shadow: 0 22px 64px rgba(254, 180, 167, 0.16);
+}
+
+.aboutStory__timeline article p {
+  margin: 10px 0 0;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+/* ── Mission quote band ── */
+.aboutMission {
+  padding: var(--section-padding) var(--page-padding);
+  background: linear-gradient(135deg, var(--text-dark) 0%, #6b504b 100%);
+  text-align: center;
+  color: var(--white);
+}
+
+.aboutMission__inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.aboutMission h2 {
+  margin: 0;
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+
+.aboutMission p:not(.eyebrow) {
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.aboutMission .eyebrow {
+  color: var(--accent);
+}
+
+/* ── Values cards ── */
+.aboutValues__cards {
   display: grid;
-  width: 38px;
-  height: 38px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.aboutValues__cards article {
+  /* base card styles come from components.css .aboutValues article */
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.aboutValues__cards article:hover {
+  transform: translateY(-8px);
+  border-color: rgba(254, 180, 167, 0.55);
+  box-shadow: 0 24px 72px rgba(254, 180, 167, 0.16);
+}
+
+/* Icon badge overrides the generic .aboutValues strong number */
+.aboutValues__cards > article > span {
+  display: grid;
+  width: 46px;
+  height: 46px;
   place-items: center;
   margin-bottom: 18px;
-  border-radius: 999px;
-  background: var(--persian);
-  color: white;
-  font-weight: 900;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: var(--white);
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
-.aboutValues {
-  padding: var(--section-space);
-  background: linear-gradient(180deg, white, var(--ghost));
+.aboutValues__cards h3 {
+  margin: 0 0 10px;
+  color: var(--text-dark);
+  font-size: 1.08rem;
+  font-weight: 700;
 }
 
-.aboutValues > div {
+.aboutValues__cards p {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+/* ── Stats row below values ── */
+.aboutStats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-.aboutValues article {
+.aboutStats article {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-soft);
   padding: 30px;
+  text-align: center;
+  transition: transform 0.25s ease;
 }
 
-.aboutValues strong {
-  color: var(--accent);
-  font-family: "Space Grotesk", Inter, sans-serif;
-  font-size: 42px;
+.aboutStats article:hover {
+  transform: translateY(-6px);
 }
 
-.aboutValues h3 {
-  margin: 12px 0 10px;
-  color: var(--persian);
+.aboutStats strong {
+  display: block;
+  color: var(--primary);
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1;
 }
 
-.aboutValues p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.7;
+.aboutStats span {
+  display: block;
+  margin-top: 8px;
+  color: var(--text-light);
+  font-weight: 700;
 }
 
+/* ── Responsive ── */
 @media (max-width: 960px) {
-  .aboutStory,
-  .aboutValues > div,
-  .aboutStory__timeline {
+  .aboutValues__cards,
+  .aboutStats {
     grid-template-columns: 1fr;
   }
+}
 
-  .aboutStory,
-  .aboutValues {
-    padding: var(--section-space-mobile);
+@media (max-width: 768px) {
+  .aboutMission {
+    padding: 70px 24px;
   }
 }

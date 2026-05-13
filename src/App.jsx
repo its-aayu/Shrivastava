@@ -8,6 +8,7 @@ import FAQ from "./pages/FAQ";
 import Gallery from "./pages/Gallery";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
+import ProductDetail from "./pages/ProductDetail";
 import Services from "./pages/Services";
 import Team from "./pages/Team";
 import { navItems } from "./data/site";
@@ -22,14 +23,18 @@ const pages = {
   pricing: Pricing,
   contact: Contact,
   faq: FAQ,
+  product: ProductDetail,
 };
 
 function App() {
   const [page, setPage] = useState("home");
+  const [pageData, setPageData] = useState(null);
+
   const CurrentPage = useMemo(() => pages[page] ?? Home, [page]);
 
-  const goToPage = (nextPage) => {
+  const goToPage = (nextPage, data = null) => {
     setPage(nextPage);
+    setPageData(data);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -40,7 +45,7 @@ function App() {
       </a>
       <Navbar activePage={page} navItems={navItems} onNavigate={goToPage} />
       <main id="main-content" tabIndex="-1">
-        <CurrentPage onNavigate={goToPage} />
+        <CurrentPage onNavigate={goToPage} {...(pageData ? { productId: pageData } : {})} />
       </main>
       <Footer onNavigate={goToPage} />
     </div>

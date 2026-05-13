@@ -20,6 +20,18 @@
   .trustStrip {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .serviceDetail > div:first-child {
+    max-height: 480px;
+  }
+
+  .blogFeatured {
+    grid-template-columns: 1fr;
+  }
+
+  .blogFeatured img {
+    height: 340px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -78,6 +90,8 @@
 
   .homeIntro__points,
   .aboutValues > div,
+  .aboutValues__cards,
+  .aboutStats,
   .pricingCards,
   .teamCards,
   .homeGallery__grid,
@@ -105,7 +119,29 @@
   }
 
   .galleryMasonry {
-    grid-auto-rows: 320px;
+    grid-auto-rows: 280px;
+  }
+
+  /* Gallery filters wrap on mobile */
+  .galleryFilters {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  /* Contact details stack on mobile */
+  .contactDetails {
+    flex-direction: column;
+  }
+
+  /* About mission section padding */
+  .aboutMission {
+    padding: 64px 24px;
+  }
+
+  /* Page hero text on medium screens */
+  .pageHero__copy h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
   }
 }
 
@@ -116,5 +152,44 @@
 
   .brand-mark {
     font-size: 2rem;
+  }
+
+  /* Tighten hero copy on smallest screens */
+  .homeHero__copy h1 {
+    font-size: clamp(2.2rem, 9vw, 3.6rem);
+  }
+
+  .pageHero__copy h1 {
+    font-size: clamp(1.8rem, 7vw, 2.6rem);
+  }
+
+  /* Gallery masonry shorter rows on small phones */
+  .galleryMasonry {
+    grid-auto-rows: 240px;
+  }
+
+  /* Tighten section headers */
+  .sectionHeader {
+    margin-bottom: 36px;
+  }
+
+  /* Reduce promo band padding */
+  .premiumPromo {
+    padding: 40px 20px;
+  }
+
+  /* About stats single compact row */
+  .aboutStats strong {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+  }
+
+  /* Pricing card stack spacing */
+  .pricingCards {
+    gap: 20px;
+  }
+
+  /* FAQ list tighter */
+  .faqList {
+    gap: 8px;
   }
 }

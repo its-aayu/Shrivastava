@@ -64,12 +64,108 @@ export const services = [
 ];
 
 export const galleryItems = [
-  { title: "Editorial Brochure", category: "Brochure", image: imageBank.paper },
-  { title: "Restaurant Menu Set", category: "Menu", image: imageBank.studio },
-  { title: "Premium Business Cards", category: "Cards", image: imageBank.cards },
-  { title: "Custom Shirt Drop", category: "Apparel", image: imageBank.apparel },
-  { title: "Product Label Suite", category: "Packaging", image: imageBank.packaging },
-  { title: "Launch Posters", category: "Poster", image: imageBank.press },
+  {
+    id: "editorial-brochure",
+    title: "Editorial Brochure",
+    category: "Brochure",
+    image: imageBank.paper,
+    images: [imageBank.paper, imageBank.studio, imageBank.press],
+    price: "$25",
+    pricingUnit: "/brochure",
+    description: "Elegant tri-fold brochures with premium paper stock and professional finishing. Perfect for editorial content, portfolios, and brand presentations.",
+    specs: {
+      finish: "Matte laminate",
+      material: "100lb gloss text",
+      delivery: "3-5 business days",
+      printingQuality: "300 DPI CMYK"
+    },
+    trustIndicators: ["File pre-check", "Color accuracy", "Premium finish"]
+  },
+  {
+    id: "restaurant-menu-set",
+    title: "Restaurant Menu Set",
+    category: "Menu",
+    image: imageBank.studio,
+    images: [imageBank.studio, imageBank.paper, imageBank.cards],
+    price: "$45",
+    pricingUnit: "/set",
+    description: "Complete menu sets including covers, inserts, and table tents. Printed on durable cardstock with food-safe inks.",
+    specs: {
+      finish: "UV spot gloss",
+      material: "12pt cardstock",
+      delivery: "2-3 business days",
+      printingQuality: "High-resolution digital"
+    },
+    trustIndicators: ["Food-safe inks", "Durable stock", "Quick turnaround"]
+  },
+  {
+    id: "premium-business-cards",
+    title: "Premium Business Cards",
+    category: "Cards",
+    image: imageBank.cards,
+    images: [imageBank.cards, imageBank.paper, imageBank.studio],
+    price: "$15",
+    pricingUnit: "/100 cards",
+    description: "Luxury business cards with custom finishes and premium paper options. Make a lasting impression with every handshake.",
+    specs: {
+      finish: "Soft gloss laminate",
+      material: "14pt cardstock",
+      delivery: "1-2 business days",
+      printingQuality: "Offset quality digital"
+    },
+    trustIndicators: ["Premium stock", "Custom finishes", "Bulk discounts"]
+  },
+  {
+    id: "custom-shirt-drop",
+    title: "Custom Shirt Drop",
+    category: "Apparel",
+    image: imageBank.apparel,
+    images: [imageBank.apparel, imageBank.press, imageBank.team],
+    price: "$20",
+    pricingUnit: "/shirt",
+    description: "Custom apparel printing for events, teams, and brand launches. High-quality screen printing on premium cotton blends.",
+    specs: {
+      finish: "Screen print",
+      material: "100% cotton",
+      delivery: "5-7 business days",
+      printingQuality: "Multi-color screen"
+    },
+    trustIndicators: ["Premium fabrics", "Color matching", "Event-ready"]
+  },
+  {
+    id: "product-label-suite",
+    title: "Product Label Suite",
+    category: "Packaging",
+    image: imageBank.packaging,
+    images: [imageBank.packaging, imageBank.cards, imageBank.paper],
+    price: "$30",
+    pricingUnit: "/100 labels",
+    description: "Professional product labels and packaging stickers. Waterproof, durable, and designed for retail presentation.",
+    specs: {
+      finish: "Waterproof laminate",
+      material: "Adhesive vinyl",
+      delivery: "2-4 business days",
+      printingQuality: "Weather-resistant ink"
+    },
+    trustIndicators: ["Weatherproof", "Custom shapes", "Retail ready"]
+  },
+  {
+    id: "launch-posters",
+    title: "Launch Posters",
+    category: "Poster",
+    image: imageBank.press,
+    images: [imageBank.press, imageBank.studio, imageBank.apparel],
+    price: "$10",
+    pricingUnit: "/poster",
+    description: "Eye-catching launch posters and promotional materials. Printed on high-quality poster paper with vibrant colors.",
+    specs: {
+      finish: "Uncoated",
+      material: "100lb poster paper",
+      delivery: "1-3 business days",
+      printingQuality: "Vivid color reproduction"
+    },
+    trustIndicators: ["Vibrant colors", "Large format", "Event timing"]
+  },
 ];
 
 export const team = [

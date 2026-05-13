@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { motion as Motion } from "framer-motion";
 import Button from "../../components/ui/Button";
 import { blogs, imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
+import { cardItem, fadeLeft, fadeRight, gridContainer } from "../../animations/motion";
 import { PageHero, PromoBand, SectionHeader } from "../shared";
+import "./style.css";
 
 export default function Blog({ onNavigate }) {
   const [active, setActive] = useState(0);
@@ -16,9 +19,22 @@ export default function Blog({ onNavigate }) {
         image={imageBank.paper}
       />
       <section className="blogPage">
-        <SectionHeader align="center" eyebrow="Journal" title="Latest thinking from the Aayu studio." />
+        <Motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
+        >
+          <SectionHeader align="center" eyebrow="Journal" title="Latest thinking from the Aayu studio." />
+        </Motion.div>
         <div className="blogLayout">
-          <article className="blogFeatured">
+          <Motion.article
+            className="blogFeatured"
+            variants={fadeLeft}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             <img src={selected.image} alt={selected.title} decoding="async" loading="lazy" onError={handleImageError} />
             <div>
               <p className="eyebrow">Featured article</p>
@@ -26,15 +42,28 @@ export default function Blog({ onNavigate }) {
               <p>{selected.copy}</p>
               <Button onClick={() => onNavigate("contact")}>Discuss a Project</Button>
             </div>
-          </article>
-          <div className="blogList">
+          </Motion.article>
+          <Motion.div
+            className="blogList"
+            variants={gridContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {blogs.map((blog, index) => (
-              <button className={active === index ? "isActive" : ""} key={blog.title} onClick={() => setActive(index)} aria-pressed={active === index} type="button">
+              <Motion.button
+                key={blog.title}
+                className={active === index ? "isActive" : ""}
+                onClick={() => setActive(index)}
+                aria-pressed={active === index}
+                type="button"
+                variants={cardItem}
+              >
                 <img src={blog.image} alt="" decoding="async" loading="lazy" onError={handleImageError} />
                 <span>{blog.title}</span>
-              </button>
+              </Motion.button>
             ))}
-          </div>
+          </Motion.div>
         </div>
       </section>
       <PromoBand onNavigate={onNavigate} />

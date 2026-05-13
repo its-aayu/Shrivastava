@@ -1,36 +1,83 @@
-.contactPage {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 46px;
-  align-items: start;
-  padding: var(--section-space);
-  background: var(--ghost);
-}
+/* ── Contact page enhancements ── */
 
-.contactPage__success {
-  margin: 18px 0 0;
-  color: var(--green);
-  font-weight: 900;
-}
-
-.contactDetails {
-  display: grid;
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.contactDetails span {
-  padding: 18px;
-  border: 1px solid rgba(39, 24, 126, 0.14);
+/* Individual contact detail cards */
+.contactDetail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: white;
-  color: var(--persian);
-  font-weight: 900;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
 }
 
-@media (max-width: 960px) {
-  .contactPage {
-    grid-template-columns: 1fr;
-    padding: var(--section-space-mobile);
+.contactDetail:hover {
+  transform: translateY(-4px);
+  border-color: rgba(254, 180, 167, 0.5);
+  box-shadow: 0 14px 44px rgba(254, 180, 167, 0.14);
+}
+
+.contactDetail__icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, rgba(254, 180, 167, 0.22), rgba(255, 198, 158, 0.18));
+  font-size: 1.2rem;
+}
+
+.contactDetail div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.contactDetail strong {
+  color: var(--text-dark);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contactDetail div > span {
+  color: var(--text-light);
+  font-size: 0.96rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .contactDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .contactDetail {
+    padding: 14px 16px;
+  }
+
+  .contactDetail:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 540px) {
+  .contactDetail__icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .contactDetail strong {
+    font-size: 0.75rem;
+  }
+
+  .contactDetail div > span {
+    font-size: 0.88rem;
   }
 }

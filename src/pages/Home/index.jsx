@@ -77,11 +77,11 @@ export default function Home({ onNavigate }) {
               <span key={badge}>{badge}</span>
             ))}
           </div>
-          <div className="homeHero__ctaGlass">
+          {/* <div className="homeHero__ctaGlass">
             <Button onClick={() => onNavigate("contact")}>Request a Quote</Button>
             <Button variant="outlineLight" onClick={() => onNavigate("gallery")}>View Work</Button>
             <span>Proof-first production. No print starts until you approve it.</span>
-          </div>
+          </div> */}
           <div className="homeHero__metrics" aria-label="Aayu Printing performance metrics">
             {heroMetrics.map((metric) => (
               <article key={metric.label}>
@@ -155,7 +155,12 @@ export default function Home({ onNavigate }) {
         />
         <div className="homeGallery__grid">
           {galleryItems.slice(0, 5).map((item, index) => (
-            <article className={index === 0 ? "isLarge" : ""} key={item.title}>
+            <article
+              className={index === 0 ? "isLarge" : ""}
+              key={item.title}
+              onClick={() => onNavigate("product", item.id)}
+              style={{ cursor: "pointer" }}
+            >
               <img src={item.image} alt={item.title} decoding="async" loading="lazy" onError={handleImageError} />
               <div>
                 <span>{item.category}</span>
