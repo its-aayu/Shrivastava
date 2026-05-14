@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion as Motion } from "framer-motion";
 import Button from "../../components/ui/Button";
+import Reveal from "../../components/ui/Reveal";
 import { imageBank, services } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { cardItem, fadeLeft, fadeRight, fadeUp, gridContainer } from "../../animations/motion";
@@ -19,14 +20,9 @@ export default function Services({ onNavigate }) {
         image={imageBank.press}
       />
       <section className="servicesPage">
-        <Motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-        >
+        <Reveal>
           <SectionHeader align="center" eyebrow="Our services" title="Pick the print path that fits your project." />
-        </Motion.div>
+        </Reveal>
         <Motion.div
           className="servicesPage__grid"
           variants={gridContainer}
@@ -52,20 +48,10 @@ export default function Services({ onNavigate }) {
         </Motion.div>
       </section>
       <section className="serviceDetail">
-        <Motion.div
-          variants={fadeLeft}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <Motion.div variants={fadeLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <ImagePanel src={selected.image} title={selected.title} copy="Detailed material, file, and finishing guidance." tall />
         </Motion.div>
-        <Motion.div
-          variants={fadeRight}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <Motion.div variants={fadeRight} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <SectionHeader eyebrow="Service detail" title={selected.title} copy={selected.copy} />
           <ul>
             {selected.features.map((feature) => <li key={feature}>{feature}</li>)}
@@ -73,13 +59,7 @@ export default function Services({ onNavigate }) {
           <Button onClick={() => onNavigate("contact")}>Request This Service Quote</Button>
         </Motion.div>
       </section>
-      <Motion.section
-        className="serviceQuote"
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
+      <Motion.section className="serviceQuote" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
         <SectionHeader eyebrow="Quick quote" title="Send the brief and we will prepare the next step." />
         <QuoteForm compact />
       </Motion.section>

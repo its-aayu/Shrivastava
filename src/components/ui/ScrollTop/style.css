@@ -1,0 +1,43 @@
+.scroll-top {
+  position: fixed;
+  right: 28px;
+  bottom: 32px;
+  z-index: 800;
+
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  border-radius: var(--radius-full);
+
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: var(--text-dark);
+
+  font-size: 1.15rem;
+  font-weight: 700;
+
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(254, 180, 167, 0.45);
+  transition: box-shadow 0.25s ease;
+}
+
+.scroll-top:hover {
+  box-shadow: 0 14px 40px rgba(254, 180, 167, 0.6);
+}
+
+.scroll-top:focus-visible {
+  outline: 2px solid var(--text-dark);
+  outline-offset: 3px;
+}
+
+@media (max-width: 540px) {
+  .scroll-top {
+    right: 16px;
+    bottom: 20px;
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+}

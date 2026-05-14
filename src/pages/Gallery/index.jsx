@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion as Motion } from "framer-motion";
+import Reveal from "../../components/ui/Reveal";
 import { galleryItems, imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { cardItem, gridContainer } from "../../animations/motion";
@@ -22,27 +23,16 @@ export default function Gallery({ onNavigate }) {
         image={imageBank.cards}
       />
       <section className="galleryPage">
-        <Motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-        >
+        <Reveal>
           <SectionHeader align="center" eyebrow="Our work" title="Print work with texture, color, and presence." />
-        </Motion.div>
-        <Motion.div
-          className="galleryFilters"
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45, delay: 0.1 }}
-        >
+        </Reveal>
+        <Reveal className="galleryFilters" delay={0.1} y={14}>
           {categories.map((category) => (
             <button className={filter === category ? "isActive" : ""} key={category} onClick={() => setFilter(category)} aria-pressed={filter === category} type="button">
               {category}
             </button>
           ))}
-        </Motion.div>
+        </Reveal>
         <Motion.div
           className="galleryMasonry"
           variants={gridContainer}

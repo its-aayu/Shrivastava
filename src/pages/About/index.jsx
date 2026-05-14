@@ -1,5 +1,7 @@
 import { motion as Motion } from "framer-motion";
 import { imageBank, stats } from "../../data/site";
+import Reveal from "../../components/ui/Reveal";
+import { cardItem, gridContainer } from "../../animations/motion";
 import { ImagePanel, PageHero, PromoBand, ReviewSection, SectionHeader, StatsStrip } from "../shared";
 import "./style.css";
 
@@ -16,13 +18,6 @@ const coreValues = [
   { num: "03", name: "Real materials", body: "Paper weight, texture, and finish guided around your specific brand." },
 ];
 
-const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 22 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.55, delay },
-});
-
 export default function About({ onNavigate }) {
   return (
     <>
@@ -34,7 +29,7 @@ export default function About({ onNavigate }) {
 
       {/* Story + Timeline */}
       <section className="aboutStory">
-        <Motion.div {...fade()}>
+        <Reveal>
           <SectionHeader
             eyebrow="About us"
             title="From quick prints to complete launch kits, every job gets a studio eye."
@@ -49,7 +44,7 @@ export default function About({ onNavigate }) {
               </article>
             ))}
           </div>
-        </Motion.div>
+        </Reveal>
         <Motion.div
           initial={{ opacity: 0, x: 28 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -64,43 +59,51 @@ export default function About({ onNavigate }) {
 
       {/* Mission quote */}
       <section className="aboutMission">
-        <Motion.div
-          className="aboutMission__inner"
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
+        <Reveal y={32} duration={0.7} className="aboutMission__inner">
           <p className="eyebrow">Our mission</p>
           <h2>"Print should feel calm before production and impressive after delivery."</h2>
           <p>Every file check, every proof, every material choice exists to remove friction from the process and put quality into the hands of the client.</p>
-        </Motion.div>
+        </Reveal>
       </section>
 
       {/* Values */}
       <section className="aboutValues">
-        <SectionHeader
-          align="center"
-          eyebrow="What we care about"
-          title="Print should be fast, but it should never feel careless."
-        />
-        <div className="aboutValues__cards">
-          {coreValues.map((item, i) => (
-            <Motion.article key={item.name} {...fade(i * 0.1)}>
+        <Reveal>
+          <SectionHeader
+            align="center"
+            eyebrow="What we care about"
+            title="Print should be fast, but it should never feel careless."
+          />
+        </Reveal>
+        <Motion.div
+          className="aboutValues__cards"
+          variants={gridContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {coreValues.map((item) => (
+            <Motion.article key={item.name} variants={cardItem}>
               <span>{item.num}</span>
               <h3>{item.name}</h3>
               <p>{item.body}</p>
             </Motion.article>
           ))}
-        </div>
-        <div className="aboutStats">
-          {stats.map((item, i) => (
-            <Motion.article key={item.label} {...fade(i * 0.1)}>
+        </Motion.div>
+        <Motion.div
+          className="aboutStats"
+          variants={gridContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {stats.map((item) => (
+            <Motion.article key={item.label} variants={cardItem}>
               <strong>{item.value}</strong>
               <span>{item.label}</span>
             </Motion.article>
           ))}
-        </div>
+        </Motion.div>
       </section>
 
       <PromoBand onNavigate={onNavigate} />

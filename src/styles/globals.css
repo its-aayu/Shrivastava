@@ -16,9 +16,9 @@ body {
   overflow-x: hidden;
 }
 
-/* SCROLLBAR */
+/* ── Scrollbar ── */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -30,17 +30,32 @@ body {
   border-radius: 999px;
 }
 
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ── Base resets ── */
 img {
   width: 100%;
   display: block;
 }
 
+img[loading="lazy"] {
+  animation: imgFadeIn 0.45s ease both;
+}
+
 button,
 input,
-textarea {
-  border: none;
-  outline: none;
+textarea,
+select {
   font-family: inherit;
+}
+
+/* Remove border on native elements */
+input,
+textarea,
+select {
+  border: none;
 }
 
 a {
@@ -50,4 +65,74 @@ a {
 
 ul {
   list-style: none;
+}
+
+/* ── Focus management ── */
+
+/* Hide focus ring for mouse/touch users */
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Visible, branded focus ring for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Skip link (screen reader + keyboard navigation) ── */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--text-dark);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ── Mobile tap targets (touch devices only) ── */
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  a,
+  select,
+  label {
+    min-height: 44px;
+  }
+}
+
+/* ── Image fade-in keyframe ── */
+@keyframes imgFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── Reduced motion: disable ALL transitions + animations ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  img[loading="lazy"] {
+    animation: none;
+  }
 }

@@ -31,7 +31,7 @@ export default function Contact() {
         >
           <SectionHeader eyebrow="Contact" title="Let's make the next print piece feel premium." />
           <QuoteForm onSubmit={() => setSent(true)} />
-          {sent && <p className="contactPage__success">Your request is ready. The next step would be a proof and production quote.</p>}
+          {sent && <p className="contactPage__success" role="status" aria-live="polite">Your request is ready. The next step would be a proof and production quote.</p>}
         </Motion.div>
         <Motion.aside
           variants={fadeRight}

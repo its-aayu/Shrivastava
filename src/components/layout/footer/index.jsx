@@ -38,7 +38,7 @@ export default function Footer({ onNavigate }) {
       </div>
 
       {/* FOOTER GRID */}
-      <div className="footer-grid">
+      <nav className="footer-grid" aria-label="Footer navigation">
 
         {/* STUDIO */}
         <div className="footer-column">
@@ -55,38 +55,19 @@ export default function Footer({ onNavigate }) {
         <div className="footer-column">
           <h4>Services</h4>
 
-          <button onClick={go("services")}>
-            Digital Print
-          </button>
-
-          <button onClick={go("services")}>
-            Doc Print
-          </button>
-
-          <button onClick={go("services")}>
-            Shirt Print
-          </button>
-
-          <button onClick={go("services")}>
-            Sticker Print
-          </button>
+          <button type="button" onClick={go("services")}>Digital Print</button>
+          <button type="button" onClick={go("services")}>Doc Print</button>
+          <button type="button" onClick={go("services")}>Shirt Print</button>
+          <button type="button" onClick={go("services")}>Sticker Print</button>
         </div>
 
         {/* LINKS */}
         <div className="footer-column">
           <h4>Links</h4>
 
-          <button onClick={go("about")}>
-            About
-          </button>
-
-          <button onClick={go("pricing")}>
-            Pricing
-          </button>
-
-          <button onClick={go("faq")}>
-            FAQ
-          </button>
+          <button type="button" onClick={go("about")}>About</button>
+          <button type="button" onClick={go("pricing")}>Pricing</button>
+          <button type="button" onClick={go("faq")}>FAQ</button>
         </div>
 
         {/* CONTACT */}
@@ -102,25 +83,19 @@ export default function Footer({ onNavigate }) {
         <div className="footer-column">
           <h4>Social</h4>
 
-          <div className="social-row">
-
-            <span>f</span>
-            <span>i</span>
-            <span>x</span>
-            <span>in</span>
-
+          <div className="social-row" aria-label="Social media links">
+            <button type="button" className="social-icon" aria-label="Facebook">f</button>
+            <button type="button" className="social-icon" aria-label="Instagram">i</button>
+            <button type="button" className="social-icon" aria-label="X (Twitter)">x</button>
+            <button type="button" className="social-icon" aria-label="LinkedIn">in</button>
           </div>
         </div>
 
-      </div>
+      </nav>
 
       {/* BOTTOM */}
       <div className="footer-bottom">
-
-        <p>
-          &copy; 2026 Aayu. All rights reserved.
-        </p>
-
+        <p>&copy; 2026 Aayu. All rights reserved.</p>
       </div>
 
     </footer>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion as Motion } from "framer-motion";
+import Reveal from "../../components/ui/Reveal";
 import { faqs, imageBank } from "../../data/site";
 import { cardItem, gridContainer } from "../../animations/motion";
 import { PageHero, PromoBand, SectionHeader } from "../shared";
@@ -16,14 +17,9 @@ export default function FAQ({ onNavigate }) {
         image={imageBank.paper}
       />
       <section className="faqPage">
-        <Motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-        >
+        <Reveal>
           <SectionHeader align="center" eyebrow="FAQ" title="Good print starts with clear decisions." />
-        </Motion.div>
+        </Reveal>
         <Motion.div
           className="faqList"
           variants={gridContainer}

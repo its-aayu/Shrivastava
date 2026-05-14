@@ -84,7 +84,7 @@ export function PromoBand({ onNavigate }) {
         <p className="eyebrow">Limited production slot</p>
         <h2>Get a print-ready brand kit with paper, finish, and delivery planned for you.</h2>
       </div>
-      <Button onClick={() => onNavigate?.("contact")}>Request a Quote</Button>
+      <Button variant="outlineLight" onClick={() => onNavigate?.("contact")}>Request a Quote</Button>
     </section>
   );
 }
@@ -130,29 +130,50 @@ export function QuoteForm({ compact = false, onSubmit }) {
   };
 
   return (
-    <form className={`quoteForm ${compact ? "quoteForm--compact" : ""}`} onSubmit={handleSubmit}>
+    <form
+      className={`quoteForm ${compact ? "quoteForm--compact" : ""}`}
+      onSubmit={handleSubmit}
+      noValidate
+      aria-label="Quote request form"
+    >
       <div className="formField">
-        <Input id="quote-name" name="name" label="Name" required autoComplete="name" placeholder="Your name" />
+        <Input id="quote-name" name="name" label="Name" required autoComplete="name" placeholder="Your name" aria-required="true" />
       </div>
       <div className="formField">
-        <Input id="quote-email" name="email" label="Email address" required type="email" autoComplete="email" placeholder="you@example.com" />
-        <small>We use this only to reply with your quote.</small>
+        <Input
+          id="quote-email"
+          name="email"
+          label="Email address"
+          required
+          type="email"
+          autoComplete="email"
+          placeholder="you@example.com"
+          aria-required="true"
+          aria-describedby="quote-email-hint"
+        />
+        <small id="quote-email-hint">We use this only to reply with your quote.</small>
       </div>
       <div className="formField">
-        <Input id="quote-phone" name="phone" label="Phone number" required type="tel" autoComplete="tel" placeholder="+91 98765 43210" />
+        <Input id="quote-phone" name="phone" label="Phone number" required type="tel" autoComplete="tel" placeholder="+91 98765 43210" aria-required="true" />
       </div>
       <div className="formField">
         <label htmlFor="quote-service">Service</label>
-        <select id="quote-service" name="service" defaultValue="" required>
+        <select id="quote-service" name="service" defaultValue="" required aria-required="true">
           <option value="" disabled>Choose service</option>
           {services.map((service) => <option key={service.title}>{service.title}</option>)}
         </select>
       </div>
       <div className="formField formField--full">
         <label htmlFor="quote-brief">Project details</label>
-        <textarea id="quote-brief" name="brief" required placeholder="Quantity, size, paper, deadline, or anything you already know." />
+        <textarea
+          id="quote-brief"
+          name="brief"
+          required
+          aria-required="true"
+          placeholder="Quantity, size, paper, deadline, or anything you already know."
+        />
       </div>
-      <p className="quoteForm__note">No spam. No production starts until you approve the quote and proof.</p>
+      <p className="quoteForm__note" aria-live="polite">No spam. No production starts until you approve the quote and proof.</p>
       <Button type="submit">Send Quote Request</Button>
     </form>
   );

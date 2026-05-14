@@ -1,17 +1,21 @@
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
+import { AnimatePresence, motion as Motion, MotionConfig } from "framer-motion";
 import Footer from "./components/layout/footer";
 import Navbar from "./components/layout/Navbar";
-import About from "./pages/About";
-import Blog from "./pages/Blog";
-import Contact from "./pages/Contact";
-import FAQ from "./pages/FAQ";
-import Gallery from "./pages/Gallery";
-import Home from "./pages/Home";
-import Pricing from "./pages/Pricing";
-import ProductDetail from "./pages/ProductDetail";
-import Services from "./pages/Services";
-import Team from "./pages/Team";
+import PageLoader from "./components/ui/PageLoader";
+import ScrollTop from "./components/ui/ScrollTop";
 import { navItems } from "./data/site";
+
+const Home = lazy(() => import("./pages/Home"));
+const About = lazy(() => import("./pages/About"));
+const Services = lazy(() => import("./pages/Services"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const Team = lazy(() => import("./pages/Team"));
+const Blog = lazy(() => import("./pages/Blog"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const Contact = lazy(() => import("./pages/Contact"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 
 const pages = {
   home: Home,
@@ -24,6 +28,13 @@ const pages = {
   contact: Contact,
   faq: FAQ,
   product: ProductDetail,
+};
+
+const pageTransition = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -8 },
+  transition: { duration: 0.22, ease: "easeInOut" },
 };
 
 function App() {
@@ -39,16 +50,25 @@ function App() {
   };
 
   return (
-    <div className="siteShell">
-      <a className="skip-link" href="#main-content">
-        Skip to content
-      </a>
-      <Navbar activePage={page} navItems={navItems} onNavigate={goToPage} />
-      <main id="main-content" tabIndex="-1">
-        <CurrentPage onNavigate={goToPage} {...(pageData ? { productId: pageData } : {})} />
-      </main>
-      <Footer onNavigate={goToPage} />
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div className="siteShell">
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+        <Navbar activePage={page} navItems={navItems} onNavigate={goToPage} />
+        <main id="main-content" tabIndex="-1">
+          <AnimatePresence mode="wait" initial={false}>
+            <Motion.div key={page} {...pageTransition}>
+              <Suspense fallback={<PageLoader />}>
+                <CurrentPage onNavigate={goToPage} {...(pageData ? { productId: pageData } : {})} />
+              </Suspense>
+            </Motion.div>
+          </AnimatePresence>
+        </main>
+        <Footer onNavigate={goToPage} />
+        <ScrollTop />
+      </div>
+    </MotionConfig>
   );
 }
 

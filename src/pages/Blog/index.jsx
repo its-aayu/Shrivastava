@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion as Motion } from "framer-motion";
 import Button from "../../components/ui/Button";
+import Reveal from "../../components/ui/Reveal";
 import { blogs, imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
-import { cardItem, fadeLeft, fadeRight, gridContainer } from "../../animations/motion";
+import { cardItem, fadeLeft, gridContainer } from "../../animations/motion";
 import { PageHero, PromoBand, SectionHeader } from "../shared";
 import "./style.css";
 
@@ -19,22 +20,11 @@ export default function Blog({ onNavigate }) {
         image={imageBank.paper}
       />
       <section className="blogPage">
-        <Motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-        >
+        <Reveal>
           <SectionHeader align="center" eyebrow="Journal" title="Latest thinking from the Aayu studio." />
-        </Motion.div>
+        </Reveal>
         <div className="blogLayout">
-          <Motion.article
-            className="blogFeatured"
-            variants={fadeLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <Motion.article className="blogFeatured" variants={fadeLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <img src={selected.image} alt={selected.title} decoding="async" loading="lazy" onError={handleImageError} />
             <div>
               <p className="eyebrow">Featured article</p>
@@ -43,13 +33,7 @@ export default function Blog({ onNavigate }) {
               <Button onClick={() => onNavigate("contact")}>Discuss a Project</Button>
             </div>
           </Motion.article>
-          <Motion.div
-            className="blogList"
-            variants={gridContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <Motion.div className="blogList" variants={gridContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             {blogs.map((blog, index) => (
               <Motion.button
                 key={blog.title}

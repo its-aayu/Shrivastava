@@ -9,9 +9,10 @@
   overflow: hidden;
 
   border: none;
-  outline: none;
 
   border-radius: var(--radius-full);
+
+  min-height: 44px;
 
   cursor: pointer;
 
@@ -139,6 +140,12 @@
   opacity: 0.6;
 
   cursor: not-allowed;
+}
+
+/* FOCUS RING — keyboard users only */
+.ui-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
 }
 
 /* SHIMMER */

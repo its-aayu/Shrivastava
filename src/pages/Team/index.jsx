@@ -1,4 +1,5 @@
 import { motion as Motion } from "framer-motion";
+import Reveal from "../../components/ui/Reveal";
 import { imageBank, team } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { cardItem, gridContainer } from "../../animations/motion";
@@ -14,14 +15,9 @@ export default function Team({ onNavigate }) {
         image={imageBank.team}
       />
       <section className="teamPage">
-        <Motion.div
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-        >
+        <Reveal>
           <SectionHeader align="center" eyebrow="Our team" title="A compact studio team with serious production instincts." />
-        </Motion.div>
+        </Reveal>
         <Motion.div
           className="teamCards"
           variants={gridContainer}

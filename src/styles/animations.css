@@ -98,3 +98,13 @@
     transform: translate(60px, 30px) scale(1.08);
   }
 }
+
+/* Disable CSS animations for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -15,6 +15,7 @@ export default function Navbar({
           className="brand-mark"
           onClick={() => onNavigate("home")}
           type="button"
+          aria-label="Aayu Printing Studio — go to homepage"
         >
           <span className="brand-script">Aayu</span>
         </button>
