@@ -1,159 +1,137 @@
-# AI-Powered Printing SaaS Platform 🚀
+# AI-Powered Printing SaaS Platform
 
-A modern AI-powered printing e-commerce and SaaS platform built to transform traditional printing businesses into scalable digital systems.
+A modern printing e-commerce and SaaS platform for a digital print studio. The project is currently focused on the customer-facing React frontend, reusable UI structure, mock business data, and the foundation for future backend and AI features.
 
-## 🌐 Live Demo
+## Live Demo
 
 https://shrivastava-five.vercel.app/
 
----
+## Current Status
 
-# 📌 Project Vision
+### Completed so far
 
-This project is being developed as:
+- React + Vite frontend setup
+- Responsive customer-facing website
+- Single-page navigation managed inside `App.jsx`
+- Lazy-loaded pages with suspense fallback
+- Framer Motion page transitions and reveal animations
+- Shared layout with navbar, footer, page loader, buttons, cards, inputs, and scroll-to-top UI
+- Pages for Home, Studio/About, Services, Work/Gallery, Team, Journal/Blog, Pricing, Contact, FAQ, and Product Detail
+- Static print studio visuals under `public/images`
+- Central site content in `src/data/site.js`
+- Mock business datasets under `src/mock-data`
+- Global CSS organization for variables, typography, utilities, responsive rules, components, dashboard styles, and animations
+- Vercel-ready frontend build output
 
-- A production-ready printing SaaS platform
-- An AI-integrated business solution
-- A scalable full-stack architecture
-- A learning journey into modern software engineering
+### Mock data prepared
 
-The goal is to combine:
-- Full-stack development
-- AI engineering
-- Cloud & DevOps
-- UI/UX design
-- SaaS architecture
-- Business automation
+The project includes JSON data that can be wired into the app or future backend/API layer:
 
-into one real-world platform.
+- `src/mock-data/products.json` - product catalog with categories, pricing, finishes, ratings, delivery times, and stock status
+- `src/mock-data/categories.json` - product category metadata
+- `src/mock-data/orders.json` - sample order records and production statuses
+- `src/mock-data/users.json` - sample customer/admin profiles
+- `src/mock-data/faq.json` - detailed print support FAQ content
+- `src/mock-data/documents.json` - knowledge-base style print guidance content
+- `src/mock-data/chat-prompts.json` - draft system prompt and examples for a future print assistant
 
----
+### Not implemented yet
 
-# ✨ Current Features
-
-- Responsive modern UI
-- Product showcase system
-- Multiple service pages
-- Tailwind CSS styling
-- Reusable component architecture
-- Modular frontend structure
-- AI-ready backend architecture
-- Scalable folder organization
-
----
-
-# 🚧 Upcoming Features
-
-## Frontend
-- Advanced animations
-- Product detail pages
-- Cart system
-- Checkout flow
-- Dashboard UI
-- Responsive optimization
-
-## Backend
-- FastAPI integration
-- PostgreSQL database
-- Authentication system
+- Real backend API
+- Database persistence
+- Authentication
+- Cart and checkout
 - Admin dashboard
-- File upload system
-- Order management
+- File upload workflow
+- Live AI assistant
+- Order management connected to real data
 
-## AI Features
-- AI chatbot
-- AI print recommendation engine
-- RAG-based customer support
-- AI design analysis
-- Smart pricing assistant
+## Project Vision
 
-## DevOps & Cloud
-- Docker support
-- CI/CD pipelines
-- AWS deployment
-- Monitoring & analytics
+The long-term goal is to turn this into a production-grade SaaS platform for print studios, combining:
 
----
+- Online product discovery
+- Quote and order workflows
+- Customer and admin dashboards
+- Print file validation
+- AI-powered customer support
+- Smart recommendations and pricing assistance
+- Cloud deployment and DevOps practices
 
-# 🛠️ Tech Stack
+## Tech Stack
 
-## Frontend
-- React
-- Vite
-- Tailwind CSS
+### Frontend
+
+- React 19
+- Vite 7
 - Framer Motion
+- Tailwind CSS
+- Feature and page-level CSS files
 
-## Backend
+### Tooling
+
+- ESLint
+- PostCSS
+- Autoprefixer
+- Vercel deployment target
+
+### Planned Backend and AI
+
 - FastAPI
-- PostgreSQL
-- Supabase
+- PostgreSQL or Supabase
+- AI chatbot/RAG support
+- OpenAI or similar LLM APIs
+- Vector database for print support documents
 
-## AI Stack
-- LangChain
-- ChromaDB
-- OpenAI / Groq APIs
-
-## DevOps
-- Docker
-- GitHub Actions
-- AWS
-
----
-
-# 📂 Project Structure
+## Project Structure
 
 ```bash
-src/
-├── api/
-├── assets/
-├── components/
-│   ├── layout/
-│   ├── sections/
-│   └── ui/
-├── config/
-├── constants/
-├── context/
-├── hooks/
-├── pages/
-├── services/
-├── types/
-└── utils/
+.
++-- backend/
+|   +-- main.py
++-- public/
+|   +-- images/
++-- src/
+|   +-- animations/
+|   +-- assets/
+|   +-- components/
+|   |   +-- layout/
+|   |   +-- sections/
+|   |   +-- ui/
+|   +-- data/
+|   |   +-- site.js
+|   +-- mock-data/
+|   +-- pages/
+|   +-- styles/
+|   +-- utils/
+|   +-- App.jsx
+|   +-- main.jsx
++-- index.html
++-- package.json
++-- tailwind.config.js
++-- vite.config.js
 ```
 
----
+## Pages Available
 
-# 🎯 Goals of This Project
+- Home
+- Studio/About
+- Services
+- Work/Gallery
+- Product Detail
+- Team
+- Journal/Blog
+- Pricing
+- Contact
+- FAQ
 
-This project is helping me improve skills in:
-
-- Frontend engineering
-- Backend development
-- AI integration
-- SaaS architecture
-- Cloud engineering
-- DevOps
-- Product thinking
-- Real-world system design
-
----
-
-# 📈 Development Journey
-
-This project is being built publicly while documenting:
-- Daily progress
-- Engineering decisions
-- Problems solved
-- Architecture improvements
-- AI integrations
-
----
-
-# 🚀 Installation
+## Getting Started
 
 Clone the repository:
 
 ```bash
 git clone <your-repository-link>
+cd <project-folder>
 ```
 
 Install dependencies:
@@ -162,17 +140,33 @@ Install dependencies:
 npm install
 ```
 
-Run development server:
+Run the development server:
 
 ```bash
 npm run dev
 ```
 
----
+Create a production build:
 
-# 🔐 Environment Variables
+```bash
+npm run build
+```
 
-Create a `.env` file:
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+Run linting:
+
+```bash
+npm run lint
+```
+
+## Environment Variables
+
+Create a `.env` file from `.env.example` when backend or external services are added.
 
 ```env
 VITE_API_URL=
@@ -181,21 +175,44 @@ VITE_SUPABASE_ANON_KEY=
 VITE_OPENAI_API_KEY=
 ```
 
----
+At the moment, the frontend does not require these values to run locally.
 
-# 🤝 Future Vision
+## Roadmap
 
-The long-term goal is to transform this into:
+### Frontend
 
-- A real SaaS business
-- A multi-vendor printing platform
-- An AI-powered automation system
-- A production-grade cloud application
+- Connect product pages to `src/mock-data/products.json`
+- Add cart state and checkout screens
+- Add dashboard views for customers and admins
+- Improve product filtering/search
+- Add quote request flow
+- Continue responsive and accessibility improvements
 
----
+### Backend
 
-# 👨‍💻 Developer
+- Build FastAPI API endpoints
+- Add database schema for users, products, orders, quotes, and files
+- Add authentication and role-based access
+- Add order lifecycle management
+- Add file upload and proof approval flow
 
-Built by Shrivastava Ayush
+### AI
 
-Building in public • Learning daily • Improving consistently
+- Add AI print consultant chatbot
+- Use `documents.json`, `faq.json`, and `chat-prompts.json` as a first knowledge base
+- Add product recommendation logic
+- Add artwork/file readiness guidance
+- Explore smart quote and pricing assistance
+
+### DevOps
+
+- Add Docker support
+- Add CI/CD checks
+- Add deployment documentation
+- Add monitoring and analytics once the backend exists
+
+## Developer
+
+Built by Shrivastava Ayush.
+
+This project is being built as a real-world learning path across frontend engineering, backend development, AI integration, SaaS architecture, and cloud deployment.
