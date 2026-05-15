@@ -20,11 +20,13 @@
 }
 
 .contactDetail__icon {
-  display: grid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 46px;
   height: 46px;
   flex-shrink: 0;
-  place-items: center;
+  line-height: 1;
   border-radius: var(--radius-full);
   background: linear-gradient(135deg, rgba(254, 180, 167, 0.22), rgba(255, 198, 158, 0.18));
   font-size: 1.2rem;
