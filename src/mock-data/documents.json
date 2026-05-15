@@ -1,0 +1,282 @@
+[
+  {
+    "doc_id": "doc_001",
+    "title": "CMYK vs RGB — Which Colour Mode to Use for Print",
+    "category": "Colour Setup",
+    "content": "All print production uses CMYK (Cyan, Magenta, Yellow, Black) ink. RGB is a screen colour mode used by monitors and cameras. If you supply artwork in RGB, our prepress team will convert it to CMYK — but this can cause colour shifts, especially in saturated blues, purples, and oranges. To get exactly what you see on screen, always set your file to CMYK before designing. In Adobe Illustrator or InDesign, go to File > Document Colour Mode > CMYK. In Photoshop, go to Image > Mode > CMYK Colour. For best results, use the ISO Coated v2 300% (ECI) profile for offset and digital litho printing.",
+    "tags": ["cmyk", "rgb", "colour", "setup", "prepress", "artwork"],
+    "source": "Aayu Prepress Guide"
+  },
+  {
+    "doc_id": "doc_002",
+    "title": "Understanding DPI and Resolution for Print Quality",
+    "category": "Artwork Setup",
+    "content": "DPI (dots per inch) determines print sharpness. For commercial print, images must be at least 300 DPI at the final printed size. A photo that looks sharp on screen (72 DPI) will print blurry. To check: in Photoshop, go to Image > Image Size. The resolution field must show 300 DPI or more at your actual print dimensions. If you resize an image larger after placing it in your layout, the effective DPI drops. A 300 DPI image at 100% size becomes 150 DPI at 200% — too low for print. Always start with the highest resolution original you have. For text, vectors, and logos, DPI does not apply — vectors are resolution-independent and always print sharp.",
+    "tags": ["dpi", "resolution", "print quality", "artwork", "images"],
+    "source": "Aayu Prepress Guide"
+  },
+  {
+    "doc_id": "doc_003",
+    "title": "Bleed, Safe Zone, and Trim — A Complete Guide",
+    "category": "Artwork Setup",
+    "content": "Bleed is the area of your design that extends beyond the final trim size. When the printer cuts the job, there is a small margin of mechanical error. Bleed ensures that background colours and images reach the edge of the card without leaving a white strip. Standard bleed is 3mm on all sides. For a 90mm × 55mm business card, your artwork file should be 96mm × 61mm. The Safe Zone is the area inside the trim edge where important content — text, logos, faces — should remain. Keep all critical elements at least 3mm inside the final trim line. If your logo sits 1mm from the edge, it may get cut. In summary: extend background to bleed edge, keep content inside safe zone, and trim will happen in between.",
+    "tags": ["bleed", "safe zone", "trim", "artwork setup", "business cards"],
+    "source": "Aayu Prepress Guide"
+  },
+  {
+    "doc_id": "doc_004",
+    "title": "Paper Weight Guide — GSM Explained",
+    "category": "Paper & Materials",
+    "content": "GSM (grams per square metre) measures paper weight and thickness. Higher GSM means thicker, more premium-feeling paper. Common weights and their uses: 80 GSM — standard office paper, used for inner notebook pages; 130 GSM — flyers, brochures, mid-weight marketing collateral; 170 GSM — posters, premium flyers, quality brochures; 250 GSM — postcards, greeting cards, mid-tier business cards; 300 GSM — quality business cards, covers, book jackets; 350 GSM — premium business cards, packaging wraps, menus; 400 GSM — ultra-premium cards, menu covers, rigid board; 450 GSM+ — packaging boards, box construction. For business cards, most brands choose 350 GSM or above to achieve the reassuring rigidity that communicates quality. Below 300 GSM, cards feel flimsy and bend too easily.",
+    "tags": ["gsm", "paper weight", "thickness", "materials", "business cards", "packaging"],
+    "source": "Aayu Materials Guide"
+  },
+  {
+    "doc_id": "doc_005",
+    "title": "Matte vs Gloss Lamination — Choosing the Right Finish",
+    "category": "Finishing",
+    "content": "Lamination adds a protective polymer film to printed surfaces. Two common types: Gloss Lamination adds shine and depth to colours, making photography and full-colour designs pop. It is fingerprint-resistant when handled carefully and gives a clean, modern look. Best for: product catalogues, food menus with photography, flyers. Matte Lamination adds a non-reflective, velvet-like texture. Colours appear more subtle and sophisticated. Text readability improves dramatically. Best for: luxury business cards, brand stationery, premium packaging. Matte laminates do attract fingerprints more visibly, which is why Soft Touch Lamination is often preferred — it has an anti-fingerprint matte surface that feels velvety and resists smudging. For most premium brand work, we recommend Soft Touch Matte as the standard finish.",
+    "tags": ["lamination", "matte", "gloss", "soft touch", "finish", "business cards"],
+    "source": "Aayu Finishing Guide"
+  },
+  {
+    "doc_id": "doc_006",
+    "title": "Spot UV Coating — What It Is and When to Use It",
+    "category": "Finishing",
+    "content": "Spot UV (Ultra-Violet) is a high-gloss, hard varnish applied selectively to specific areas of a printed piece — typically logos, headlines, or design elements. It is layered on top of a matte or soft-touch laminated surface, creating a dramatic contrast between the gloss UV element and the flat matte base. The tactile difference is noticeable — running your finger across the card, you can feel the raised gloss. When to use Spot UV: when you want your logo or brand name to stand out physically; when you want to signal premium quality; when the contrast between shiny and matte is part of the brand aesthetic. Spot UV is best used sparingly. Applying it to large flat areas reduces the visual impact. Small, precise areas — logos, wordmarks, key images — create the strongest effect.",
+    "tags": ["spot uv", "uv coating", "finishing", "luxury", "business cards"],
+    "source": "Aayu Finishing Guide"
+  },
+  {
+    "doc_id": "doc_007",
+    "title": "Hot Foil Stamping — Gold, Silver, and Specialty Foils",
+    "category": "Finishing",
+    "content": "Hot foil stamping presses a heated die against a foil sheet, transferring a metallic or pigmented film to the substrate. The result is a mirror-bright, crisp metallic element that cannot be replicated by digital printing. Common foil colours: Gold (most popular), Silver, Copper/Rose Gold, Holographic, Black. Foil stamping requires a custom metal die for each shape — dies are a one-time cost that are kept for future reprints. It works best on smooth, uncoated or lightly coated stocks. Textured paper can cause foil adhesion issues. For maximum impact, pair gold foil with a dark matte or uncoated black card — the contrast is striking. Foil stamping adds 3–5 business days to production time. Not suitable for fine detail below 0.5pt stroke weight or very small text below 6pt.",
+    "tags": ["foil", "gold", "stamping", "finishing", "luxury", "premium"],
+    "source": "Aayu Finishing Guide"
+  },
+  {
+    "doc_id": "doc_008",
+    "title": "Embossing and Debossing — Raising and Pressing Surfaces",
+    "category": "Finishing",
+    "content": "Embossing presses your artwork into the paper from below, creating a raised relief. Debossing presses from above, creating an indented impression. Both techniques use custom dies and are applied to unprinted or lightly printed areas for maximum visual impact. Blind emboss/deboss: no ink, the impression alone creates the texture. Registered emboss: emboss is aligned with printed artwork, creating a 3D colour element. Foil emboss: metallic foil combined with emboss for maximum luxury. Paper requirements: embossing works best on thicker, uncoated stocks (cotton, felt, textured). Very thin papers may crack. Recommended minimum: 300 GSM. Detail considerations: embossing cannot reproduce fine lines below 0.75pt. The die rounds sharp corners slightly. Vector artwork is required — raster images cannot be used for die making.",
+    "tags": ["embossing", "debossing", "finishing", "tactile", "luxury", "texture"],
+    "source": "Aayu Finishing Guide"
+  },
+  {
+    "doc_id": "doc_009",
+    "title": "Accepted File Formats for Print Production",
+    "category": "File Preparation",
+    "content": "Preferred format: PDF/X-1a or PDF/X-4 with embedded fonts and CMYK colour profile. This is the professional print-ready standard. All fonts must be embedded or converted to outlines. All placed images must be at 300 DPI minimum. Bleed must be included in the PDF page size. Also accepted: AI (Adobe Illustrator), INDD (InDesign) with packaged links and fonts. PSD (Photoshop) at 300 DPI CMYK — acceptable for single-element artwork. Not recommended: JPEG and PNG — acceptable only for proofing, not for final print. Word (.docx) documents — not accepted for final production. Canva exports — accepted only if exported as PDF with crop marks and bleed. Always check: the exported PDF page size should be larger than your design by 3mm on each side (bleed). Use a PDF pre-flight tool (Adobe Acrobat Pro) to verify before sending.",
+    "tags": ["file format", "pdf", "artwork", "prepress", "submission"],
+    "source": "Aayu Prepress Guide"
+  },
+  {
+    "doc_id": "doc_010",
+    "title": "Pantone (PMS) Colours — When to Use Them",
+    "category": "Colour Setup",
+    "content": "Pantone Matching System (PMS) colours are standardised spot colours mixed from a fixed formula — like a paint recipe. They are used when exact colour consistency is critical across different print runs, materials, and suppliers. When CMYK cannot reproduce a colour accurately (bright oranges, certain reds, specific brand greens), a Pantone spot colour guarantees exact reproduction. Common use cases: brand logos that require exact colour match, fluorescent colours, metallic colours. At Aayu, we support Pantone colours on offset litho and screen printing jobs. Digital (toner/inkjet) printing simulates Pantone colours in CMYK — not exact. For brand-critical colour work, share your Pantone reference numbers with us when requesting a quote. We will advise whether digital simulation is sufficient or whether spot Pantone printing is warranted.",
+    "tags": ["pantone", "pms", "colour", "spot colour", "brand", "consistency"],
+    "source": "Aayu Colour Guide"
+  },
+  {
+    "doc_id": "doc_011",
+    "title": "Standard Business Card Sizes and Dimensions",
+    "category": "Product Knowledge",
+    "content": "The standard business card size varies by country: India and UK: 85mm × 55mm. USA: 3.5 inches × 2 inches (88.9mm × 50.8mm). Europe: 85mm × 55mm. Square cards: 55mm × 55mm (growing trend for luxury brands). Mini cards: 85mm × 28mm (stylish, fits in card wallets with notes). At Aayu, our standard is 90mm × 55mm which gives slightly more design space while fitting most card holders. When creating artwork, remember: add 3mm bleed on all sides, keep text 3mm inside the trim line, place crop marks at the trim boundary. Rounded corners: standard corner radius is 3.5mm. Custom radius up to 8mm is available. Vertical card format: 55mm × 90mm is also available — popular for creative industries.",
+    "tags": ["business cards", "size", "dimensions", "standard", "design"],
+    "source": "Aayu Product Guide"
+  },
+  {
+    "doc_id": "doc_012",
+    "title": "Packaging Design — Dielines and Construction",
+    "category": "Packaging Guides",
+    "content": "A dieline is the flat, unfolded template of a box before it is cut and assembled. It shows where the cuts (solid lines), folds (dashed lines), and glue areas will be. When designing packaging, you must work within the dieline — placing artwork on the flat template so it folds correctly in 3D. Common packaging structures: tuck-end box (most common retail box), reverse tuck, auto-bottom, sleeve box, rigid (two-piece lid and tray). Key design considerations: bleed extends to the cut edge; fold lines must be planned into the artwork; colour across fold seams should be tested at proof stage; avoid placing text directly over a fold. We provide dieline templates for all standard box sizes. Custom size requests receive a custom dieline within 24 hours of request.",
+    "tags": ["packaging", "dieline", "box", "design", "construction", "template"],
+    "source": "Aayu Packaging Guide"
+  },
+  {
+    "doc_id": "doc_013",
+    "title": "Printing for Food Packaging — Safety and Ink Requirements",
+    "category": "Packaging Guides",
+    "content": "Food packaging requires specific inks and materials. Standard printing inks are not approved for direct food contact. For food-contact surfaces, we use food-safe inks compliant with EU and FSSAI standards. Types of food contact: direct contact (inside of a wrap or bag that touches food) requires food-safe substrate and ink; indirect contact (outside of a box that touches packaging) requires low-migration inks. At Aayu, we handle indirect food contact packaging — boxes, labels, and outer wrappers for packaged food products. For inner wraps that directly contact food, we work with food-grade suppliers. Always declare food contact use when requesting a quote so we assign the right materials. Labels for bottles and jars: BOPP labels are water and oil resistant, suitable for food, beverage, and beauty products.",
+    "tags": ["food packaging", "food safe", "ink", "compliance", "labels"],
+    "source": "Aayu Packaging Guide"
+  },
+  {
+    "doc_id": "doc_014",
+    "title": "Rush Print Orders — How They Work",
+    "category": "Production Process",
+    "content": "Rush orders are available for most products with confirmed print-ready artwork. Standard rush turnaround is 24–48 hours from artwork approval. How to book a rush order: 1. Request a quote and clearly state your deadline. 2. Confirm artwork is 100% print-ready before submitting. 3. Rush fee applies (15–30% depending on product and quantity). 4. A digital proof is sent within 2 hours of submission. 5. Once approved, production begins immediately. Rush orders cannot be paused — once production starts, changes are not possible. Not all products are available for rush: foil stamping, embossing, and screen printing require minimum 5–7 business days and cannot be rushed. Business cards, flyers, and standard packaging can typically be rushed. Contact us before booking if you have any doubt about feasibility.",
+    "tags": ["rush", "turnaround", "deadline", "production", "urgent"],
+    "source": "Aayu Production Guide"
+  },
+  {
+    "doc_id": "doc_015",
+    "title": "Colour Proofing — Digital and Physical Proofs",
+    "category": "Production Process",
+    "content": "A proof is a preview of your artwork before printing begins. At Aayu, every job receives a digital proof by default. Types of proofs: Digital PDF proof — a marked-up PDF showing your artwork at final size with trim and bleed lines. This is our standard process. Physical print proof — an actual printed sample of your job, useful for colour-critical or large-quantity work. Physical proofs incur an additional cost and add 1–2 days. What we check during proofing: resolution (300 DPI minimum), colour mode (CMYK), bleed and trim accuracy, spelling (we flag issues, but final responsibility is yours), image quality, font embedding. Important: once you approve the proof, production begins. Changes after approval incur a restart fee. Always review proofs on a calibrated screen or print them at home to check physical feel. We cannot be responsible for colour inaccuracies if artwork is submitted in RGB.",
+    "tags": ["proof", "colour", "production", "approval", "quality"],
+    "source": "Aayu Production Guide"
+  },
+  {
+    "doc_id": "doc_016",
+    "title": "Minimum Order Quantities — Why They Exist",
+    "category": "Ordering",
+    "content": "Minimum order quantities (MOQs) exist because printing has fixed setup costs that must be spread across enough units to be economically viable. Plate-making, die preparation, machine calibration, colour matching, and paper loading all have fixed costs regardless of quantity. At Aayu: Business cards: 50 cards minimum. Flyers: 100 units minimum. Brochures: 50 units minimum. Stickers: 50 units minimum. Packaging: 25 units minimum for standard sizes. Apparel: 10 pieces minimum for DTG, 12 for screen print. Launch kits: 1 kit (as it is a bundled product). Printing smaller quantities is technically possible but not cost-efficient — the per-unit price at 25 business cards would be higher than at 100. If you need a single proof copy, request a physical proof instead of a small production run.",
+    "tags": ["moq", "minimum order", "quantity", "pricing", "setup"],
+    "source": "Aayu Ordering Guide"
+  },
+  {
+    "doc_id": "doc_017",
+    "title": "Paper Types — Coated vs Uncoated Stocks",
+    "category": "Paper & Materials",
+    "content": "Coated paper has a smooth, often glossy or matte surface coating applied after manufacturing. Ink sits on top of this coating, producing sharper dots, more vibrant colours, and photo-quality reproduction. Best for: business cards, brochures, packaging, menus, any colour-heavy design. Uncoated paper has a natural, textured surface without coating. It absorbs ink, producing a slightly softer, more natural look. Best for: notebooks, letterheads, natural or artisan brand aesthetics, stationery. Art paper: coated, standard choice for most commercial print. Silk: mid-sheen coated finish, between gloss and matte. Offset paper: uncoated, smooth enough for quality print. Kraft: uncoated, brown natural stock, used for eco packaging. Cotton / rag paper: premium uncoated, luxurious texture, used for high-end stationery. Bond paper: uncoated, standard office weight, used for letterheads.",
+    "tags": ["paper", "coated", "uncoated", "materials", "stock", "art paper"],
+    "source": "Aayu Materials Guide"
+  },
+  {
+    "doc_id": "doc_018",
+    "title": "DTG (Direct to Garment) vs Screen Printing for Apparel",
+    "category": "Apparel Printing",
+    "content": "Two main methods for printing on fabric: DTG and Screen Printing. DTG (Direct to Garment): Inkjet printer applies ink directly to the garment. No colour limit. Photographic detail possible. No setup fees. Best for small quantities (1–50 pieces) and designs with many colours. Colour reproduction on dark fabrics requires a white underbase and is less vivid than screen printing. Screen Printing: Ink is pushed through a mesh screen, one colour at a time. Each colour requires a separate screen. Best for large quantities (50+ pieces) and simple designs with few colours. Produces vibrant, durable prints that outlast DTG on dark garments. Minimum setup cost per colour. Which to choose: for small runs, complex art, or photographs — DTG. For large runs, single or few colours, maximum durability — screen print. We offer both and will recommend the right method based on your design and quantity.",
+    "tags": ["dtg", "screen printing", "apparel", "t-shirt", "method"],
+    "source": "Aayu Apparel Guide"
+  },
+  {
+    "doc_id": "doc_019",
+    "title": "What is Soft Touch Lamination and Why It Feels Premium",
+    "category": "Finishing",
+    "content": "Soft Touch Lamination (also called velvet lamination) is a special matte film applied to printed surfaces that creates a velvety, suede-like texture. Unlike standard matte lamination, soft touch has an anti-fingerprint property — smudges wipe away easily, keeping the card looking pristine. The tactile experience is remarkable: the surface feels smooth under light fingertip pressure but reveals subtle grip when rubbed. This texture communicates quality subconsciously. Neurologically, touch is one of the primary ways humans assess value. Cards with soft touch lamination are consistently rated higher in quality perception studies. Best applications: luxury business cards, premium packaging, book covers, branded notebooks. Soft touch is available on one or both sides. Front soft touch + back gloss is a popular combination that balances premium feel with colour vibrancy on the reverse.",
+    "tags": ["soft touch", "lamination", "premium", "texture", "business cards"],
+    "source": "Aayu Finishing Guide"
+  },
+  {
+    "doc_id": "doc_020",
+    "title": "Understanding Offset vs Digital Printing",
+    "category": "Production Process",
+    "content": "Offset printing transfers ink from a plate to a rubber blanket to paper. It is the highest quality commercial print method, used for large quantities (500+ copies). Produces extremely consistent colour, sharp halftones, and can use Pantone spot colours. Long setup time; economical at scale. Digital printing (laser/inkjet) prints directly from a digital file without plates. Excellent for small-medium quantities, variable data (personalised names/addresses), and fast turnaround. Colour is CMYK simulation only — no Pantone spot colours. At Aayu, most orders under 500 copies are handled digitally for speed and cost efficiency. Orders over 500 copies, or those requiring exact Pantone matching or very high volumes, may be routed to offset. We advise you of the method used for your job at the quotation stage. Both methods produce excellent results — the difference is visible primarily under close inspection or on colour-critical brand work.",
+    "tags": ["offset", "digital printing", "method", "production", "quality"],
+    "source": "Aayu Production Guide"
+  },
+  {
+    "doc_id": "doc_021",
+    "title": "Packaging Finishes — Matt, Gloss, Soft Touch, Foil, and UV",
+    "category": "Packaging Guides",
+    "content": "The finish on packaging communicates brand positioning before the box is opened. Common packaging finish options: Gloss lamination: bright, vivid, high-impact. Suits bold, colourful brands (food, youth). Matte lamination: quiet, sophisticated, premium. Suits luxury, wellness, and design-led brands. Soft touch: most premium of all laminates. Physical texture signals quality before unboxing. Spot UV on packaging: selective gloss on logo or pattern elements against a matte base. Foil stamping on boxes: gold or silver foil on brand name, creates jewellery-like quality impression. Embossed logo on box lid: raised logo that you feel when you pick up the box. Combination finishes are common in luxury packaging: soft touch + spot UV + foil is considered the apex of premium packaging craft. At Aayu, we can quote any combination of these finishes for a single box design.",
+    "tags": ["packaging", "finish", "soft touch", "foil", "uv", "premium"],
+    "source": "Aayu Packaging Guide"
+  },
+  {
+    "doc_id": "doc_022",
+    "title": "Delivery Time Expectations — Standard and Express",
+    "category": "Production Process",
+    "content": "All turnaround times are counted from artwork approval, not from order placement. Standard delivery times: Business cards (standard): 2–3 business days. Business cards (premium, soft touch, spot UV): 3–5 business days. Business cards (foil, emboss): 6–8 business days. Flyers and brochures: 2–4 business days. Packaging (standard): 5–7 business days. Packaging (custom): 7–10 business days. Apparel (DTG): 5–7 business days. Apparel (screen print): 7–10 business days. Launch kits: 7–10 business days. Delivery: most orders ship within India in 1–3 business days after dispatch. Express (same-day) delivery is available in select cities. Pickup from our studio is available Monday–Saturday, 9AM–7PM. We send a dispatch confirmation with tracking number for all shipped orders. International shipping is available on request.",
+    "tags": ["delivery", "turnaround", "timeline", "shipping", "express"],
+    "source": "Aayu Production Guide"
+  },
+  {
+    "doc_id": "doc_023",
+    "title": "How to Set Up a Business Card File in Adobe Illustrator",
+    "category": "Artwork Setup",
+    "content": "Step-by-step setup for business cards in Adobe Illustrator: 1. Create a new document. Set width to 96mm, height to 61mm (standard 90mm × 55mm card with 3mm bleed on each side). Colour mode: CMYK. Resolution: 300 PPI. 2. Add bleed guides. Go to File > Document Setup > Bleed and set all sides to 3mm. 3. Add safe zone. Draw a rectangle at 84mm × 49mm, centred on the artboard. This is your safe zone — all important content stays inside. 4. Design your card. Place your logo, name, and contact details within the safe zone. Extend backgrounds to the artboard edge (bleed). 5. Export as PDF. Go to File > Save As > PDF. Use PDF/X-1a preset. Ensure bleed is set to 3mm in the Marks and Bleeds section. Embed all fonts. 6. Verify: open the PDF in Acrobat and check the page size is 96mm × 61mm and that your design extends to the page edge.",
+    "tags": ["illustrator", "setup", "business cards", "artwork", "tutorial"],
+    "source": "Aayu Artwork Tutorial"
+  },
+  {
+    "doc_id": "doc_024",
+    "title": "Using Canva for Print — What Works and What Doesn't",
+    "category": "Artwork Setup",
+    "content": "Canva is a popular design tool that many clients use. It can produce acceptable print files with the right settings. What works: Canva Pro allows exporting PDF with crop marks and bleed — use this. Set your design to the exact dimensions with 3mm extra on each side for bleed. Download as PDF Print (not PDF Standard). What doesn't work well: Canva uses RGB colour mode internally — your exported PDF will be converted at our end. Expect potential colour shifts (blues may shift slightly, vibrant colours may appear different). Canva exports embedded fonts, so font outlines are not usually an issue. Canva images: if you use Canva's built-in stock photos at full resolution, they are usually 300 DPI at small sizes. If you scale them large, quality drops. Our recommendation: for premium jobs (soft touch, foil, emboss), use a professional design tool or commission a designer. For standard flyers and brochures, Canva PDF exports are generally acceptable.",
+    "tags": ["canva", "artwork", "design tool", "print", "pdf"],
+    "source": "Aayu Artwork Guide"
+  },
+  {
+    "doc_id": "doc_025",
+    "title": "Refund and Reprint Policy",
+    "category": "Policies",
+    "content": "At Aayu, quality is our commitment. Our reprint and refund policy: If we make a production error (wrong size, wrong paper, printing defect, colour deviation from approved proof), we reprint at no charge and arrange priority collection and redelivery. If the artwork was approved and the issue originates in the file (low resolution, RGB colour shift, missing bleed), we will advise this during proofing. Any issue not flagged at proof stage is the client's responsibility. We cannot reprint for errors that were visible in the proof and approved. Change of mind after production starts is not covered — we cannot stop a job mid-production. How to claim: photograph the issue clearly, email or WhatsApp us within 48 hours of delivery. Our team responds within 4 working hours. We do not offer cash refunds for production jobs. Resolution is always a reprint or credit toward the next order.",
+    "tags": ["refund", "reprint", "quality", "policy", "error"],
+    "source": "Aayu Policy Guide"
+  },
+  {
+    "doc_id": "doc_026",
+    "title": "Black — Choosing Between Rich Black and Pure Black for Print",
+    "category": "Colour Setup",
+    "content": "In CMYK printing, 'black' is not just one value. Two types matter: Pure black (K only): C0, M0, Y0, K100. This is a flat, single-ink black. Best for: body text, fine lines, thin type, barcodes. If you use rich black for small text, the colour may look slightly blurry due to misregistration between ink layers. Rich black: C60, M40, Y40, K100 (or similar). This is a deeper, more intense black created by combining all inks. Best for: large black backgrounds, dark areas in photography, dramatic full-bleed black panels. Using rich black on text makes it harder to read and causes colour fringing. Rule: text below 18pt — pure black. Large backgrounds and images — rich black. Our prepress team checks black usage and flags issues before production.",
+    "tags": ["black", "rich black", "colour", "cmyk", "text", "prepress"],
+    "source": "Aayu Colour Guide"
+  },
+  {
+    "doc_id": "doc_027",
+    "title": "Labels for Bottles — BOPP vs Paper Labels",
+    "category": "Product Knowledge",
+    "content": "Bottle and jar labels have specific material requirements depending on the application. BOPP (Biaxially Oriented Polypropylene): synthetic film label that is waterproof, oil-resistant, and durable. Best for: water bottles, shampoos, beverages, condiments, any product that gets wet. BOPP labels do not wrinkle when wet. Available in clear, white, and matte variants. Clear BOPP gives a 'no-label look' on clear glass. Matte paper labels: natural kraft or matte white paper. Not waterproof — suitable for dry products only: dry food jars, candles, dry cosmetics. Paper labels have a premium, craft aesthetic that BOPP cannot replicate. They wrinkle or curl if exposed to moisture. For premium beauty and wellness brands, a popular combination is matte paper label on a dry product (candle, dry face mask) and BOPP on anything liquid. We produce both and can advise based on your product type.",
+    "tags": ["labels", "bopp", "paper", "bottles", "waterproof", "packaging"],
+    "source": "Aayu Product Guide"
+  },
+  {
+    "doc_id": "doc_028",
+    "title": "Large Format Printing — Banners, Standees, and Exhibition",
+    "category": "Product Knowledge",
+    "content": "Large format printing covers any print above A2 size. Common products: PVC flex banners, roll-up standees, canvas prints, foam board display boards, vinyl wraps. Resolution for large format: unlike standard print (300 DPI), large format is viewed from a distance. Artwork at 100–150 DPI is acceptable for banners viewed from 2 metres. At 1 metre, 150–200 DPI is recommended. For standees viewed at arm's length, 200 DPI minimum. File submission for large format: supply at actual size (100%) at 100–150 DPI, or at 10% of actual size at 300 DPI (e.g., for a 3-metre banner, supply a 30cm file at 300 DPI). CMYK colour mode applies as always. Material options: PVC flex (outdoor, waterproof, grommets for hanging), canvas (indoor, premium texture, frame mounting), foam board (rigid, lightweight, interior display).",
+    "tags": ["large format", "banner", "standee", "exhibition", "vinyl"],
+    "source": "Aayu Product Guide"
+  },
+  {
+    "doc_id": "doc_029",
+    "title": "Ordering Process — From Brief to Delivery",
+    "category": "Production Process",
+    "content": "The Aayu ordering process in six steps: 1. Brief: submit your quote request with product, quantity, size, finish, and deadline. 2. Quote: we send a detailed quote within 4 working hours. Rush quotes within 1 hour. 3. Artwork submission: once quote is approved, submit your print-ready file (PDF preferred). 4. Proof: we review your artwork and send a digital proof within 24 hours. For complex jobs, within 48 hours. 5. Approval: you review the proof and approve or request a revision. Production begins only after written approval. 6. Production and dispatch: production starts on approval. We send a dispatch notification with tracking. For local pickups, a ready notification is sent. Throughout the process, you have a named point of contact. We do not start production without proof approval — this protects both the quality of your job and your budget.",
+    "tags": ["process", "ordering", "workflow", "production", "delivery"],
+    "source": "Aayu Process Guide"
+  },
+  {
+    "doc_id": "doc_030",
+    "title": "Choosing Between Matte and Gloss for a Business Card",
+    "category": "Product Knowledge",
+    "content": "The finish of a business card is often the first tactile impression you leave. Gloss finish: bright, colour-rich, modern. Makes photography and full-colour print look vivid. Can feel slightly plasticky to some. Fingerprints are less visible. Best for: tech, food, lifestyle, and vibrant brand identities. Matte finish: understated, refined, premium. Colours appear more muted but sophisticated. White space feels cleaner. Best for: consulting, legal, architecture, luxury retail, and design-led identities. Soft touch matte: everything matte does, but with a velvety surface. The most popular choice for premium brands. Slightly higher cost but significant perceived value increase. Our recommendation: if you are uncertain, choose soft touch matte. It photographs well, handles fingerprints, and suits almost every brand style. If your card relies heavily on a full-colour photograph (e.g., a photographer or food brand), gloss may serve the image better.",
+    "tags": ["matte", "gloss", "soft touch", "business cards", "choice"],
+    "source": "Aayu Product Guide"
+  },
+  {
+    "doc_id": "doc_031",
+    "title": "Screen Printing for Apparel — Setup, Colours, and Quantities",
+    "category": "Apparel Printing",
+    "content": "Screen printing is the standard method for branded apparel at medium and large quantities. Each colour in the design requires a separate screen (stencil) made from the artwork. Setup cost: each screen costs ₹400–₹600 to produce. For a two-colour design, setup is ₹800–₹1200. This setup cost is amortised across the print run — the larger the quantity, the lower the per-piece cost. Colour limits: standard screen printing handles up to 6 colours in one run. More colours increase complexity and cost. Photographs cannot be replicated accurately in screen printing — for photographic or gradient-heavy designs, DTG is better. Garment preparation: light garments print without an underbase. Dark garments require a white underbase as the first layer, then your colours on top. Underbase adds one screen. Pantone colour matching is available for screen printing — specify your PMS codes for exact brand colour reproduction.",
+    "tags": ["screen printing", "apparel", "setup", "pantone", "quantities"],
+    "source": "Aayu Apparel Guide"
+  },
+  {
+    "doc_id": "doc_032",
+    "title": "Packaging Structural Options — Box Types Explained",
+    "category": "Packaging Guides",
+    "content": "Different box structures suit different products and brand experiences. Tuck-end box: the most common retail box. Top and bottom tuck flaps fold inside. Easy to assemble, cost-effective. Suitable for most small-medium products. Reverse tuck end: top and bottom tuck in opposite directions. Self-locking. Suitable for cosmetics, medicine, small electronics. Sleeve box (slide box): inner tray slides into outer sleeve. Premium unboxing experience. Popular for tech accessories, jewellery, and gifting. Rigid two-piece (lid and tray): separate lid and base. Highest-quality, used for luxury goods, high-end electronics, jewellery. Most expensive. Folding carton: lightweight, single-piece, glued at one edge. Economical, high-volume packaging. Mailer box (self-locking): self-locking base, used for e-commerce. No glue required. Die-cut inserts: foam or card inserts that hold products securely inside any box type. We recommend choosing structure before designing, as the structure determines where your design panels are.",
+    "tags": ["packaging", "box types", "structure", "rigid", "tuck-end", "sleeve"],
+    "source": "Aayu Packaging Guide"
+  },
+  {
+    "doc_id": "doc_033",
+    "title": "What Makes a Great Business Card Design",
+    "category": "Design Guidance",
+    "content": "The best business cards have one clear hierarchy: name first, context second, contact third. Common mistakes: too much information (nobody reads 8 lines of text on a 90×55mm card), overly decorative fonts that make the name hard to read, no white space (crowded cards feel cheap), misaligned elements (use a grid), colour that doesn't match your brand's actual colours. What works: single clean typeface in 2 weights, generous white space, name large enough to read instantly, one or two contact methods (not all of them), brand colour used consistently and purposefully. Back of card: either blank (confident, premium) or a single strong element — tagline, illustration, or pattern. Both sides full-bleed with your brand colour can create a strong premium impression. Size: stay with standard 90×55mm unless your brand specifically calls for square or mini format. Non-standard sizes create memorable moments but also don't fit standard card holders.",
+    "tags": ["design", "business cards", "typography", "layout", "hierarchy"],
+    "source": "Aayu Design Guide"
+  },
+  {
+    "doc_id": "doc_034",
+    "title": "Minimum File Size Requirements for Common Print Products",
+    "category": "Artwork Setup",
+    "content": "Here are the minimum artwork dimensions (at 300 DPI) for common print products: Business card (90×55mm with 3mm bleed): 1134 × 716 pixels at 300 DPI. A5 flyer (148×210mm with 3mm bleed): 1795 × 2551 pixels. A4 brochure (297×210mm with 3mm bleed): 3567 × 2551 pixels. A3 poster (420×297mm with 3mm bleed): 5039 × 3567 pixels. A2 poster (594×420mm with 3mm bleed): 7126 × 5039 pixels. For packaging, dimensions depend on the custom size — calculate as (dimension in mm + 6mm) × (11.81) to get pixels at 300 DPI. Anything below these dimensions will print blurry. We check all files during proofing and will inform you if images are below minimum resolution. Supply the highest resolution original you have — we cannot improve resolution, only confirm if it's sufficient.",
+    "tags": ["file size", "resolution", "minimum", "pixels", "artwork"],
+    "source": "Aayu Artwork Guide"
+  },
+  {
+    "doc_id": "doc_035",
+    "title": "Sustainability in Print — Eco-Friendly Options at Aayu",
+    "category": "Sustainability",
+    "content": "Sustainable printing is increasingly important for brands and their customers. At Aayu, our eco-friendly options: Recycled paper stocks: FSC-certified recycled art paper and board available for most products at small additional cost. Soy-based inks: lower VOC emissions than petroleum inks. Available on offset runs. Kraft packaging: unbleached kraft board is naturally eco-friendly — no bleaching process, recyclable. Water-based lamination: some matte laminates use water-based adhesives with lower environmental impact than solvent-based. Local printing: printing locally in India reduces shipping carbon compared to importing printed goods from overseas. What we do not offer (yet): fully biodegradable stickers, compostable packaging. These are in our product development pipeline. For brands marketing their sustainability credentials, we can provide material certificates and FSC chain-of-custody documentation on request.",
+    "tags": ["sustainability", "eco", "recycled", "kraft", "fsc", "green"],
+    "source": "Aayu Sustainability Guide"
+  }
+]

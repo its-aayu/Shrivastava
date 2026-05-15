@@ -1,0 +1,110 @@
+[
+  {
+    "id": "faq_001",
+    "question": "What file format should I submit for printing?",
+    "answer": "PDF is our preferred format — specifically PDF/X-1a or PDF/X-4 with embedded fonts and CMYK colour profile. Adobe Illustrator (.ai) and InDesign packaged files are also accepted. Canva exports as PDF Print are acceptable for standard jobs. Please ensure your file includes 3mm bleed on all sides.",
+    "category": "Files & Artwork"
+  },
+  {
+    "id": "faq_002",
+    "question": "What is bleed and do I need it?",
+    "answer": "Bleed is the extra area (3mm on all sides) that extends your background colour or image beyond the final card edge. When the printer cuts the job, there's a tiny margin of error. Without bleed, this creates a white strip at the edge. Always include 3mm bleed — your artwork file should be 6mm wider and 6mm taller than your final print size.",
+    "category": "Files & Artwork"
+  },
+  {
+    "id": "faq_003",
+    "question": "What resolution should my images be?",
+    "answer": "All images must be at least 300 DPI at the actual print size. A photo that looks sharp on screen (72 DPI) will print blurry. If you scale an image larger in your layout, the effective DPI drops. Text and vector graphics (logos, icons) are resolution-independent and always print sharp regardless of DPI.",
+    "category": "Files & Artwork"
+  },
+  {
+    "id": "faq_004",
+    "question": "Can I submit artwork in RGB?",
+    "answer": "We recommend CMYK — RGB is a screen colour mode and will be converted during prepress. This conversion can cause colour shifts, especially in vibrant blues, purples, and oranges. For best results, design in CMYK from the start. If you submit in RGB, we will flag this on your proof so you can decide whether to proceed.",
+    "category": "Files & Artwork"
+  },
+  {
+    "id": "faq_005",
+    "question": "How long does printing take?",
+    "answer": "Turnaround time starts from artwork approval, not from order placement. Standard times: business cards 2–5 days depending on finish; flyers 2–3 days; packaging 5–10 days; apparel 5–10 days. Foil, emboss, and screen print jobs require extra time. Rush (24–48 hour) service is available for most standard products at an additional fee.",
+    "category": "Turnaround & Delivery"
+  },
+  {
+    "id": "faq_006",
+    "question": "Do you offer rush or same-day printing?",
+    "answer": "Yes. Rush orders (24–48 hours from artwork approval) are available for most products including business cards, flyers, and standard packaging. A 15–30% rush fee applies. Same-day printing is available in select cases — contact us directly with your deadline and we will advise on feasibility. Foil and emboss jobs cannot be rushed.",
+    "category": "Turnaround & Delivery"
+  },
+  {
+    "id": "faq_007",
+    "question": "Do you ship across India?",
+    "answer": "Yes, we ship to all states across India. Most orders arrive within 1–3 business days after dispatch. Express same-day or next-day delivery is available in select cities. Studio pickup is available Monday to Saturday, 9AM to 7PM. We send a tracking number at dispatch for all shipped orders.",
+    "category": "Turnaround & Delivery"
+  },
+  {
+    "id": "faq_008",
+    "question": "What is your minimum order quantity?",
+    "answer": "Minimums vary by product: Business cards — 50 cards. Flyers — 100 units. Brochures — 50 units. Stickers and labels — 50 units. Packaging — 25 boxes. Apparel (DTG) — 10 pieces. Apparel (screen print) — 12 pieces. Launch kits — 1 kit. If you need a sample before committing to a full run, ask about a physical proof.",
+    "category": "Ordering"
+  },
+  {
+    "id": "faq_009",
+    "question": "Do you provide a proof before printing?",
+    "answer": "Yes — every job receives a digital PDF proof before production begins. We review your artwork for resolution, colour mode, bleed, trim accuracy, and visible issues. We email your proof within 24 hours of submission. Production begins only after your written approval. Physical print proofs are available for complex or colour-critical jobs at an additional cost.",
+    "category": "Production"
+  },
+  {
+    "id": "faq_010",
+    "question": "What happens if there is a printing defect?",
+    "answer": "If we make a production error — wrong size, wrong paper, printing defect, or significant colour deviation from the approved proof — we reprint at no charge and arrange priority collection and redelivery. Please photograph the issue and contact us within 48 hours of receiving your order. We respond within 4 working hours.",
+    "category": "Quality & Refunds"
+  },
+  {
+    "id": "faq_011",
+    "question": "Can you match my exact brand colours?",
+    "answer": "For digital printing, we reproduce your CMYK values as accurately as our calibrated equipment allows. For exact Pantone (PMS) colour matching, we offer Pantone simulation on digital runs and true spot Pantone on offset and screen print jobs. Share your Pantone reference numbers when submitting your quote for accurate colour guidance.",
+    "category": "Colour"
+  },
+  {
+    "id": "faq_012",
+    "question": "What is the difference between matte and gloss lamination?",
+    "answer": "Gloss lamination adds shine and makes colours pop — great for photography and vibrant designs. Matte lamination is non-reflective and feels more premium and refined. Soft Touch (velvet) lamination is a step above standard matte — it has an anti-fingerprint velvety surface and is our most popular premium finish. Most luxury business cards use soft touch.",
+    "category": "Finishing"
+  },
+  {
+    "id": "faq_013",
+    "question": "Do you offer eco-friendly or sustainable printing?",
+    "answer": "Yes. We offer FSC-certified recycled paper stocks, kraft board packaging, and water-based laminates. Soy-based inks are available on offset print runs. For brands with sustainability credentials, we provide material certificates on request. Ask about eco options when requesting your quote.",
+    "category": "Sustainability"
+  },
+  {
+    "id": "faq_014",
+    "question": "What is Spot UV and should I use it on my business card?",
+    "answer": "Spot UV is a selective high-gloss varnish applied to specific areas — typically your logo or headline — on top of a matte base. The contrast between the gloss element and matte background creates a tactile, premium effect. It works best on logos and small elements. Full-page Spot UV reduces the impact. If your brand is premium, Spot UV on your logo is one of the strongest finishes available.",
+    "category": "Finishing"
+  },
+  {
+    "id": "faq_015",
+    "question": "Can I order samples before placing a large order?",
+    "answer": "Yes. Physical proofs (print-before-production samples) are available for most products at a nominal cost that is credited to your full order if you proceed. For packaging, we also provide structural mockups before artwork is finalised. Contact us before placing your order to arrange a sample request.",
+    "category": "Ordering"
+  },
+  {
+    "id": "faq_016",
+    "question": "How do I place an order?",
+    "answer": "Fill out the quote request form on our website or reach us directly by phone or email. Provide your product, quantity, size, finish preference, and deadline. We respond with a quote within 4 working hours. Once approved, you send your artwork, we proof it and begin production after your sign-off. No production starts without approval.",
+    "category": "Ordering"
+  },
+  {
+    "id": "faq_017",
+    "question": "Do you handle the design if I don't have one?",
+    "answer": "We are a print studio, not a design agency — we do not create artwork from scratch. However, we can recommend trusted designers in our network and provide our dieline templates, spec sheets, and brand guidelines to any designer you work with. If you have a rough concept or reference, share it with us and we will advise on what files we need.",
+    "category": "Design"
+  },
+  {
+    "id": "faq_018",
+    "question": "What is GSM and which should I choose for business cards?",
+    "answer": "GSM (grams per square metre) measures paper thickness. Higher GSM means a thicker, more rigid card. For business cards: 300 GSM feels average. 350 GSM is the most popular premium choice. 400 GSM and above feels substantial and premium. We recommend 350 GSM minimum for any card intended to communicate quality. Flimsy cards undermine the impression you're trying to make.",
+    "category": "Paper & Materials"
+  }
+]

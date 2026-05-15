@@ -1,0 +1,66 @@
+[
+  {
+    "id": "cat_001",
+    "slug": "business-cards",
+    "name": "Business Cards",
+    "description": "Premium cards that make a first impression worth remembering.",
+    "icon": "🪪",
+    "sort_order": 1
+  },
+  {
+    "id": "cat_002",
+    "slug": "packaging",
+    "name": "Packaging",
+    "description": "Boxes, bags, and wraps that make unboxing feel intentional.",
+    "icon": "📦",
+    "sort_order": 2
+  },
+  {
+    "id": "cat_003",
+    "slug": "apparel",
+    "name": "Apparel",
+    "description": "T-shirts, hoodies, and merchandise printed with sharp detail.",
+    "icon": "👕",
+    "sort_order": 3
+  },
+  {
+    "id": "cat_004",
+    "slug": "posters",
+    "name": "Posters & Prints",
+    "description": "Large-format prints for brands, events, and retail spaces.",
+    "icon": "🖼️",
+    "sort_order": 4
+  },
+  {
+    "id": "cat_005",
+    "slug": "stickers-labels",
+    "name": "Stickers & Labels",
+    "description": "Custom die-cut stickers and product labels for any surface.",
+    "icon": "🏷️",
+    "sort_order": 5
+  },
+  {
+    "id": "cat_006",
+    "slug": "brochures-flyers",
+    "name": "Brochures & Flyers",
+    "description": "Multi-page and single-sheet collateral for campaigns and launches.",
+    "icon": "📄",
+    "sort_order": 6
+  },
+  {
+    "id": "cat_007",
+    "slug": "menus",
+    "name": "Menus",
+    "description": "Restaurant and cafe menus built for daily handling and visual clarity.",
+    "icon": "🍽️",
+    "sort_order": 7
+  },
+  {
+    "id": "cat_008",
+    "slug": "notebooks-stationery",
+    "name": "Notebooks & Stationery",
+    "description": "Custom notebooks, notepads, and branded stationery sets.",
+    "icon": "📓",
+    "sort_order": 8
+  }
+]
