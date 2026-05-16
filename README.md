@@ -1,218 +1,252 @@
-# AI-Powered Printing SaaS Platform
+# Aayu Printing Studio — AI-Powered Print SaaS
 
-A modern printing e-commerce and SaaS platform for a digital print studio. The project is currently focused on the customer-facing React frontend, reusable UI structure, mock business data, and the foundation for future backend and AI features.
+A production-grade SaaS platform for a premium print studio. Built across three phases: customer-facing frontend, FastAPI backend, and AI integration. Currently at the end of Phase 2A (backend foundation live, frontend wired to API).
 
-## Live Demo
+**Live demo:** https://shrivastava-five.vercel.app/
 
-https://shrivastava-five.vercel.app/
+---
 
-## Current Status
+## What's been built
 
-### Completed so far
+### Phase 1 — Frontend (complete)
 
-- React + Vite frontend setup
-- Responsive customer-facing website
-- Single-page navigation managed inside `App.jsx`
-- Lazy-loaded pages with suspense fallback
-- Framer Motion page transitions and reveal animations
-- Shared layout with navbar, footer, page loader, buttons, cards, inputs, and scroll-to-top UI
-- Pages for Home, Studio/About, Services, Work/Gallery, Team, Journal/Blog, Pricing, Contact, FAQ, and Product Detail
-- Static print studio visuals under `public/images`
-- Central site content in `src/data/site.js`
-- Mock business datasets under `src/mock-data`
-- Global CSS organization for variables, typography, utilities, responsive rules, components, dashboard styles, and animations
-- Vercel-ready frontend build output
+**Routing and app shell**
+- React 19 + Vite 7 SPA with state-based routing managed in `App.jsx` (no React Router dependency)
+- `React.lazy()` + `Suspense` code-splitting on all 10 page components
+- `AnimatePresence` page transitions with `MotionConfig reducedMotion="user"` for OS-level motion preference
+- Skip link, `<main id="main-content">`, scroll restoration on page change
 
-### Mock data prepared
+**Pages**
+- Home, About/Studio, Services, Work/Gallery, Team, Journal/Blog, Pricing, Contact, FAQ, Product Detail
 
-The project includes JSON data that can be wired into the app or future backend/API layer:
+**Shared components**
+- Layout: `Navbar`, `Footer`
+- Page sections: `PageHero`, `SectionHeader`, `QuoteForm`, `PromoBand`, `ReviewSection`, `ServiceCards`, `StatsStrip`, `TrustStrip`, `ImagePanel`
+- UI: `Button` (4 variants), `Card`, `Input`, `Reveal` (scroll-reveal wrapper), `ScrollTop`, `PageLoader`
 
-- `src/mock-data/products.json` - product catalog with categories, pricing, finishes, ratings, delivery times, and stock status
-- `src/mock-data/categories.json` - product category metadata
-- `src/mock-data/orders.json` - sample order records and production statuses
-- `src/mock-data/users.json` - sample customer/admin profiles
-- `src/mock-data/faq.json` - detailed print support FAQ content
-- `src/mock-data/documents.json` - knowledge-base style print guidance content
-- `src/mock-data/chat-prompts.json` - draft system prompt and examples for a future print assistant
+**Animation system**
+- `src/animations/motion.js` — shared variants: `gridContainer`, `cardItem`, `fadeUp`, `fadeLeft`, `fadeRight`, `scaleIn`, `floatingAnimation`
+- `Reveal` component wraps any element with configurable `y`, `delay`, and `duration`
+- Stagger grids on product/service/value cards using `gridContainer` + `cardItem` variants
 
-### Not implemented yet
+**CSS architecture**
+- `src/styles/globals.css` — reset, custom properties, typography, `:focus-visible`, skip link, reduced-motion
+- `src/styles/components.css` — shared UI system (buttons, cards, inputs, navbar, footer, heroes, section headers)
+- `src/styles/responsive.css` — breakpoint rules for all shared components
+- Per-page `style.css` files extend the shared system without duplication
 
-- Real backend API
-- Database persistence
-- Authentication
-- Cart and checkout
-- Admin dashboard
-- File upload workflow
-- Live AI assistant
-- Order management connected to real data
+**Accessibility and performance**
+- `:focus-visible` keyboard focus rings (removed for mouse, shown for keyboard)
+- `@media (pointer: coarse)` — 44px minimum tap targets on all interactive elements
+- `@media (prefers-reduced-motion: reduce)` — disables all CSS transitions and keyframe animations
+- ARIA labels, `aria-required`, `aria-describedby`, `aria-pressed`, semantic `<nav aria-label>` in footer
+- Lazy image loading with `onError` fallback to `/images/print-fallback.svg`
 
-## Project Vision
+---
 
-The long-term goal is to turn this into a production-grade SaaS platform for print studios, combining:
+### Mock data layer — `src/mock-data/` (complete)
 
-- Online product discovery
-- Quote and order workflows
-- Customer and admin dashboards
-- Print file validation
-- AI-powered customer support
-- Smart recommendations and pricing assistance
-- Cloud deployment and DevOps practices
+Schema-first design mirroring the planned PostgreSQL tables. Migration from JSON to DB requires no frontend changes.
 
-## Tech Stack
+| File | Contents |
+|---|---|
+| `products.json` | 18 products — INR pricing, GSM, finish, delivery time, features, tags, rating |
+| `categories.json` | 8 product categories with slugs, icons, sort order |
+| `orders.json` | 15 orders across 5 statuses: delivered, processing, proof_review, production, cancelled |
+| `users.json` | 7 customers + 1 admin with spend history and preferred products |
+| `faq.json` | 18 print FAQ entries with category grouping |
+| `documents.json` | 35 RAG knowledge-base documents covering CMYK, DPI, bleed, GSM, finishes, sustainability |
+| `chat-prompts.json` | Full AI assistant config: system prompt, personality traits, guardrails, RAG config, order status templates |
+
+---
+
+### Phase 2A — Backend foundation (complete)
+
+**Folder structure**
+```
+backend/
+├── app/
+│   ├── api/
+│   │   └── products.py       # API routes
+│   ├── core/
+│   │   └── config.py         # pydantic-settings (env vars)
+│   ├── db/
+│   │   └── database.py       # SQLAlchemy engine, session, Base
+│   ├── models/
+│   │   └── product.py        # ORM model (18 columns)
+│   ├── schemas/
+│   │   └── product.py        # Pydantic schemas
+│   ├── services/
+│   │   └── product_service.py # Business logic
+│   └── main.py               # FastAPI app + CORS + lifespan
+├── requirements.txt
+├── .env
+└── .env.example
+```
+
+**API endpoints**
+| Method | Route | Description |
+|---|---|---|
+| `GET` | `/` | Service info |
+| `GET` | `/health` | Health check (shows DB connection status) |
+| `GET` | `/api/v1/products` | All products — filterable by `?category=`, `?featured=true`, `?skip=`, `?limit=` |
+| `GET` | `/api/v1/products/featured` | Featured products only |
+| `GET` | `/api/v1/products/{id}` | Single product by id or slug |
+| — | `/docs` | Swagger UI (auto-generated) |
+| — | `/redoc` | ReDoc API reference |
+
+**Service layer design**
+
+`product_service.py` reads from `src/mock-data/products.json` today. The DB query blocks are written and commented out directly above each mock-data block. To switch to PostgreSQL: set `DATABASE_URL` in `backend/.env` and uncomment 4 lines per function. No other changes needed.
+
+**Frontend API integration**
+- `src/lib/api.js` — thin fetch client reading `VITE_API_URL`
+- `src/hooks/useProducts.js` — `useProducts(params)` and `useProduct(id)` hooks with cleanup cancellation
+- Gallery page fetches from API with shimmer skeleton and error state
+- ProductDetail fetches single product + related products from API, displays INR pricing and features list
+
+---
+
+## Running the project
 
 ### Frontend
 
-- React 19
-- Vite 7
-- Framer Motion
-- Tailwind CSS
-- Feature and page-level CSS files
-
-### Tooling
-
-- ESLint
-- PostCSS
-- Autoprefixer
-- Vercel deployment target
-
-### Planned Backend and AI
-
-- FastAPI
-- PostgreSQL or Supabase
-- AI chatbot/RAG support
-- OpenAI or similar LLM APIs
-- Vector database for print support documents
-
-## Project Structure
-
-```bash
-.
-+-- backend/
-|   +-- main.py
-+-- public/
-|   +-- images/
-+-- src/
-|   +-- animations/
-|   +-- assets/
-|   +-- components/
-|   |   +-- layout/
-|   |   +-- sections/
-|   |   +-- ui/
-|   +-- data/
-|   |   +-- site.js
-|   +-- mock-data/
-|   +-- pages/
-|   +-- styles/
-|   +-- utils/
-|   +-- App.jsx
-|   +-- main.jsx
-+-- index.html
-+-- package.json
-+-- tailwind.config.js
-+-- vite.config.js
-```
-
-## Pages Available
-
-- Home
-- Studio/About
-- Services
-- Work/Gallery
-- Product Detail
-- Team
-- Journal/Blog
-- Pricing
-- Contact
-- FAQ
-
-## Getting Started
-
-Clone the repository:
-
-```bash
-git clone <your-repository-link>
-cd <project-folder>
-```
-
-Install dependencies:
-
 ```bash
 npm install
-```
-
-Run the development server:
-
-```bash
 npm run dev
 ```
 
-Create a production build:
+Runs at `http://localhost:5173`. Works standalone without the backend running (shows error state on Gallery/Product pages).
+
+### Backend
 
 ```bash
-npm run build
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
 
-Preview the production build:
+Runs at `http://localhost:8000`. Swagger UI at `http://localhost:8000/docs`.
 
-```bash
-npm run preview
-```
+No database required — the backend reads from `src/mock-data/products.json` automatically.
 
-Run linting:
+### Environment variables
 
-```bash
-npm run lint
-```
-
-## Environment Variables
-
-Create a `.env` file from `.env.example` when backend or external services are added.
-
+**Frontend (`.env` in root):**
 ```env
-VITE_API_URL=
+VITE_API_URL=http://localhost:8000/api/v1
 VITE_SUPABASE_URL=
 VITE_SUPABASE_ANON_KEY=
 VITE_OPENAI_API_KEY=
 ```
 
-At the moment, the frontend does not require these values to run locally.
+**Backend (`backend/.env`):**
+```env
+DATABASE_URL=          # leave empty to use mock data
+SECRET_KEY=            # generate with: python -c "import secrets; print(secrets.token_hex(32))"
+OPENAI_API_KEY=
+DEBUG=true
+ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+```
+
+---
+
+## Tech stack
+
+### Frontend
+- React 19 + Vite 7
+- Framer Motion (animations, page transitions, reduced-motion support)
+- Custom CSS (no UI framework) — component system with CSS custom properties
+
+### Backend
+- FastAPI 0.115
+- SQLAlchemy 2.0 (ORM + session management)
+- Pydantic 2.10 (request/response validation)
+- pydantic-settings (env var management)
+- psycopg2-binary (PostgreSQL driver, ready to connect)
+- uvicorn (ASGI server)
+
+### Planned
+- PostgreSQL via Neon (cloud) or local
+- OpenAI API for AI print consultant
+- Vector database for RAG (document retrieval)
+- Supabase Auth or custom JWT
+- Docker + CI/CD
+- Vercel (frontend) + Railway or Render (backend)
+
+---
+
+## Project structure
+
+```
+.
+├── backend/
+│   ├── app/
+│   │   ├── api/            # Route handlers
+│   │   ├── core/           # Config and settings
+│   │   ├── db/             # Database engine and session
+│   │   ├── models/         # SQLAlchemy ORM models
+│   │   ├── schemas/        # Pydantic request/response schemas
+│   │   ├── services/       # Business logic layer
+│   │   ├── utils/
+│   │   └── main.py
+│   ├── requirements.txt
+│   └── .env.example
+├── public/
+│   └── images/
+├── src/
+│   ├── animations/         # Framer Motion variant library
+│   ├── components/
+│   │   ├── layout/         # Navbar, Footer
+│   │   └── ui/             # Button, Card, Input, Reveal, ScrollTop, PageLoader
+│   ├── data/
+│   │   └── site.js         # Static content (nav, gallery items, testimonials)
+│   ├── hooks/
+│   │   └── useProducts.js  # API data hooks
+│   ├── lib/
+│   │   └── api.js          # Fetch client
+│   ├── mock-data/          # JSON data layer (7 files)
+│   ├── pages/              # 10 page components + shared/
+│   ├── styles/             # globals, components, responsive, dashboard, animations CSS
+│   ├── utils/
+│   ├── App.jsx
+│   └── main.jsx
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+---
 
 ## Roadmap
 
-### Frontend
+### Phase 2 — Backend (in progress)
+- [x] FastAPI project structure
+- [x] Product API with mock data
+- [x] SQLAlchemy setup (DB-ready)
+- [ ] Connect to Neon PostgreSQL
+- [ ] Seed DB from mock JSON
+- [ ] User auth (JWT or Supabase)
+- [ ] Orders API
+- [ ] Quote request API
+- [ ] File upload endpoint
 
-- Connect product pages to `src/mock-data/products.json`
-- Add cart state and checkout screens
-- Add dashboard views for customers and admins
-- Improve product filtering/search
-- Add quote request flow
-- Continue responsive and accessibility improvements
+### Phase 3 — AI integration
+- [ ] RAG pipeline over `documents.json` + `faq.json`
+- [ ] AI print consultant chatbot (using `chat-prompts.json` system prompt)
+- [ ] Product recommendation by use case
+- [ ] Artwork file validation guidance
+- [ ] Smart quote estimation
 
-### Backend
+### Phase 4 — Dashboards and DevOps
+- [ ] Customer dashboard (orders, proofs, history)
+- [ ] Admin dashboard (order management, user list, analytics)
+- [ ] Docker setup
+- [ ] CI/CD pipeline
+- [ ] Monitoring and logging
 
-- Build FastAPI API endpoints
-- Add database schema for users, products, orders, quotes, and files
-- Add authentication and role-based access
-- Add order lifecycle management
-- Add file upload and proof approval flow
-
-### AI
-
-- Add AI print consultant chatbot
-- Use `documents.json`, `faq.json`, and `chat-prompts.json` as a first knowledge base
-- Add product recommendation logic
-- Add artwork/file readiness guidance
-- Explore smart quote and pricing assistance
-
-### DevOps
-
-- Add Docker support
-- Add CI/CD checks
-- Add deployment documentation
-- Add monitoring and analytics once the backend exists
+---
 
 ## Developer
 
-Built by Shrivastava Ayush.
-
-This project is being built as a real-world learning path across frontend engineering, backend development, AI integration, SaaS architecture, and cloud deployment.
+Built by Ayush Shrivastava as a real-world learning path across frontend engineering, backend development, AI integration, SaaS architecture, and cloud deployment.
