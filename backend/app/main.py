@@ -5,13 +5,16 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.api.products import router as products_router
+from app.api.orders import router as orders_router
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: add DB table creation here once DATABASE_URL is set
+    # Startup: create all DB tables (no-op when DATABASE_URL is empty)
+    from app.db.database import create_tables
+    create_tables()
     yield
-    # Shutdown: close connections here
+    # Shutdown: SQLAlchemy connection pool closes automatically
 
 
 app = FastAPI(
@@ -33,6 +36,7 @@ app.add_middleware(
 
 # ── Routers ───────────────────────────────────────────────────────────────────
 app.include_router(products_router, prefix="/api/v1")
+app.include_router(orders_router, prefix="/api/v1")
 
 
 # ── Root routes ───────────────────────────────────────────────────────────────
@@ -48,9 +52,18 @@ async def root():
 
 @app.get("/health", tags=["Root"])
 async def health_check():
+    from app.db.database import ping_db
+
+    if not settings.DATABASE_URL:
+        db_status = "not configured — using mock data"
+    elif ping_db():
+        db_status = "connected"
+    else:
+        db_status = "error — could not reach database"
+
     return {
         "status": "healthy",
         "service": "aayu-printing-api",
         "version": "1.0.0",
-        "database": "connected" if settings.DATABASE_URL else "not configured (using mock data)",
+        "database": db_status,
     }
