@@ -5,8 +5,10 @@ from fastapi import Depends, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.db.database import get_db
 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
@@ -48,8 +50,22 @@ def decode_token(token: str) -> dict:
 
 def get_current_user(
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(bearer_scheme),
+    db: Session = Depends(get_db),
 ):
-    """FastAPI dependency — returns raw JWT payload until DB query is wired in Phase 2B."""
+    """FastAPI dependency — decodes bearer token and returns the User from DB."""
     if not credentials:
         raise HTTPException(status_code=401, detail="Not authenticated")
-    return decode_token(credentials.credentials)
+
+    payload = decode_token(credentials.credentials)
+    user_id: str = payload.get("sub")
+
+    if db is not None:
+        from app.models.user import User
+
+        user = db.query(User).filter(User.id == user_id).first()
+        if not user or not user.is_active:
+            raise HTTPException(status_code=401, detail="User not found or inactive")
+        return user
+
+    # Fallback when DB is not configured (local dev without PostgreSQL)
+    return payload

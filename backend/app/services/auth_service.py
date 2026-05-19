@@ -1,26 +1,45 @@
-"""Auth service — foundation only. DB integration activates in Phase 2B."""
+from datetime import date
 
-from app.utils.auth import (
-    create_access_token,
-    create_refresh_token,
-    hash_password,
-    verify_password,
-)
+from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
-
-def register_user(email: str, password: str, name: str) -> dict:
-    """Hash password and return user dict. DB write wired in Phase 2B."""
-    hashed = hash_password(password)
-    return {"email": email, "name": name, "hashed_password": hashed}
+from app.models.user import User
+from app.schemas.user import UserCreate
+from app.utils.auth import hash_password, verify_password
 
 
-def authenticate_user(email: str, password: str) -> dict | None:
-    """Verify credentials and return token pair. DB query wired in Phase 2B."""
-    # user = db.query(User).filter(User.email == email).first()
-    # if not user or not verify_password(password, user.hashed_password):
-    #     return None
-    # return {
-    #     "access_token": create_access_token({"sub": str(user.id), "email": user.email}),
-    #     "refresh_token": create_refresh_token(str(user.id)),
-    # }
-    raise NotImplementedError("Phase 2B — wire to database")
+def _next_user_id(db: Session) -> str:
+    count = db.query(User).count()
+    return f"user_{count + 1:04d}"
+
+
+def register_user(db: Session, payload: UserCreate) -> User:
+    if db.query(User).filter(User.email == payload.email).first():
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    user = User(
+        id=_next_user_id(db),
+        email=payload.email,
+        name=payload.name,
+        hashed_password=hash_password(payload.password),
+        phone=payload.phone,
+        role=payload.role,
+        company=payload.company,
+        city=payload.city,
+        created_at=date.today().isoformat(),
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+def authenticate_user(db: Session, email: str, password: str) -> User:
+    user = db.query(User).filter(User.email == email).first()
+    if not user or not user.hashed_password:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    if not verify_password(password, user.hashed_password):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    if not user.is_active:
+        raise HTTPException(status_code=403, detail="Account is deactivated")
+    return user
