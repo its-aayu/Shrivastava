@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.models.user import User
 from app.schemas.user import UserCreate
-from app.utils.auth import hash_password, verify_password
+from app.utils.security import hash_password, verify_password
 
 
 def _next_user_id(db: Session) -> str:

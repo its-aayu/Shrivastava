@@ -1,3 +1,5 @@
+from typing import Any
+
 from pydantic import BaseModel
 
 
@@ -14,6 +16,7 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     user_id: str | None = None
     email: str | None = None
+    role: str | None = None
 
 
 class SignupResponse(BaseModel):
@@ -22,3 +25,10 @@ class SignupResponse(BaseModel):
     user_id: str
     email: str
     name: str
+    role: str
+
+
+class AuthResponse(BaseModel):
+    success: bool = True
+    message: str
+    data: Any
