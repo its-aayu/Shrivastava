@@ -43,6 +43,89 @@ import json
 from pathlib import Path
 from typing import Optional
 
+# ── Phase 3 RAG ingestion pipeline ───────────────────────────────────────────
+# These stubs define the interface. Replace the bodies in Phase 3.
+
+
+def extract_text(file_path: str) -> str:
+    """
+    Extract plain text from an uploaded file.
+    Phase 3: use pdfplumber (PDF) or Pillow+pytesseract (images).
+    """
+    # TODO Phase 3:
+    # if file_path.endswith(".pdf"):
+    #     import pdfplumber
+    #     with pdfplumber.open(file_path) as pdf:
+    #         return "\n".join(page.extract_text() or "" for page in pdf.pages)
+    # elif file_path.lower().endswith((".png", ".jpg", ".jpeg")):
+    #     from PIL import Image
+    #     import pytesseract
+    #     return pytesseract.image_to_string(Image.open(file_path))
+    return ""  # stub
+
+
+def chunk_document(text: str, chunk_size: int = 400, overlap: int = 50) -> list[str]:
+    """
+    Split text into overlapping token-sized chunks for embedding.
+    Phase 3: use tiktoken for accurate token counting.
+    """
+    # TODO Phase 3:
+    # import tiktoken
+    # enc = tiktoken.get_encoding("cl100k_base")
+    # tokens = enc.encode(text)
+    # chunks = []
+    # for i in range(0, len(tokens), chunk_size - overlap):
+    #     chunk_tokens = tokens[i : i + chunk_size]
+    #     chunks.append(enc.decode(chunk_tokens))
+    # return chunks
+    return []  # stub
+
+
+def generate_embeddings(chunks: list[str]) -> list[list[float]]:
+    """
+    Embed each chunk with OpenAI text-embedding-3-small (1536 dims).
+    Phase 3: requires openai>=1.0.0 and OPENAI_API_KEY env var.
+    """
+    # TODO Phase 3:
+    # import openai
+    # response = openai.embeddings.create(
+    #     input=chunks,
+    #     model="text-embedding-3-small",
+    # )
+    # return [item.embedding for item in response.data]
+    return []  # stub
+
+
+def store_vectors(doc_id: str, embeddings: list[list[float]], db=None) -> None:
+    """
+    Persist embedding vectors to the documents table (pgvector column).
+    Phase 3: requires pgvector extension + Vector(1536) column on Document.
+    """
+    # TODO Phase 3:
+    # from app.models.document import Document
+    # doc = db.query(Document).filter(Document.doc_id == doc_id).first()
+    # if doc:
+    #     doc.embedding = embeddings[0]  # store first chunk; multi-chunk needs separate table
+    #     db.commit()
+    pass  # stub
+
+
+def ingest_document(doc_id: str, file_path: str, db=None) -> dict:
+    """
+    Full ingestion pipeline: extract → chunk → embed → store.
+    Returns a status dict. Phase 3: wire up real implementations above.
+    """
+    text = extract_text(file_path)
+    chunks = chunk_document(text)
+    embeddings = generate_embeddings(chunks)
+    store_vectors(doc_id, embeddings, db)
+    return {
+        "doc_id": doc_id,
+        "chunks": len(chunks),
+        "embedded": len(embeddings),
+        "status": "stub — Phase 3 not yet implemented",
+    }
+
 _CHAT_PROMPTS_FILE = (
     Path(__file__).parent.parent.parent.parent / "src" / "mock-data" / "chat-prompts.json"
 )

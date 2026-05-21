@@ -7,6 +7,7 @@ from app.core.config import settings
 from app.api.auth import router as auth_router
 from app.api.products import router as products_router
 from app.api.orders import router as orders_router
+from app.api.uploads import router as uploads_router
 
 
 @asynccontextmanager
@@ -39,6 +40,7 @@ app.add_middleware(
 app.include_router(auth_router, prefix="/api/v1")
 app.include_router(products_router, prefix="/api/v1")
 app.include_router(orders_router, prefix="/api/v1")
+app.include_router(uploads_router, prefix="/api/v1")
 
 
 # ── Root routes ───────────────────────────────────────────────────────────────
