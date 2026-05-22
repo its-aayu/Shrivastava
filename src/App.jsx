@@ -4,18 +4,22 @@ import Footer from "./components/layout/footer";
 import Navbar from "./components/layout/Navbar";
 import PageLoader from "./components/ui/PageLoader";
 import ScrollTop from "./components/ui/ScrollTop";
+import { AuthProvider } from "./context/AuthContext";
 import { navItems } from "./data/site";
 
-const Home = lazy(() => import("./pages/Home"));
-const About = lazy(() => import("./pages/About"));
-const Services = lazy(() => import("./pages/Services"));
-const Gallery = lazy(() => import("./pages/Gallery"));
-const Team = lazy(() => import("./pages/Team"));
-const Blog = lazy(() => import("./pages/Blog"));
-const Pricing = lazy(() => import("./pages/Pricing"));
-const Contact = lazy(() => import("./pages/Contact"));
-const FAQ = lazy(() => import("./pages/FAQ"));
+const Home        = lazy(() => import("./pages/Home"));
+const About       = lazy(() => import("./pages/About"));
+const Services    = lazy(() => import("./pages/Services"));
+const Gallery     = lazy(() => import("./pages/Gallery"));
+const Team        = lazy(() => import("./pages/Team"));
+const Blog        = lazy(() => import("./pages/Blog"));
+const Pricing     = lazy(() => import("./pages/Pricing"));
+const Contact     = lazy(() => import("./pages/Contact"));
+const FAQ         = lazy(() => import("./pages/FAQ"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const Login       = lazy(() => import("./pages/Login"));
+const Signup      = lazy(() => import("./pages/Signup"));
+const Dashboard   = lazy(() => import("./pages/Dashboard"));
 
 const pages = {
   home: Home,
@@ -28,7 +32,13 @@ const pages = {
   contact: Contact,
   faq: FAQ,
   product: ProductDetail,
+  login: Login,
+  signup: Signup,
+  dashboard: Dashboard,
 };
+
+// Pages that replace the full site shell (no Navbar / Footer)
+const FULL_PAGE = new Set(["login", "signup", "dashboard"]);
 
 const pageTransition = {
   initial: { opacity: 0, y: 8 },
@@ -42,12 +52,34 @@ function App() {
   const [pageData, setPageData] = useState(null);
 
   const CurrentPage = useMemo(() => pages[page] ?? Home, [page]);
+  const isFullPage = FULL_PAGE.has(page);
 
   const goToPage = (nextPage, data = null) => {
     setPage(nextPage);
     setPageData(data);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const pageContent = (
+    <AnimatePresence mode="wait" initial={false}>
+      <Motion.div key={page} {...pageTransition}>
+        <Suspense fallback={<PageLoader />}>
+          <CurrentPage
+            onNavigate={goToPage}
+            {...(pageData ? { productId: pageData } : {})}
+          />
+        </Suspense>
+      </Motion.div>
+    </AnimatePresence>
+  );
+
+  if (isFullPage) {
+    return (
+      <MotionConfig reducedMotion="user">
+        {pageContent}
+      </MotionConfig>
+    );
+  }
 
   return (
     <MotionConfig reducedMotion="user">
@@ -57,13 +89,7 @@ function App() {
         </a>
         <Navbar activePage={page} navItems={navItems} onNavigate={goToPage} />
         <main id="main-content" tabIndex="-1">
-          <AnimatePresence mode="wait" initial={false}>
-            <Motion.div key={page} {...pageTransition}>
-              <Suspense fallback={<PageLoader />}>
-                <CurrentPage onNavigate={goToPage} {...(pageData ? { productId: pageData } : {})} />
-              </Suspense>
-            </Motion.div>
-          </AnimatePresence>
+          {pageContent}
         </main>
         <Footer onNavigate={goToPage} />
         <ScrollTop />
@@ -72,4 +98,10 @@ function App() {
   );
 }
 
-export default App;
+export default function AppWithAuth() {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+}
