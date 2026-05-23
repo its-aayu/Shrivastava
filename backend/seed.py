@@ -102,8 +102,8 @@ def seed_users(db):
         clear(db, User)
 
     rows = load_json("users.json")
-    # Placeholder password hash — real auth hash assigned during signup flow
-    placeholder_hash = "$2b$12$placeholder.hash.not.real.changeme"
+    from app.utils.security import hash_password
+    placeholder_hash = hash_password("Aayu@2024")  # default password for all seeded users
 
     for row in rows:
         db.add(User(

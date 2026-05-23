@@ -17,7 +17,11 @@ export default function Login({ onNavigate }) {
     setLoading(true);
     try {
       const res = await authApi.login(email, password);
-      login(res.data.access_token);
+      const token = res.data.access_token;
+      // Store token first so me() can attach it to the request
+      localStorage.setItem("aayu_token", token);
+      const userData = await authApi.me().catch(() => null);
+      login(token, userData);
       onNavigate("dashboard");
     } catch (err) {
       setError(err.message || "Login failed. Please check your credentials.");

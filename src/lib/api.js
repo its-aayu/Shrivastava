@@ -61,3 +61,19 @@ export const uploadsApi = {
     return request("/uploads", { method: "POST", body: formData });
   },
 };
+
+export const chatApi = {
+  send: (message, session_id) =>
+    request("/chat", {
+      method: "POST",
+      body: JSON.stringify({ message, session_id }),
+    }),
+  getHistory: (session_id) => request(`/chat/history/${session_id}`),
+};
+
+export const adminApi = {
+  getStats: () => request("/admin/stats"),
+  getUsers: () => request("/admin/users"),
+  setRole: (userId, role) =>
+    request(`/admin/users/${userId}/role?role=${role}`, { method: "PUT" }),
+};

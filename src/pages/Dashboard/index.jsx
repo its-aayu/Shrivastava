@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { motion as Motion } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
-import { ordersApi } from "../../lib/api";
+import { adminApi, ordersApi } from "../../lib/api";
 import mockOrders from "../../mock-data/orders.json";
 import Sidebar from "./components/Sidebar";
 import DashboardHeader from "./components/DashboardHeader";
 import DashboardCard from "./components/DashboardCard";
 import OrdersTable from "./components/OrdersTable";
 import UploadsTable from "./components/UploadsTable";
+import UsersTable from "./components/UsersTable";
+import ChatPanel from "./components/ChatPanel";
 import "./style.css";
 
 // ── icons ──────────────────────────────────────────────────────────────────
@@ -47,55 +49,26 @@ function getUploadsCount() {
 
 // ── sections ─────────────────────────────────────────────────────────────────
 
-function OverviewSection({ orders, loading, setActiveTab }) {
+function CustomerOverview({ orders, loading, setActiveTab }) {
   const pending = orders.filter((o) => (o.status ?? "").toLowerCase() === "pending").length;
   const uploadsCount = getUploadsCount();
 
   const cards = [
-    {
-      icon: { el: IconOrders, variant: "icon-pink" },
-      label: "Total Orders",
-      value: loading ? "…" : orders.length,
-      tag: "All time",
-      tagVariant: "neutral",
-    },
-    {
-      icon: { el: IconPending, variant: "icon-amber" },
-      label: "Pending",
-      value: loading ? "…" : pending,
-      tag: pending > 0 ? "Action needed" : "All clear",
-      tagVariant: pending > 0 ? "amber" : "green",
-    },
-    {
-      icon: { el: IconUploads, variant: "icon-blue" },
-      label: "Files Uploaded",
-      value: uploadsCount,
-      tag: "This device",
-      tagVariant: "blue",
-    },
-    {
-      icon: { el: IconAI, variant: "icon-green" },
-      label: "AI Assistant",
-      value: "Phase 3",
-      tag: "Coming soon",
-      tagVariant: "neutral",
-    },
+    { icon: { el: IconOrders, variant: "icon-pink" },  label: "Total Orders",   value: loading ? "…" : orders.length, tag: "All time",                                      tagVariant: "neutral" },
+    { icon: { el: IconPending, variant: "icon-amber" }, label: "Pending",        value: loading ? "…" : pending,       tag: pending > 0 ? "Action needed" : "All clear",    tagVariant: pending > 0 ? "amber" : "green" },
+    { icon: { el: IconUploads, variant: "icon-blue" },  label: "Files Uploaded", value: uploadsCount,                  tag: "This device",                                  tagVariant: "blue" },
+    { icon: { el: IconAI, variant: "icon-green" },      label: "AI Assistant",   value: "Active",                      tag: "Beta",                                         tagVariant: "green" },
   ];
 
   return (
     <>
       <div className="dash-cards">
-        {cards.map((c) => (
-          <DashboardCard key={c.label} {...c} />
-        ))}
+        {cards.map((c) => <DashboardCard key={c.label} {...c} />)}
       </div>
-
       <div className="dash-section">
         <div className="dash-section-header">
           <span className="dash-section-title">Recent Orders</span>
-          <button className="dash-section-action" onClick={() => setActiveTab("orders")}>
-            View all →
-          </button>
+          <button className="dash-section-action" onClick={() => setActiveTab("orders")}>View all →</button>
         </div>
         <OrdersTable limit={5} />
       </div>
@@ -103,34 +76,40 @@ function OverviewSection({ orders, loading, setActiveTab }) {
   );
 }
 
-function AISection() {
+function AdminOverview({ setActiveTab }) {
+  const [stats, setStats] = useState(null);
+
+  useEffect(() => {
+    adminApi.getStats().then(setStats).catch(() => {});
+  }, []);
+
+  const cards = [
+    { icon: { el: IconOrders, variant: "icon-pink" },  label: "Total Users",    value: stats ? stats.total_users   : "…", tag: "Registered",    tagVariant: "neutral" },
+    { icon: { el: IconPending, variant: "icon-amber" }, label: "Total Orders",   value: stats ? stats.total_orders  : "…", tag: stats?.pending_orders > 0 ? `${stats.pending_orders} pending` : "All clear", tagVariant: stats?.pending_orders > 0 ? "amber" : "green" },
+    { icon: { el: IconUploads, variant: "icon-blue" },  label: "Revenue (₹)",    value: stats ? `₹${(stats.total_revenue / 100).toLocaleString("en-IN")}` : "…", tag: "All orders", tagVariant: "blue" },
+    { icon: { el: IconAI, variant: "icon-green" },      label: "AI Assistant",   value: "Active", tag: "Groq", tagVariant: "green" },
+  ];
+
   return (
-    <div className="dash-section">
-      <div className="dash-section-header">
-        <span className="dash-section-title">AI Print Assistant</span>
-        <span className="dash-ai-badge">Phase 3</span>
+    <>
+      <div className="dash-cards">
+        {cards.map((c) => <DashboardCard key={c.label} {...c} />)}
       </div>
-      <div className="dash-ai-panel">
-        <div className="dash-ai-messages">
-          <div className="dash-ai-placeholder">
-            <div className="dash-ai-placeholder-icon">✦</div>
-            <div className="dash-ai-placeholder-title">AI Assistant — Coming in Phase 3</div>
-            <div className="dash-ai-placeholder-text">
-              Ask about file specifications, pricing, turnaround times,<br />
-              or get personalised print recommendations.
-            </div>
-          </div>
+      <div className="dash-section">
+        <div className="dash-section-header">
+          <span className="dash-section-title">Recent Orders — All Customers</span>
+          <button className="dash-section-action" onClick={() => setActiveTab("orders")}>View all →</button>
         </div>
-        <div className="dash-ai-input-row">
-          <input
-            className="dash-ai-input"
-            placeholder="Ask the print assistant anything…"
-            disabled
-          />
-          <button className="dash-ai-send" disabled>Send</button>
-        </div>
+        <OrdersTable limit={5} />
       </div>
-    </div>
+      <div className="dash-section">
+        <div className="dash-section-header">
+          <span className="dash-section-title">Recent Users</span>
+          <button className="dash-section-action" onClick={() => setActiveTab("users")}>View all →</button>
+        </div>
+        <UsersTable />
+      </div>
+    </>
   );
 }
 
@@ -138,7 +117,8 @@ function AISection() {
 const fadeIn = { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.25 } };
 
 export default function Dashboard({ onNavigate }) {
-  const { isAuthenticated, loading: authLoading } = useAuth();
+  const { isAuthenticated, loading: authLoading, user } = useAuth();
+  const isAdmin = user?.role === "admin";
   const [activeTab, setActiveTab] = useState("overview");
   const [orders, setOrders] = useState([]);
   const [ordersLoading, setOrdersLoading] = useState(true);
@@ -180,17 +160,24 @@ export default function Dashboard({ onNavigate }) {
         <div className="dash-content">
           <Motion.div key={activeTab} {...fadeIn}>
             {activeTab === "overview" && (
-              <OverviewSection
-                orders={orders}
-                loading={ordersLoading}
-                setActiveTab={setActiveTab}
-              />
+              isAdmin
+                ? <AdminOverview setActiveTab={setActiveTab} />
+                : <CustomerOverview orders={orders} loading={ordersLoading} setActiveTab={setActiveTab} />
+            )}
+
+            {activeTab === "users" && isAdmin && (
+              <div className="dash-section">
+                <div className="dash-section-header">
+                  <span className="dash-section-title">All Users</span>
+                </div>
+                <UsersTable />
+              </div>
             )}
 
             {activeTab === "orders" && (
               <div className="dash-section">
                 <div className="dash-section-header">
-                  <span className="dash-section-title">All Orders</span>
+                  <span className="dash-section-title">{isAdmin ? "All Orders" : "My Orders"}</span>
                 </div>
                 <OrdersTable />
               </div>
@@ -205,7 +192,15 @@ export default function Dashboard({ onNavigate }) {
               </div>
             )}
 
-            {activeTab === "ai" && <AISection />}
+            {activeTab === "ai" && (
+              <div className="dash-section">
+                <div className="dash-section-header">
+                  <span className="dash-section-title">AI Print Assistant</span>
+                  <span className="dash-card-tag tag-green" style={{ fontSize: "0.72rem" }}>Beta</span>
+                </div>
+                <ChatPanel />
+              </div>
+            )}
 
             {activeTab === "settings" && (
               <div className="dash-section">
