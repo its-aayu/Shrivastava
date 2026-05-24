@@ -17,6 +17,7 @@ from app.api.orders import router as orders_router
 from app.api.uploads import router as uploads_router
 from app.api.chat import router as chat_router
 from app.api.admin import router as admin_router
+from app.api.search import router as search_router
 
 
 @asynccontextmanager
@@ -52,6 +53,7 @@ app.include_router(orders_router, prefix="/api/v1")
 app.include_router(uploads_router, prefix="/api/v1")
 app.include_router(chat_router, prefix="/api/v1")
 app.include_router(admin_router, prefix="/api/v1")
+app.include_router(search_router, prefix="/api/v1")
 
 
 # ── Root routes ───────────────────────────────────────────────────────────────

@@ -1,11 +1,9 @@
 """
-RAG Service — real implementation.
+RAG Service.
 
-Flow
-────
-Ingest:   file → extract_text → chunk_document → generate_embeddings → store_vectors
-Retrieve: query → embed_query → cosine search → top-k chunks
-Generate: chunks + user_message → LLM (OpenAI) or context-only fallback
+Ingestion:  file → extract_text → chunk_document → chroma_service.add_chunks
+Retrieval:  query → chroma_service.search  (ChromaDB embeds the query internally)
+Generation: chunks + user_message → LLM prompt
 """
 
 import json
@@ -36,18 +34,19 @@ def get_fallback_response() -> str:
     return random.choice(responses)
 
 
-# ── Ingestion pipeline ─────────────────────────────────────────────────────────
+# ── Text extraction ────────────────────────────────────────────────────────────
 
 def extract_text(file_path: str) -> str:
-    """Extract plain text from a PDF or image file."""
     from app.services.document_processor import extract_text_from_file
     return extract_text_from_file(file_path)
 
 
+# ── Chunking ───────────────────────────────────────────────────────────────────
+
 def chunk_document(text: str, chunk_size: int = 500, overlap: int = 50) -> list[str]:
     """
-    Split text into overlapping token windows.
-    Uses tiktoken (cl100k_base); falls back to character-based splitting.
+    Token-based overlapping chunks via tiktoken.
+    Falls back to character splitting if tiktoken is unavailable.
     """
     if not text.strip():
         return []
@@ -65,24 +64,7 @@ def chunk_document(text: str, chunk_size: int = 500, overlap: int = 50) -> list[
         return [text[i: i + char_size] for i in range(0, len(text), char_step)]
 
 
-def generate_embeddings(chunks: list[str]) -> list[list[float]]:
-    """Embed chunks using the local sentence-transformers model."""
-    if not chunks:
-        return []
-    from app.services.embedding_service import embed_texts
-    return embed_texts(chunks)
-
-
-def store_vectors(
-    doc_id: str,
-    chunks: list[str],
-    embeddings: list[list[float]],
-    metadata: dict | None = None,
-) -> int:
-    """Persist chunks + embeddings to the JSON vector store."""
-    from app.services.vector_store import add_chunks
-    return add_chunks(doc_id, chunks, embeddings, metadata)
-
+# ── Ingestion pipeline ─────────────────────────────────────────────────────────
 
 def ingest_document(
     doc_id: str,
@@ -91,7 +73,8 @@ def ingest_document(
     db=None,
 ) -> dict:
     """
-    Full ingestion pipeline: extract → chunk → embed → store.
+    Full pipeline: extract → chunk → store in ChromaDB.
+    ChromaDB handles embedding automatically — no separate embed step needed.
     Returns a status dict safe to log or return in an API response.
     """
     text = extract_text(file_path)
@@ -102,8 +85,8 @@ def ingest_document(
     if not chunks:
         return {"doc_id": doc_id, "status": "error", "message": "Chunking produced no output", "chunks": 0}
 
-    embeddings = generate_embeddings(chunks)
-    stored = store_vectors(doc_id, chunks, embeddings, metadata)
+    from app.services.chroma_service import add_chunks
+    stored = add_chunks(doc_id, chunks, metadata)
 
     return {
         "doc_id": doc_id,
@@ -116,14 +99,15 @@ def ingest_document(
 # ── Retrieval ──────────────────────────────────────────────────────────────────
 
 def retrieve_context(query: str, db=None, top_k: int = 4) -> list[dict]:
-    """Embed the query, run cosine similarity search, return top-k chunks."""
+    """Semantic search via ChromaDB. Returns top-k chunks with scores + source info."""
     try:
-        from app.services.embedding_service import embed_query
-        from app.services.vector_store import search
-        return search(embed_query(query), top_k=top_k)
+        from app.services.chroma_service import search
+        return search(query, top_k=top_k)
     except Exception:
         return []
 
+
+# ── Prompt building ────────────────────────────────────────────────────────────
 
 def build_prompt_with_context(user_message: str, context_chunks: list[dict]) -> str:
     """Inject retrieved chunks into the prompt template from chat-prompts.json."""

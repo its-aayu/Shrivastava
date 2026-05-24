@@ -25,6 +25,16 @@ const IconAI = (
     <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
   </svg>
 );
+const IconSearch = (
+  <svg className="dash-nav-icon" viewBox="0 0 20 20" fill="currentColor">
+    <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+  </svg>
+);
+const IconDebug = (
+  <svg className="dash-nav-icon" viewBox="0 0 20 20" fill="currentColor">
+    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+  </svg>
+);
 const IconSettings = (
   <svg className="dash-nav-icon" viewBox="0 0 20 20" fill="currentColor">
     <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
@@ -33,9 +43,10 @@ const IconSettings = (
 
 const CUSTOMER_NAV = [
   { id: "overview",  label: "Overview",     icon: IconOverview },
-  { id: "orders",    label: "Orders",        icon: IconOrders },
-  { id: "uploads",   label: "Uploads",       icon: IconUploads },
-  { id: "ai",        label: "AI Assistant",  icon: IconAI },
+  { id: "orders",    label: "Orders",       icon: IconOrders },
+  { id: "uploads",   label: "Uploads",      icon: IconUploads },
+  { id: "ai",        label: "AI Assistant", icon: IconAI },
+  { id: "search",    label: "Search",       icon: IconSearch },
 ];
 
 const ADMIN_NAV = [
@@ -44,6 +55,8 @@ const ADMIN_NAV = [
   { id: "orders",    label: "All Orders",   icon: IconOrders },
   { id: "uploads",   label: "Uploads",      icon: IconUploads },
   { id: "ai",        label: "AI Assistant", icon: IconAI },
+  { id: "search",    label: "Search",       icon: IconSearch },
+  { id: "debug",     label: "Vector Debug", icon: IconDebug },
 ];
 
 const BOTTOM_NAV = [

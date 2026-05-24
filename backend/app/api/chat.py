@@ -78,10 +78,21 @@ async def chat(
         model_used, tokens_used, latency, session_id,
     )
 
-    # 3 — Persist conversation turns
+    # 3 — Collect unique source filenames from retrieved chunks
+    sources = list({
+        c.get("source", c.get("doc_id", ""))
+        for c in chunks
+        if c.get("source") or c.get("doc_id")
+    })
+
+    # 4 — Persist conversation turns
     _save_turns(db, session_id, user_id, msg, response_text)
 
-    return ChatResponse(data={"response": response_text, "session_id": session_id})
+    return ChatResponse(data={
+        "response": response_text,
+        "session_id": session_id,
+        "sources": sources,
+    })
 
 
 # ── Generation helpers ─────────────────────────────────────────────────────────
@@ -144,6 +155,44 @@ def _save_turns(db, session_id: str, user_id, user_msg: str, ai_msg: str) -> Non
     except Exception as exc:
         log.error("[chat] DB save failed for session=%s  error=%s", session_id, exc)
         db.rollback()
+
+
+# ── Public widget endpoint (no auth) ──────────────────────────────────────────
+
+@router.post("/widget")
+async def chat_widget(payload: ChatRequest):
+    """
+    Public chat endpoint for the homepage widget.
+    No authentication required. Does not persist to DB.
+    Uses the same RAG + Groq pipeline as the authenticated endpoint.
+    """
+    msg = payload.message.strip()
+    if not msg:
+        raise HTTPException(status_code=400, detail="Message cannot be empty")
+
+    session_id = payload.session_id or str(uuid.uuid4())
+    t0 = time.perf_counter()
+
+    chunks = retrieve_context(msg, db=None, top_k=4)
+    top_score = round(chunks[0]["score"], 3) if chunks else None
+    log.info("[widget] chunks=%d  top_score=%s  query=%r", len(chunks), top_score, msg[:80])
+
+    response_text, model_used, tokens_used = _generate(msg, chunks)
+
+    latency = round(time.perf_counter() - t0, 3)
+    log.info("[widget] model=%s  tokens=%s  latency=%ss", model_used, tokens_used, latency)
+
+    sources = list({
+        c.get("source", c.get("doc_id", ""))
+        for c in chunks
+        if c.get("source") or c.get("doc_id")
+    })
+
+    return ChatResponse(data={
+        "response": response_text,
+        "session_id": session_id,
+        "sources": sources,
+    })
 
 
 # ── History endpoint ───────────────────────────────────────────────────────────

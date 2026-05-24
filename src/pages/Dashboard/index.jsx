@@ -10,6 +10,8 @@ import OrdersTable from "./components/OrdersTable";
 import UploadsTable from "./components/UploadsTable";
 import UsersTable from "./components/UsersTable";
 import ChatPanel from "./components/ChatPanel";
+import SearchPanel from "./components/SearchPanel";
+import VectorDebugPanel from "./components/VectorDebugPanel";
 import "./style.css";
 
 // ── icons ──────────────────────────────────────────────────────────────────
@@ -199,6 +201,26 @@ export default function Dashboard({ onNavigate }) {
                   <span className="dash-card-tag tag-green" style={{ fontSize: "0.72rem" }}>Beta</span>
                 </div>
                 <ChatPanel />
+              </div>
+            )}
+
+            {activeTab === "search" && (
+              <div className="dash-section">
+                <div className="dash-section-header">
+                  <span className="dash-section-title">Semantic Search</span>
+                  <span className="dash-card-tag tag-blue" style={{ fontSize: "0.72rem" }}>AI-powered</span>
+                </div>
+                <SearchPanel />
+              </div>
+            )}
+
+            {activeTab === "debug" && isAdmin && (
+              <div className="dash-section">
+                <div className="dash-section-header">
+                  <span className="dash-section-title">Vector Store Debug</span>
+                  <span className="dash-card-tag tag-neutral" style={{ fontSize: "0.72rem" }}>ChromaDB</span>
+                </div>
+                <VectorDebugPanel />
               </div>
             )}
 

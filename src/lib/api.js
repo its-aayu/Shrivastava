@@ -71,6 +71,20 @@ export const chatApi = {
   getHistory: (session_id) => request(`/chat/history/${session_id}`),
 };
 
+export const searchApi = {
+  query: (q, top_k = 5) =>
+    request(`/search?q=${encodeURIComponent(q)}&top_k=${top_k}`),
+  stats: () => request("/search/stats"),
+};
+
+export const widgetApi = {
+  send: (message, session_id) =>
+    request("/chat/widget", {
+      method: "POST",
+      body: JSON.stringify({ message, session_id }),
+    }),
+};
+
 export const adminApi = {
   getStats: () => request("/admin/stats"),
   getUsers: () => request("/admin/users"),

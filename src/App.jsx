@@ -6,6 +6,7 @@ import PageLoader from "./components/ui/PageLoader";
 import ScrollTop from "./components/ui/ScrollTop";
 import { AuthProvider } from "./context/AuthContext";
 import { navItems } from "./data/site";
+import ChatWidget from "./components/ui/ChatWidget";
 
 const Home        = lazy(() => import("./pages/Home"));
 const About       = lazy(() => import("./pages/About"));
@@ -93,6 +94,7 @@ function App() {
         </main>
         <Footer onNavigate={goToPage} />
         <ScrollTop />
+        <ChatWidget />
       </div>
     </MotionConfig>
   );
