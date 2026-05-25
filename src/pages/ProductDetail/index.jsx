@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion as Motion } from "framer-motion";
+import { toast } from "sonner";
 import Button from "../../components/ui/Button";
 import { imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { useProduct, useProducts } from "../../hooks/useProducts";
+import useCartStore from "../../store/cartStore";
 import { PageHero, PromoBand, SectionHeader } from "../shared";
 import "./style.css";
 
@@ -25,6 +27,8 @@ function ProductSkeleton() {
 export default function ProductDetail({ onNavigate, productId }) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isSticky, setIsSticky] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const { addItem } = useCartStore();
 
   const { product, loading, error } = useProduct(productId);
 
@@ -38,7 +42,16 @@ export default function ProductDetail({ onNavigate, productId }) {
 
   useEffect(() => {
     setSelectedImage(0);
+    setQuantity(1);
   }, [productId]);
+
+  function handleAddToCart() {
+    addItem(product, quantity);
+    toast.success(`${product.title} added to cart`, {
+      description: `Qty ${quantity} · ₹${(product.price * quantity).toLocaleString("en-IN")}`,
+      action: { label: "View cart", onClick: () => onNavigate("cart") },
+    });
+  }
 
   useEffect(() => {
     const onScroll = () => {
@@ -94,7 +107,7 @@ export default function ProductDetail({ onNavigate, productId }) {
               <small>{product.price_unit}</small>
             </strong>
           </div>
-          <Button onClick={() => onNavigate("contact")}>Request Quote</Button>
+          <Button onClick={() => { handleAddToCart(); onNavigate("cart"); }}>Add to cart</Button>
         </div>
       </div>
 
@@ -147,8 +160,32 @@ export default function ProductDetail({ onNavigate, productId }) {
             </div>
           )}
           <div className="productHero__cta">
-            <Button onClick={() => onNavigate("contact")}>Request a Quote</Button>
-            <Button variant="outline" onClick={() => onNavigate("gallery")}>View More Work</Button>
+            <div className="productHero__qty">
+              <span className="productHero__qty-label">Quantity</span>
+              <div className="productHero__qty-ctrl">
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  aria-label="Decrease quantity"
+                >−</button>
+                <input
+                  type="number"
+                  min={1}
+                  value={quantity}
+                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                  aria-label="Quantity"
+                />
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => q + 1)}
+                  aria-label="Increase quantity"
+                >+</button>
+              </div>
+            </div>
+            <Button onClick={handleAddToCart}>
+              Add to cart · ₹{(product.price * quantity).toLocaleString("en-IN")}
+            </Button>
+            <Button variant="outline" onClick={() => onNavigate("contact")}>Request a Quote</Button>
           </div>
         </div>
       </section>

@@ -1,0 +1,321 @@
+.ck-shell {
+  min-height: 100vh;
+  background: var(--background);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(40px, 6vw, 80px) var(--page-padding);
+}
+
+/* ── Layout ── */
+.ck-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+  width: 100%;
+  max-width: 1080px;
+  align-items: start;
+}
+
+/* ── Form sections ── */
+.ck-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.ck-form-section {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 28px 32px;
+  box-shadow: 0 2px 12px rgba(75, 59, 56, 0.06);
+}
+.ck-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 20px;
+}
+.ck-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.ck-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.ck-field span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  letter-spacing: 0.01em;
+}
+.ck-field input,
+.ck-field textarea {
+  border: 1.5px solid rgba(75, 59, 56, 0.14);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background: #faf8f7;
+  outline: none;
+  transition: border-color 0.18s, background 0.18s;
+  resize: vertical;
+}
+.ck-field input:focus,
+.ck-field textarea:focus {
+  border-color: var(--primary);
+  background: #fff;
+}
+.ck-field input::placeholder,
+.ck-field textarea::placeholder {
+  color: var(--text-light);
+}
+
+/* ── Payment placeholder ── */
+.ck-payment-placeholder {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: #faf8f7;
+  border: 1.5px dashed rgba(75, 59, 56, 0.18);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+}
+.ck-payment-icon {
+  color: var(--primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ck-payment-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin: 0 0 4px;
+}
+.ck-payment-sub {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Submit ── */
+.ck-submit {
+  width: 100%;
+  background: var(--text-dark);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 0.18s, transform 0.12s, opacity 0.18s;
+  letter-spacing: 0.01em;
+}
+.ck-submit:hover:not(:disabled) {
+  background: #2a1f1d;
+  transform: translateY(-1px);
+}
+.ck-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── Summary sidebar ── */
+.ck-summary {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 28px 28px;
+  box-shadow: 0 2px 12px rgba(75, 59, 56, 0.06);
+  position: sticky;
+  top: 24px;
+}
+.ck-summary-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.ck-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.ck-summary-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.ck-summary-name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-dark);
+  line-height: 1.35;
+}
+.ck-summary-meta {
+  font-size: 0.76rem;
+  color: var(--text-light);
+}
+.ck-summary-price {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+
+.ck-totals {
+  border-top: 1px solid rgba(75, 59, 56, 0.08);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.ck-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+.ck-total-row--final {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  padding-top: 8px;
+  border-top: 1px solid rgba(75, 59, 56, 0.1);
+  margin-top: 4px;
+}
+
+.ck-trust {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  border-top: 1px solid rgba(75, 59, 56, 0.07);
+  padding-top: 16px;
+}
+
+/* ── Gates (auth / empty) ── */
+.ck-auth-gate {
+  text-align: center;
+  max-width: 400px;
+  padding: 60px 40px;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 16px rgba(75, 59, 56, 0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.ck-auth-icon {
+  font-size: 2.5rem;
+  margin-bottom: 4px;
+}
+.ck-auth-gate h2 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  margin: 0;
+}
+.ck-auth-gate p {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  line-height: 1.55;
+  margin: 0 0 8px;
+}
+
+/* ── Success state ── */
+.ck-success {
+  text-align: center;
+  max-width: 480px;
+  padding: 60px 40px;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 16px rgba(75, 59, 56, 0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.ck-success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.ck-success h2 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  margin: 0;
+}
+.ck-success p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin: 0;
+}
+.ck-success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* ── Shared buttons ── */
+.ck-btn-primary {
+  background: var(--text-dark);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 13px 28px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.ck-btn-primary:hover { background: #2a1f1d; }
+
+.ck-btn-ghost {
+  background: none;
+  color: var(--text-light);
+  border: 1.5px solid rgba(75, 59, 56, 0.18);
+  border-radius: var(--radius-full);
+  padding: 12px 28px;
+  font-size: 0.88rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.18s, color 0.18s;
+}
+.ck-btn-ghost:hover { border-color: var(--text-dark); color: var(--text-dark); }
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .ck-layout {
+    grid-template-columns: 1fr;
+  }
+  .ck-summary {
+    position: static;
+    order: -1;
+  }
+  .ck-field-row {
+    grid-template-columns: 1fr;
+  }
+}

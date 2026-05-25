@@ -52,6 +52,13 @@ export const authApi = {
 export const ordersApi = {
   getAll: () => request("/orders/"),
   getById: (id) => request(`/orders/${id}`),
+  create: (payload) =>
+    request("/orders/", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  updateStatus: (id, status) =>
+    request(`/orders/${id}/status?status=${status}`, { method: "PATCH" }),
 };
 
 export const uploadsApi = {

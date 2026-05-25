@@ -22,7 +22,9 @@ export default function Login({ onNavigate }) {
       localStorage.setItem("aayu_token", token);
       const userData = await authApi.me().catch(() => null);
       login(token, userData);
-      onNavigate("dashboard");
+      // Admins go to dashboard; customers go to home to browse and shop
+      const role = userData?.role ?? "customer";
+      onNavigate(role === "admin" ? "dashboard" : "home");
     } catch (err) {
       setError(err.message || "Login failed. Please check your credentials.");
     } finally {

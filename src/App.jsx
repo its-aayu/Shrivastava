@@ -4,6 +4,7 @@ import Footer from "./components/layout/footer";
 import Navbar from "./components/layout/Navbar";
 import PageLoader from "./components/ui/PageLoader";
 import ScrollTop from "./components/ui/ScrollTop";
+import { Toaster } from "sonner";
 import { AuthProvider } from "./context/AuthContext";
 import { navItems } from "./data/site";
 import ChatWidget from "./components/ui/ChatWidget";
@@ -21,6 +22,8 @@ const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Login       = lazy(() => import("./pages/Login"));
 const Signup      = lazy(() => import("./pages/Signup"));
 const Dashboard   = lazy(() => import("./pages/Dashboard"));
+const Checkout    = lazy(() => import("./pages/Checkout"));
+const Cart        = lazy(() => import("./pages/Cart"));
 
 const pages = {
   home: Home,
@@ -36,10 +39,12 @@ const pages = {
   login: Login,
   signup: Signup,
   dashboard: Dashboard,
+  checkout: Checkout,
+  cart: Cart,
 };
 
 // Pages that replace the full site shell (no Navbar / Footer)
-const FULL_PAGE = new Set(["login", "signup", "dashboard"]);
+const FULL_PAGE = new Set(["login", "signup", "dashboard", "checkout"]);
 
 const pageTransition = {
   initial: { opacity: 0, y: 8 },
@@ -104,6 +109,16 @@ export default function AppWithAuth() {
   return (
     <AuthProvider>
       <App />
+      <Toaster
+        position="bottom-right"
+        offset={80}
+        toastOptions={{
+          style: {
+            fontFamily: "var(--font-body)",
+            fontSize: "0.875rem",
+          },
+        }}
+      />
     </AuthProvider>
   );
 }

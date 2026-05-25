@@ -365,3 +365,52 @@
   color: #666;
   font-size: 0.9rem;
 }
+
+/* ── Quantity picker ── */
+.productHero__qty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.productHero__qty-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.productHero__qty-ctrl {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid rgba(75, 59, 56, 0.18);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.productHero__qty-ctrl button {
+  background: none;
+  border: none;
+  width: 34px;
+  height: 34px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-dark);
+  transition: background 0.12s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.productHero__qty-ctrl button:hover { background: rgba(75, 59, 56, 0.06); }
+.productHero__qty-ctrl input {
+  width: 52px;
+  border: none;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background: transparent;
+  outline: none;
+  padding: 0;
+  -moz-appearance: textfield;
+}
+.productHero__qty-ctrl input::-webkit-outer-spin-button,
+.productHero__qty-ctrl input::-webkit-inner-spin-button { -webkit-appearance: none; }
