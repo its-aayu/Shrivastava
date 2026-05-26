@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion as Motion } from "framer-motion";
+import { toast } from "sonner";
 import { useAuth } from "../../context/AuthContext";
 import { authApi } from "../../lib/api";
 import "../Login/style.css";
@@ -22,15 +23,16 @@ export default function Signup({ onNavigate }) {
     setLoading(true);
     try {
       const res = await authApi.signup(name, email, password);
-      login(res.data.access_token, {
-        id: res.data.user_id,
-        name: res.data.name,
-        email: res.data.email,
-        role: res.data.role,
+      const userData = { id: res.data.user_id, name: res.data.name, email: res.data.email, role: res.data.role };
+      login(res.data.access_token, userData);
+      toast.success(`Account created! Welcome, ${res.data.name?.split(" ")[0] ?? "there"}.`, {
+        description: "You can now browse products and place orders.",
       });
-      onNavigate("dashboard");
+      onNavigate("home");
     } catch (err) {
-      setError(err.message || "Sign up failed. Please try again.");
+      const msg = err.message || "Sign up failed. Please try again.";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }

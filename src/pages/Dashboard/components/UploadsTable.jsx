@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { toast } from "sonner";
 import { uploadsApi } from "../../../lib/api";
 
 const STORAGE_KEY = "aayu_uploads";
@@ -32,27 +33,24 @@ function fileTypeLabel(mime) {
 export default function UploadsTable() {
   const [history, setHistory] = useState(loadHistory);
   const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const inputRef = useRef(null);
 
   async function handleFile(file) {
     if (!file) return;
-    setError("");
-    setSuccess("");
     setUploading(true);
+    const uploadToast = toast.loading(`Uploading "${file.name}"…`);
     try {
       const res = await uploadsApi.upload(file);
-      const entry = {
-        ...res.data,
-        uploaded_at: new Date().toISOString(),
-      };
+      const entry = { ...res.data, uploaded_at: new Date().toISOString() };
       const updated = [entry, ...history];
       setHistory(updated);
       saveHistory(updated);
-      setSuccess(`"${file.name}" uploaded successfully.`);
+      toast.success(`"${file.name}" uploaded successfully.`, {
+        id: uploadToast,
+        description: res.data?.doc_id ? "File indexed into knowledge base." : undefined,
+      });
     } catch (err) {
-      setError(err.message || "Upload failed.");
+      toast.error(err.message || "Upload failed. Please try again.", { id: uploadToast });
     } finally {
       setUploading(false);
       if (inputRef.current) inputRef.current.value = "";
@@ -91,9 +89,6 @@ export default function UploadsTable() {
           {uploading ? "Uploading…" : "Choose File"}
         </button>
       </div>
-
-      {error && <div className="dash-upload-error">{error}</div>}
-      {success && <div className="dash-upload-success">{success}</div>}
 
       {history.length === 0 ? (
         <div className="dash-empty">

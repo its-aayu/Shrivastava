@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion as Motion } from "framer-motion";
+import { toast } from "sonner";
 import { useAuth } from "../../context/AuthContext";
 import { authApi } from "../../lib/api";
 import "./style.css";
@@ -22,11 +23,16 @@ export default function Login({ onNavigate }) {
       localStorage.setItem("aayu_token", token);
       const userData = await authApi.me().catch(() => null);
       login(token, userData);
-      // Admins go to dashboard; customers go to home to browse and shop
       const role = userData?.role ?? "customer";
+      const firstName = userData?.name?.split(" ")[0] ?? "back";
+      toast.success(`Welcome ${firstName}!`, {
+        description: role === "admin" ? "Opening admin dashboard…" : "Happy to have you here.",
+      });
       onNavigate(role === "admin" ? "dashboard" : "home");
     } catch (err) {
-      setError(err.message || "Login failed. Please check your credentials.");
+      const msg = err.message || "Login failed. Please check your credentials.";
+      setError(msg);
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
