@@ -26,6 +26,7 @@ from app.services.rag_service import (
     build_prompt_with_context,
     get_fallback_response,
     get_system_prompt,
+    load_chat_config,
     retrieve_context,
 )
 from app.utils.auth import get_current_user
@@ -61,12 +62,17 @@ async def chat(
     t0 = time.perf_counter()
 
     # 1 — Retrieve relevant chunks from vector store
-    chunks = retrieve_context(msg, db=db, top_k=4)
+    rag_config = load_chat_config().get("rag_config", {})
+    min_score = rag_config.get("min_similarity_score", 0.35)
+    top_k = rag_config.get("top_k", 4)
+
+    raw_chunks = retrieve_context(msg, db=db, top_k=top_k)
+    chunks = [c for c in raw_chunks if c.get("score", 0) >= min_score]
     top_score = round(chunks[0]["score"], 3) if chunks else None
 
     log.info(
-        "[chat] user=%s  chunks=%d  top_score=%s  query=%r",
-        user_id, len(chunks), top_score, msg[:80],
+        "[chat] user=%s  raw=%d  filtered=%d  top_score=%s  query=%r",
+        user_id, len(raw_chunks), len(chunks), top_score, msg[:80],
     )
 
     # 2 — Generate response (Groq or context-based fallback)
@@ -92,6 +98,7 @@ async def chat(
         "response": response_text,
         "session_id": session_id,
         "sources": sources,
+        "confidence": top_score,
     })
 
 
@@ -173,9 +180,14 @@ async def chat_widget(payload: ChatRequest):
     session_id = payload.session_id or str(uuid.uuid4())
     t0 = time.perf_counter()
 
-    chunks = retrieve_context(msg, db=None, top_k=4)
+    rag_config = load_chat_config().get("rag_config", {})
+    min_score = rag_config.get("min_similarity_score", 0.35)
+    top_k = rag_config.get("top_k", 4)
+
+    raw_chunks = retrieve_context(msg, db=None, top_k=top_k)
+    chunks = [c for c in raw_chunks if c.get("score", 0) >= min_score]
     top_score = round(chunks[0]["score"], 3) if chunks else None
-    log.info("[widget] chunks=%d  top_score=%s  query=%r", len(chunks), top_score, msg[:80])
+    log.info("[widget] raw=%d  filtered=%d  top_score=%s  query=%r", len(raw_chunks), len(chunks), top_score, msg[:80])
 
     response_text, model_used, tokens_used = _generate(msg, chunks)
 
@@ -192,6 +204,7 @@ async def chat_widget(payload: ChatRequest):
         "response": response_text,
         "session_id": session_id,
         "sources": sources,
+        "confidence": top_score,
     })
 
 
@@ -212,3 +225,53 @@ async def get_history(
         .all()
     )
     return {"data": [{"role": r.role, "content": r.content, "created_at": r.created_at} for r in rows]}
+
+
+# ── Sessions list (for sidebar) ────────────────────────────────────────────────
+
+@router.get("/sessions")
+async def list_sessions(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Return a list of distinct sessions for the current user, most recent first."""
+    if db is None:
+        return {"data": []}
+    user_id = getattr(current_user, "id", None)
+    rows = (
+        db.query(ChatHistory)
+        .filter(ChatHistory.user_id == str(user_id))
+        .order_by(ChatHistory.created_at.desc())
+        .all()
+    )
+    # Build one entry per session_id — use the first user message as preview
+    seen: dict[str, dict] = {}
+    for r in rows:
+        if r.session_id not in seen:
+            seen[r.session_id] = {
+                "session_id": r.session_id,
+                "preview": "",
+                "created_at": r.created_at,
+            }
+        if r.role == "user" and not seen[r.session_id]["preview"]:
+            preview = r.content[:80]
+            seen[r.session_id]["preview"] = preview + ("…" if len(r.content) > 80 else "")
+    sessions = sorted(seen.values(), key=lambda s: s["created_at"], reverse=True)
+    return {"data": sessions}
+
+
+@router.delete("/sessions/{session_id}", status_code=204)
+async def delete_session(
+    session_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Delete all chat history rows for a session. Only the owning user can delete."""
+    if db is None:
+        return
+    user_id = getattr(current_user, "id", None)
+    db.query(ChatHistory).filter(
+        ChatHistory.session_id == session_id,
+        ChatHistory.user_id == str(user_id),
+    ).delete(synchronize_session=False)
+    db.commit()
