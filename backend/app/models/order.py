@@ -11,9 +11,9 @@ class Order(Base):
     product_id = Column(String, nullable=False, index=True) # FK → products.id
     product_title = Column(String, nullable=False)
 
-    # Status flow: proof_review → processing → production → dispatched → delivered
+    # Status flow: pending → proof_review → processing → production → dispatched → delivered
     # Escape: cancelled
-    status = Column(String, nullable=False, default="processing", index=True)
+    status = Column(String, nullable=False, default="pending", index=True)
 
     quantity = Column(Integer, nullable=False, default=1)
     unit_price = Column(Integer, nullable=False)   # INR

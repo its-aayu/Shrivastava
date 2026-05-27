@@ -55,6 +55,7 @@ def create_order(order_data: dict, db=None) -> object:
         from datetime import date
         order = Order(
             order_id=f"ord_{uuid.uuid4().hex[:6]}",
+            status=order_data.pop("status", "pending"),
             created_at=date.today().isoformat(),
             **order_data,
         )
@@ -64,7 +65,7 @@ def create_order(order_data: dict, db=None) -> object:
         return order
 
     # Mock: return the dict as-if saved (no persistence)
-    return {"order_id": f"ord_{uuid.uuid4().hex[:6]}", "status": "processing", **order_data}
+    return {"order_id": f"ord_{uuid.uuid4().hex[:6]}", "status": "pending", **order_data}
 
 
 def update_order_status(order_id: str, status: str, db=None) -> Optional[object]:

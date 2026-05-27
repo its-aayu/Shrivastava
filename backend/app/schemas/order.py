@@ -3,7 +3,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 
-ORDER_STATUSES = {"proof_review", "processing", "production", "dispatched", "delivered", "cancelled"}
+ORDER_STATUSES = {"pending", "proof_review", "processing", "production", "dispatched", "delivered", "cancelled"}
 
 
 class OrderBase(BaseModel):
