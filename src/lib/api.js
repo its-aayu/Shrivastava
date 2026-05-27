@@ -1,26 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api/v1";
-
-function getToken() {
-  return localStorage.getItem("aayu_token");
-}
-
-async function request(path, options = {}) {
-  const token = getToken();
-  const isFormData = options.body instanceof FormData;
-  const headers = { ...options.headers };
-
-  if (!isFormData) headers["Content-Type"] = "application/json";
-  if (token) headers["Authorization"] = `Bearer ${token}`;
-
-  const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
-
-  if (!res.ok) {
-    const error = await res.json().catch(() => ({ detail: "Unknown error" }));
-    throw new Error(error.detail || `API error ${res.status}`);
-  }
-
-  return res.json();
-}
+import request from "./apiClient";
 
 export const productsApi = {
   getAll: (params = {}) => {
@@ -50,7 +28,12 @@ export const authApi = {
 };
 
 export const ordersApi = {
-  getAll: () => request("/orders/"),
+  getAll: (params = {}) => {
+    const qs = new URLSearchParams(
+      Object.fromEntries(Object.entries(params).filter(([, v]) => v != null))
+    ).toString();
+    return request(`/orders/${qs ? `?${qs}` : ""}`);
+  },
   getById: (id) => request(`/orders/${id}`),
   create: (payload) =>
     request("/orders/", {
@@ -76,6 +59,9 @@ export const chatApi = {
       body: JSON.stringify({ message, session_id }),
     }),
   getHistory: (session_id) => request(`/chat/history/${session_id}`),
+  getSessions: () => request("/chat/sessions"),
+  deleteSession: (session_id) =>
+    request(`/chat/sessions/${session_id}`, { method: "DELETE" }),
 };
 
 export const searchApi = {

@@ -24,6 +24,16 @@ export function AuthProvider({ children }) {
       .finally(() => setLoading(false));
   }, []);
 
+  // Auto-logout when any API call receives a 401 (token expired/revoked)
+  useEffect(() => {
+    function onUnauthorized() {
+      setToken(null);
+      setUser(null);
+    }
+    window.addEventListener("aayu:unauthorized", onUnauthorized);
+    return () => window.removeEventListener("aayu:unauthorized", onUnauthorized);
+  }, []);
+
   const login = useCallback((newToken, userData = null) => {
     localStorage.setItem("aayu_token", newToken);
     setToken(newToken);
