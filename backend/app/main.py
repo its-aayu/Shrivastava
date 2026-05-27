@@ -20,13 +20,24 @@ from app.api.admin import router as admin_router
 from app.api.search import router as search_router
 
 
+log = logging.getLogger("aayu")
+
+_DEV_SECRET = "dev-only-secret-change-before-deploy"
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: create all DB tables (no-op when DATABASE_URL is empty)
     from app.db.database import create_tables
     create_tables()
+
+    if not settings.DEBUG and settings.SECRET_KEY == _DEV_SECRET:
+        raise RuntimeError(
+            "SECRET_KEY is set to the dev default — set a real secret in .env before deploying."
+        )
+    if settings.SECRET_KEY == _DEV_SECRET:
+        log.warning("⚠  Using dev SECRET_KEY — change before deploying to production")
+
     yield
-    # Shutdown: SQLAlchemy connection pool closes automatically
 
 
 app = FastAPI(

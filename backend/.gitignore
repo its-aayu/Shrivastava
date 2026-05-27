@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Runtime file storage — local only, not committed
+app/uploads/*
+!app/uploads/.gitkeep
+
+# ChromaDB vector store — rebuilt by running seed_knowledge.py
+app/data/chroma_db/
+chroma_store/
