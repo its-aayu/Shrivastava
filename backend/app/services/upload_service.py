@@ -1,3 +1,4 @@
+import os
 import uuid
 from pathlib import Path
 
@@ -37,17 +38,76 @@ def _validate_mime_type(content_type: str) -> None:
 
 
 def generate_safe_filename(original: str) -> str:
-    """Prefix original name with a UUID hex to prevent collisions and path traversal."""
     ext = Path(original).suffix.lower()
     stem = Path(original).stem
     safe_stem = "".join(c if c.isalnum() or c in "-_" else "_" for c in stem)[:60]
     return f"{uuid.uuid4().hex}_{safe_stem}{ext}"
 
 
+def _cloudinary_configured() -> bool:
+    return bool(
+        os.getenv("CLOUDINARY_CLOUD_NAME")
+        and os.getenv("CLOUDINARY_API_KEY")
+        and os.getenv("CLOUDINARY_API_SECRET")
+    )
+
+
+def _upload_to_cloudinary(contents: bytes, original_filename: str, content_type: str) -> dict:
+    import cloudinary
+    import cloudinary.uploader
+
+    cloudinary.config(
+        cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+        api_key=os.getenv("CLOUDINARY_API_KEY"),
+        api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+        secure=True,
+    )
+
+    safe_name = generate_safe_filename(original_filename)
+    public_id = f"aayu-uploads/{Path(safe_name).stem}"
+
+    # resource_type "auto" handles PDFs and images correctly
+    result = cloudinary.uploader.upload(
+        contents,
+        public_id=public_id,
+        resource_type="auto",
+        use_filename=False,
+        overwrite=False,
+    )
+
+    return {
+        "filename": safe_name,
+        "original_filename": original_filename,
+        "url": result["secure_url"],
+        "public_id": result["public_id"],
+        "path": result["secure_url"],  # kept for backwards compat
+        "size": result.get("bytes", len(contents)),
+        "content_type": content_type,
+        "storage": "cloudinary",
+    }
+
+
+def _upload_local(contents: bytes, original_filename: str, content_type: str) -> dict:
+    safe_name = generate_safe_filename(original_filename)
+    dest = UPLOADS_DIR / safe_name
+    dest.write_bytes(contents)
+
+    return {
+        "filename": safe_name,
+        "original_filename": original_filename,
+        "url": None,
+        "path": str(dest),
+        "size": len(contents),
+        "content_type": content_type,
+        "storage": "local",
+    }
+
+
 async def save_upload(file: UploadFile) -> dict:
     """
-    Validate file type/size, persist to uploads/, return metadata.
-    Raises HTTP 400 for invalid files.
+    Validate file type/size, then:
+    - If Cloudinary env vars are set: upload to Cloudinary (production-ready)
+    - Otherwise: save to local uploads/ directory (dev fallback)
     """
     _validate_extension(file.filename)
     _validate_mime_type(file.content_type)
@@ -60,14 +120,13 @@ async def save_upload(file: UploadFile) -> dict:
             detail=f"File exceeds the {max_mb} MB size limit.",
         )
 
-    safe_name = generate_safe_filename(file.filename)
-    dest = UPLOADS_DIR / safe_name
-    dest.write_bytes(contents)
+    if _cloudinary_configured():
+        try:
+            return _upload_to_cloudinary(contents, file.filename, file.content_type)
+        except Exception as exc:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Cloudinary upload failed: {exc}",
+            )
 
-    return {
-        "filename": safe_name,
-        "original_filename": file.filename,
-        "path": str(dest),
-        "size": len(contents),
-        "content_type": file.content_type,
-    }
+    return _upload_local(contents, file.filename, file.content_type)
