@@ -5,7 +5,10 @@ from sqlalchemy.orm import Session
 
 from app.db.database import get_db
 from app.models.user import User
-from app.schemas.order import OrderCreate, OrderListResponse, OrderResponse, OrderUpdate, ORDER_STATUSES
+from app.schemas.order import (
+    MultiOrderCreate, MultiOrderResponse, OrderItemResponse,
+    OrderCreate, OrderListResponse, OrderResponse, OrderUpdate, ORDER_STATUSES,
+)
 from app.services import order_service
 from app.utils.auth import get_current_user
 
@@ -46,6 +49,52 @@ def create_order(
     _: User = Depends(get_current_user),
 ):
     return order_service.create_order(order.model_dump(), db)
+
+
+@router.post("/create", response_model=MultiOrderResponse, status_code=201, summary="Create multi-item order")
+def create_multi_order(
+    payload: MultiOrderCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Create one parent order + order items from a full cart. Returns the order with items attached."""
+    user_id = str(getattr(current_user, "id", "guest"))
+    result = order_service.create_multi_order(payload.model_dump(), user_id, db)
+
+    order = result["order"]
+    items = result["items"]
+
+    # Build response — handle both ORM objects and plain dicts
+    def _val(obj, key):
+        return getattr(obj, key, None) if hasattr(obj, "__tablename__") else obj.get(key)
+
+    return MultiOrderResponse(
+        order_id=_val(order, "order_id"),
+        status=_val(order, "status"),
+        subtotal=_val(order, "subtotal"),
+        gst=_val(order, "gst"),
+        total_price=_val(order, "total_price"),
+        customer_name=_val(order, "customer_name"),
+        customer_email=_val(order, "customer_email"),
+        customer_phone=_val(order, "customer_phone"),
+        customer_city=_val(order, "customer_city"),
+        payment_status=_val(order, "payment_status") or "unpaid",
+        created_at=_val(order, "created_at"),
+        items=[
+            OrderItemResponse(
+                id=_val(i, "id"),
+                order_id=_val(i, "order_id"),
+                product_id=_val(i, "product_id"),
+                product_title=_val(i, "product_title"),
+                quantity=_val(i, "quantity"),
+                unit_price=_val(i, "unit_price"),
+                total_price=_val(i, "total_price"),
+                finish=_val(i, "finish"),
+                size=_val(i, "size"),
+            )
+            for i in items
+        ],
+    )
 
 
 @router.patch("/{order_id}/status", response_model=OrderResponse, summary="Update order status")

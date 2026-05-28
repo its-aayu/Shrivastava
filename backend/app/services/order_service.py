@@ -87,3 +87,95 @@ def count_orders(db=None) -> int:
         from app.models.order import Order
         return db.query(Order).count()
     return len(_load_mock())
+
+
+def create_multi_order(payload: dict, user_id: str, db=None) -> dict:
+    """
+    Create one Order + multiple OrderItem rows from a cart payload.
+
+    payload keys: items (list), customer_name, customer_email,
+                  customer_phone, customer_city, notes
+    Each item: product_id, product_title, quantity, unit_price, finish, size
+    """
+    from datetime import date
+
+    items = payload.get("items", [])
+    subtotal = sum(i["unit_price"] * i["quantity"] for i in items)
+    gst = round(subtotal * 0.18)
+    total = subtotal + gst
+    order_id = f"ORD-{uuid.uuid4().hex[:8].upper()}"
+
+    if db is not None:
+        from app.models.order import Order
+        from app.models.order_item import OrderItem
+
+        order = Order(
+            order_id=order_id,
+            user_id=user_id,
+            status="pending",
+            subtotal=subtotal,
+            gst=gst,
+            total_price=total,
+            customer_name=payload.get("customer_name"),
+            customer_email=payload.get("customer_email"),
+            customer_phone=payload.get("customer_phone"),
+            customer_city=payload.get("customer_city"),
+            notes=payload.get("notes"),
+            payment_status="unpaid",
+            created_at=date.today().isoformat(),
+        )
+        db.add(order)
+        db.flush()  # get order_id in DB without committing yet
+
+        order_items = []
+        for item in items:
+            oi = OrderItem(
+                id=uuid.uuid4().hex,
+                order_id=order_id,
+                product_id=str(item["product_id"]),
+                product_title=item["product_title"],
+                quantity=item["quantity"],
+                unit_price=item["unit_price"],
+                total_price=item["unit_price"] * item["quantity"],
+                finish=item.get("finish"),
+                size=item.get("size"),
+            )
+            db.add(oi)
+            order_items.append(oi)
+
+        db.commit()
+        db.refresh(order)
+        return {"order": order, "items": order_items}
+
+    # Mock mode — return a dict
+    order_items = [
+        {
+            "id": uuid.uuid4().hex,
+            "order_id": order_id,
+            "product_id": str(i["product_id"]),
+            "product_title": i["product_title"],
+            "quantity": i["quantity"],
+            "unit_price": i["unit_price"],
+            "total_price": i["unit_price"] * i["quantity"],
+            "finish": i.get("finish"),
+            "size": i.get("size"),
+        }
+        for i in items
+    ]
+    return {
+        "order": {
+            "order_id": order_id,
+            "user_id": user_id,
+            "status": "pending",
+            "subtotal": subtotal,
+            "gst": gst,
+            "total_price": total,
+            "customer_name": payload.get("customer_name"),
+            "customer_email": payload.get("customer_email"),
+            "customer_phone": payload.get("customer_phone"),
+            "customer_city": payload.get("customer_city"),
+            "payment_status": "unpaid",
+            "created_at": date.today().isoformat(),
+        },
+        "items": order_items,
+    }

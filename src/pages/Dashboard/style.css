@@ -1242,3 +1242,176 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ═══════════════════════════════════════════════
+   ORDER DETAIL MODAL
+═══════════════════════════════════════════════ */
+.dash-table-row--clickable {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.dash-table-row--clickable:hover { background: rgba(75, 59, 56, 0.04); }
+
+.odm-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.odm-panel {
+  background: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+.odm-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+}
+.odm-order-id {
+  font-family: monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: 0.04em;
+}
+.odm-placed {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+.odm-close {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.odm-close:hover { color: var(--text-dark); }
+
+.odm-section {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.odm-section:last-child { border-bottom: none; }
+.odm-section-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-light);
+  margin-bottom: 14px;
+}
+
+/* ── Timeline ── */
+.odm-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+.odm-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 8px 0;
+  position: relative;
+}
+.odm-step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+  transition: background 0.2s;
+}
+.odm-step--done .odm-step-dot { background: #16a34a; }
+.odm-step--active .odm-step-dot {
+  background: var(--accent, #4b3b38);
+  box-shadow: 0 0 0 3px rgba(75, 59, 56, 0.15);
+}
+.odm-step-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-light);
+  transition: color 0.2s;
+}
+.odm-step--done .odm-step-label { color: var(--text-dark); }
+.odm-step--active .odm-step-label { color: var(--text-dark); font-weight: 600; }
+.odm-step-desc {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+/* ── Items ── */
+.odm-items { display: flex; flex-direction: column; gap: 6px; }
+.odm-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.84rem;
+}
+.odm-item-name { flex: 1; color: var(--text-dark); }
+.odm-item-meta { color: var(--text-light); }
+.odm-item-price { font-weight: 600; color: var(--text-dark); }
+
+/* ── Totals ── */
+.odm-totals { display: flex; flex-direction: column; gap: 8px; }
+.odm-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  color: var(--text-light);
+}
+.odm-total-row--final {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.odm-pay-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+.odm-pay-unpaid { background: rgba(239,68,68,0.1); color: #b91c1c; }
+.odm-pay-paid    { background: rgba(22,163,74,0.1);  color: #15803d; }
+.odm-pay-failed  { background: rgba(239,68,68,0.1); color: #b91c1c; }
+
+/* ── Contact ── */
+.odm-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.84rem;
+  color: var(--text-light);
+}

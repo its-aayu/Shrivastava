@@ -54,7 +54,7 @@ const useCartStore = create(
     }),
     {
       name: "aayu-cart",
-      partializer: ({ items }) => ({ items }), // don't persist drawerOpen
+      partialize: ({ items }) => ({ items }), // don't persist drawerOpen
     }
   )
 );

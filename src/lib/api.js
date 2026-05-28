@@ -40,6 +40,11 @@ export const ordersApi = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
+  createMulti: (payload) =>
+    request("/orders/create", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
   updateStatus: (id, status) =>
     request(`/orders/${id}/status?status=${status}`, { method: "PATCH" }),
 };
@@ -75,6 +80,19 @@ export const widgetApi = {
     request("/chat/widget", {
       method: "POST",
       body: JSON.stringify({ message, session_id }),
+    }),
+};
+
+export const paymentsApi = {
+  createOrder: (order_id, amount_inr) =>
+    request("/payments/create-order", {
+      method: "POST",
+      body: JSON.stringify({ order_id, amount_inr }),
+    }),
+  verify: (payload) =>
+    request("/payments/verify", {
+      method: "POST",
+      body: JSON.stringify(payload),
     }),
 };
 

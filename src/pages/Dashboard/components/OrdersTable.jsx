@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ordersApi } from "../../../lib/api";
 import mockOrders from "../../../mock-data/orders.json";
+import OrderDetailModal from "./OrderDetailModal";
 
 function StatusBadge({ status }) {
   const cls = `status-badge status-${status?.toLowerCase() ?? "pending"}`;
@@ -20,6 +21,7 @@ function formatDate(v) {
 export default function OrdersTable({ limit }) {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     ordersApi
@@ -46,37 +48,46 @@ export default function OrdersTable({ limit }) {
   }
 
   return (
-    <div className="dash-table-wrap">
-      <table className="dash-table">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Product</th>
-            <th>Status</th>
-            <th>Amount</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((o) => {
-            const id = o.order_id ?? o.id;
-            const product = o.product_title ?? o.product_name ?? "—";
-            const status = o.status ?? "pending";
-            const price = o.total_price;
-            const date = o.created_at;
+    <>
+      <div className="dash-table-wrap">
+        <table className="dash-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Product</th>
+              <th>Status</th>
+              <th>Amount</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((o) => {
+              const id = o.order_id ?? o.id;
+              const product = o.product_title ?? o.items?.[0]?.product_title ?? "Multiple items";
+              const status = o.status ?? "pending";
+              const price = o.total_price;
+              const date = o.created_at;
 
-            return (
-              <tr key={id}>
-                <td className="muted">{id}</td>
-                <td>{product}</td>
-                <td><StatusBadge status={status} /></td>
-                <td>{formatPrice(price)}</td>
-                <td className="muted">{formatDate(date)}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+              return (
+                <tr
+                  key={id}
+                  className="dash-table-row--clickable"
+                  onClick={() => setSelected(o)}
+                  title="Click to view details"
+                >
+                  <td className="muted">{id}</td>
+                  <td>{product}</td>
+                  <td><StatusBadge status={status} /></td>
+                  <td>{formatPrice(price)}</td>
+                  <td className="muted">{formatDate(date)}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <OrderDetailModal order={selected} onClose={() => setSelected(null)} />
+    </>
   );
 }
