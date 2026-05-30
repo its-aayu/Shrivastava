@@ -5,7 +5,7 @@ import { imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { cardItem, gridContainer } from "../../animations/motion";
 import { useProducts } from "../../hooks/useProducts";
-import { PageHero, PromoBand, SectionHeader } from "../shared";
+import { PageHero, PromoBand, SectionHeader } from "../../components/shared";
 import "./style.css";
 
 function GallerySkeleton() {

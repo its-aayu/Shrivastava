@@ -3,7 +3,7 @@ import { motion as Motion } from "framer-motion";
 import Button from "../../components/ui/Button";
 import { galleryItems, imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
-import { ImagePanel, PromoBand, ReviewSection, SectionHeader, ServiceCards, StatsStrip, TrustStrip } from "../shared";
+import { ImagePanel, PromoBand, ReviewSection, SectionHeader, ServiceCards, StatsStrip, TrustStrip } from "../../components/shared";
 import "./style.css";
 
 const heroTrustBadges = ["24h Delivery", "500+ Orders", "Premium Finish"];

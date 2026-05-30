@@ -1,4 +1,4 @@
-import "./products.css";
+import "./style.css";
 
 import { motion as Motion } from "framer-motion";
 

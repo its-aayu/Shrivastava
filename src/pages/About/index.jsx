@@ -2,7 +2,7 @@ import { motion as Motion } from "framer-motion";
 import { imageBank, stats } from "../../data/site";
 import Reveal from "../../components/ui/Reveal";
 import { cardItem, gridContainer } from "../../animations/motion";
-import { ImagePanel, PageHero, PromoBand, ReviewSection, SectionHeader, StatsStrip } from "../shared";
+import { ImagePanel, PageHero, PromoBand, ReviewSection, SectionHeader, StatsStrip } from "../../components/shared";
 import "./style.css";
 
 const timelineSteps = [

@@ -1,5 +1,5 @@
 import Button from "../../components/ui/Button";
-import Input from "../../components/ui/input/input";
+import Input from "../ui/Input";
 import { imageBank, services, stats, trustSignals } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 

@@ -32,11 +32,11 @@ export const ordersApi = {
     const qs = new URLSearchParams(
       Object.fromEntries(Object.entries(params).filter(([, v]) => v != null))
     ).toString();
-    return request(`/orders/${qs ? `?${qs}` : ""}`);
+    return request(`/orders${qs ? `?${qs}` : ""}`);
   },
   getById: (id) => request(`/orders/${id}`),
   create: (payload) =>
-    request("/orders/", {
+    request("/orders", {
       method: "POST",
       body: JSON.stringify(payload),
     }),

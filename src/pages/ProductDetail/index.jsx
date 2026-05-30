@@ -6,7 +6,7 @@ import { imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { useProduct, useProducts } from "../../hooks/useProducts";
 import useCartStore from "../../store/cartStore";
-import { PageHero, PromoBand, SectionHeader } from "../shared";
+import { PageHero, PromoBand, SectionHeader } from "../../components/shared";
 import "./style.css";
 
 function ProductSkeleton() {

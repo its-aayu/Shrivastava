@@ -3,7 +3,7 @@ import Card from "../../components/ui/Card";
 import Reveal from "../../components/ui/Reveal";
 import { imageBank, pricingPlans } from "../../data/site";
 import { cardItem, gridContainer } from "../../animations/motion";
-import { PageHero, PromoBand, SectionHeader } from "../shared";
+import { PageHero, PromoBand, SectionHeader } from "../../components/shared";
 import "./style.css";
 
 export default function Pricing({ onNavigate }) {

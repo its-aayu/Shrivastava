@@ -5,7 +5,7 @@ import Reveal from "../../components/ui/Reveal";
 import { imageBank, services } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { cardItem, fadeLeft, fadeRight, fadeUp, gridContainer } from "../../animations/motion";
-import { ImagePanel, PageHero, PromoBand, QuoteForm, ReviewSection, SectionHeader } from "../shared";
+import { ImagePanel, PageHero, PromoBand, QuoteForm, ReviewSection, SectionHeader } from "../../components/shared";
 import "./style.css";
 
 export default function Services({ onNavigate }) {

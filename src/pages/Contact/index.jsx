@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion as Motion } from "framer-motion";
 import { imageBank } from "../../data/site";
 import { cardItem, fadeLeft, fadeRight, gridContainer } from "../../animations/motion";
-import { ImagePanel, PageHero, QuoteForm, SectionHeader } from "../shared";
+import { ImagePanel, PageHero, QuoteForm, SectionHeader } from "../../components/shared";
 import "./style.css";
 
 const contactInfo = [

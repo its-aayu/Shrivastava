@@ -3,7 +3,7 @@ import Reveal from "../../components/ui/Reveal";
 import { imageBank, team } from "../../data/site";
 import { handleImageError } from "../../utils/images";
 import { cardItem, gridContainer } from "../../animations/motion";
-import { PageHero, PromoBand, SectionHeader } from "../shared";
+import { PageHero, PromoBand, SectionHeader } from "../../components/shared";
 import "./style.css";
 
 export default function Team({ onNavigate }) {

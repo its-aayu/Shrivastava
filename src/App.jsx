@@ -1,6 +1,6 @@
 import { lazy, Suspense, useMemo, useState } from "react";
 import { AnimatePresence, motion as Motion, MotionConfig } from "framer-motion";
-import Footer from "./components/layout/footer";
+import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import PageLoader from "./components/ui/PageLoader";
 import ScrollTop from "./components/ui/ScrollTop";

@@ -3,7 +3,7 @@ import { motion as Motion } from "framer-motion";
 import Reveal from "../../components/ui/Reveal";
 import { faqs, imageBank } from "../../data/site";
 import { cardItem, gridContainer } from "../../animations/motion";
-import { PageHero, PromoBand, SectionHeader } from "../shared";
+import { PageHero, PromoBand, SectionHeader } from "../../components/shared";
 import "./style.css";
 
 export default function FAQ({ onNavigate }) {
