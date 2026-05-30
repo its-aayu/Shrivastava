@@ -46,8 +46,7 @@ export default function Gallery({ onNavigate }) {
 
         {error && (
           <p className="galleryError" role="alert">
-            Could not load products — make sure the backend is running at{" "}
-            <code>http://localhost:8000</code>.
+            Could not load products — {error}
           </p>
         )}
 
