@@ -23,7 +23,7 @@ router = APIRouter(prefix="/payments", tags=["Payments"])
 
 class CreateOrderRequest(BaseModel):
     order_id: str    # internal order ID (e.g. "ORD-ABC123")
-    amount_inr: int  # total amount in INR
+    # amount_inr intentionally removed — always fetched from DB to prevent manipulation
 
 
 class VerifyPaymentRequest(BaseModel):
@@ -41,27 +41,28 @@ def create_payment_order(
 ):
     """
     Creates a Razorpay order for the given internal order ID.
-    Returns the razorpay_order_id, amount (paise), currency, and key_id.
-    The frontend uses these to open the Razorpay checkout popup.
+    Amount is always read from the database — client-supplied amounts are rejected.
     """
-    if payload.amount_inr <= 0:
-        raise HTTPException(status_code=400, detail="Amount must be greater than zero.")
+    from app.models.order import Order
+    order = db.query(Order).filter(
+        Order.order_id == payload.order_id,
+        Order.user_id == str(current_user.id),
+    ).first()
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found.")
+    if order.total_price <= 0:
+        raise HTTPException(status_code=400, detail="Order amount is invalid.")
 
     try:
-        rz = payment_service.create_payment_order(payload.amount_inr, payload.order_id)
+        rz = payment_service.create_payment_order(order.total_price, payload.order_id)
     except EnvironmentError as exc:
         raise HTTPException(status_code=503, detail=str(exc))
     except Exception as exc:
         log.error("[payments] Razorpay create-order failed: %s", exc)
         raise HTTPException(status_code=502, detail="Payment gateway error. Please try again.")
 
-    # Store razorpay_order_id against the internal order
-    if db:
-        from app.models.order import Order
-        order = db.query(Order).filter(Order.order_id == payload.order_id).first()
-        if order:
-            order.razorpay_order_id = rz["razorpay_order_id"]
-            db.commit()
+    order.razorpay_order_id = rz["razorpay_order_id"]
+    db.commit()
 
     log.info("[payments] Created Razorpay order %s for %s", rz["razorpay_order_id"], payload.order_id)
     return {"success": True, "data": rz}
@@ -90,15 +91,19 @@ def verify_payment(
         log.warning("[payments] Invalid signature for order %s", payload.order_id)
         raise HTTPException(status_code=400, detail="Payment signature verification failed.")
 
-    # Mark order as paid
+    # Mark order as paid — verify ownership before updating
     if db:
         from app.models.order import Order
-        order = db.query(Order).filter(Order.order_id == payload.order_id).first()
-        if order:
-            order.payment_status = "paid"
-            order.razorpay_payment_id = payload.razorpay_payment_id
-            order.status = "proof_review"  # advance to next step in workflow
-            db.commit()
+        order = db.query(Order).filter(
+            Order.order_id == payload.order_id,
+            Order.user_id == str(current_user.id),
+        ).first()
+        if not order:
+            raise HTTPException(status_code=404, detail="Order not found.")
+        order.payment_status = "paid"
+        order.razorpay_payment_id = payload.razorpay_payment_id
+        order.status = "proof_review"  # advance to next step in workflow
+        db.commit()
 
     log.info("[payments] Payment verified for order %s", payload.order_id)
     return {"success": True, "message": "Payment verified. Your order is now in review."}

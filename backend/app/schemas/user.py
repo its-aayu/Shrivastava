@@ -7,13 +7,13 @@ class UserBase(BaseModel):
     name: str
     email: str
     phone: Optional[str] = None
-    role: str = "customer"
     company: Optional[str] = None
     city: Optional[str] = None
 
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8, description="Plain-text password — hashed before storage")
+    # role is intentionally absent — always assigned server-side as "customer"
 
 
 class UserUpdate(BaseModel):
@@ -26,6 +26,7 @@ class UserUpdate(BaseModel):
 
 class UserResponse(UserBase):
     id: str
+    role: str = "customer"
     total_orders: int = 0
     total_spend: int = 0
     preferred_products: List[str] = []

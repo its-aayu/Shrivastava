@@ -10,22 +10,23 @@ from app.schemas.order import (
     OrderCreate, OrderListResponse, OrderResponse, OrderUpdate, ORDER_STATUSES,
 )
 from app.services import order_service
-from app.utils.auth import get_current_user
+from app.utils.auth import get_current_admin, get_current_user
 
 router = APIRouter(prefix="/orders", tags=["Orders"])
 
 
 @router.get("/", response_model=OrderListResponse, summary="List orders")
 def list_orders(
-    user_id: Optional[str] = Query(None, description="Filter by user_id"),
     status: Optional[str] = Query(None, description="Filter by status"),
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=100),
     db: Session = Depends(get_db),
-    _: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
 ):
+    # Admins see all orders; customers see only their own — user_id is never client-supplied
+    uid = None if getattr(current_user, "role", "") == "admin" else str(current_user.id)
     orders = order_service.get_all_orders(
-        db=db, user_id=user_id, status=status, skip=skip, limit=limit
+        db=db, user_id=uid, status=status, skip=skip, limit=limit
     )
     return {"data": orders, "count": len(orders)}
 
@@ -102,7 +103,7 @@ def update_status(
     order_id: str,
     status: str = Query(..., description="New status value"),
     db: Session = Depends(get_db),
-    _: User = Depends(get_current_user),
+    _: User = Depends(get_current_admin),
 ):
     if status not in ORDER_STATUSES:
         raise HTTPException(

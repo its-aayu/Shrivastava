@@ -218,9 +218,13 @@ async def get_history(
 ):
     if db is None:
         return {"data": []}
+    user_id = getattr(current_user, "id", None)
     rows = (
         db.query(ChatHistory)
-        .filter(ChatHistory.session_id == session_id)
+        .filter(
+            ChatHistory.session_id == session_id,
+            ChatHistory.user_id == str(user_id),    # only return the requesting user's session
+        )
         .order_by(ChatHistory.created_at)
         .all()
     )

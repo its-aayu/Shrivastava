@@ -84,10 +84,10 @@ export const widgetApi = {
 };
 
 export const paymentsApi = {
-  createOrder: (order_id, amount_inr) =>
+  createOrder: (order_id) =>
     request("/payments/create-order", {
       method: "POST",
-      body: JSON.stringify({ order_id, amount_inr }),
+      body: JSON.stringify({ order_id }),
     }),
   verify: (payload) =>
     request("/payments/verify", {

@@ -152,7 +152,7 @@ export default function Checkout({ onNavigate }) {
   async function initiatePayment(order) {
     setPaymentLoading(true);
     try {
-      const rzData = await paymentsApi.createOrder(order.order_id, order.total_price);
+      const rzData = await paymentsApi.createOrder(order.order_id);
       const rzOptions = rzData?.data ?? rzData;
 
       if (!rzOptions?.razorpay_order_id) return false; // not configured

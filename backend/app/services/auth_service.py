@@ -23,7 +23,7 @@ def register_user(db: Session, payload: UserCreate) -> User:
         name=payload.name,
         hashed_password=hash_password(payload.password),
         phone=payload.phone,
-        role=payload.role,
+        role="customer",        # always server-assigned; never trust client input
         company=payload.company,
         city=payload.city,
         created_at=date.today().isoformat(),
