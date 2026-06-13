@@ -1,6 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 
+from app.core.limiter import limiter
 from app.db.database import get_db
 from app.models.user import User
 from app.schemas.auth import AuthResponse, LoginRequest, SignupResponse, Token
@@ -24,7 +25,8 @@ def _token_for(user: User) -> str:
 
 
 @router.post("/signup", response_model=AuthResponse, status_code=201)
-async def signup(payload: UserCreate, db: Session = Depends(get_db)):
+@limiter.limit("10/minute")
+async def signup(request: Request, payload: UserCreate, db: Session = Depends(get_db)):
     db = _require_db(db)
     user = register_user(db, payload)
     return AuthResponse(
@@ -40,7 +42,8 @@ async def signup(payload: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.post("/login", response_model=AuthResponse)
-async def login(payload: LoginRequest, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+async def login(request: Request, payload: LoginRequest, db: Session = Depends(get_db)):
     db = _require_db(db)
     user = authenticate_user(db, payload.email, payload.password)
     return AuthResponse(

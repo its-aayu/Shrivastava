@@ -76,10 +76,10 @@ export const searchApi = {
 };
 
 export const widgetApi = {
-  send: (message, session_id) =>
+  send: (message, session_id, history = []) =>
     request("/chat/widget", {
       method: "POST",
-      body: JSON.stringify({ message, session_id }),
+      body: JSON.stringify({ message, session_id, history }),
     }),
 };
 

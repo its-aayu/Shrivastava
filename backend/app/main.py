@@ -1,10 +1,13 @@
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
 
 from app.core.config import settings
+from app.core.limiter import limiter
 
 logging.basicConfig(
     level=logging.INFO,
@@ -40,6 +43,15 @@ async def lifespan(app: FastAPI):
     if settings.SECRET_KEY == _DEV_SECRET:
         log.warning("⚠  Using dev SECRET_KEY — change before deploying to production")
 
+    # Pre-warm ChromaDB: loads the SentenceTransformer model once at startup
+    # so the first user request is fast instead of waiting ~18s for model loading.
+    try:
+        from app.services.chroma_service import _get_collection
+        _get_collection()
+        log.info("ChromaDB ready — embedding model pre-warmed")
+    except Exception as exc:
+        log.warning("ChromaDB warm-up failed (non-fatal): %s", exc)
+
     yield
 
 
@@ -52,13 +64,29 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# ── Rate limiting ──────────────────────────────────────────────────────────────
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# ── CORS ───────────────────────────────────────────────────────────────────────
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.get_allowed_origins(),
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )
+
+
+# ── Security headers ───────────────────────────────────────────────────────────
+@app.middleware("http")
+async def security_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    return response
 
 # ── Routers ───────────────────────────────────────────────────────────────────
 app.include_router(auth_router, prefix="/api/v1")

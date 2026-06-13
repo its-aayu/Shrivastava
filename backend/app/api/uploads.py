@@ -30,7 +30,7 @@ def _ingest(doc_id: str, file_path: str, metadata: dict) -> None:
     description=(
         "Accepts PDF, PNG, or JPG files up to 10 MB. "
         "Requires a valid bearer token. "
-        "After upload the file is ingested into the RAG pipeline in the background."
+        "Admin uploads are also ingested into the RAG knowledge base."
     ),
 )
 async def upload_file(
@@ -41,21 +41,31 @@ async def upload_file(
 ):
     metadata = await save_upload(file)
 
-    # Unique doc_id for the vector store — scoped to this upload
-    doc_id = f"upload_{uuid.uuid4().hex[:12]}"
-    background_tasks.add_task(
-        _ingest,
-        doc_id,
-        metadata["path"],
-        {
-            "original_filename": metadata["original_filename"],
-            "content_type": metadata["content_type"],
-            "uploaded_by": getattr(current_user, "id", "unknown"),
-        },
-    )
+    is_admin = getattr(current_user, "role", "") == "admin"
 
+    # Only admin-uploaded files are ingested into the RAG knowledge base.
+    # Customer artwork uploads are saved but never injected into the AI context
+    # to prevent knowledge-base poisoning.
+    if is_admin and metadata.get("path"):
+        doc_id = f"upload_{uuid.uuid4().hex[:12]}"
+        background_tasks.add_task(
+            _ingest,
+            doc_id,
+            metadata["path"],
+            {
+                "original_filename": metadata["original_filename"],
+                "content_type": metadata["content_type"],
+                "uploaded_by": getattr(current_user, "id", "unknown"),
+            },
+        )
+
+    msg = (
+        "File uploaded and queued for AI ingestion"
+        if is_admin
+        else "File uploaded successfully"
+    )
     return UploadResponse(
         success=True,
-        message="File uploaded and queued for AI ingestion",
+        message=msg,
         data=UploadData(**metadata),
     )

@@ -10,15 +10,16 @@ POST /api/v1/chat
 """
 
 import logging
-import os
 import time
 import uuid
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
+from app.core.config import settings
+from app.core.limiter import limiter
 from app.db.database import get_db
 from app.models.chat_history import ChatHistory
 from app.models.user import User
@@ -31,14 +32,22 @@ from app.services.rag_service import (
 )
 from app.utils.auth import get_current_user
 
+MAX_MESSAGE_LENGTH = 1000
+
 log = logging.getLogger("aayu.chat")
 
 router = APIRouter(prefix="/chat", tags=["Chat / AI"])
 
 
+class ChatMessage(BaseModel):
+    role: str      # "user" or "assistant"
+    content: str
+
+
 class ChatRequest(BaseModel):
     message: str
     session_id: str | None = None
+    history: list[ChatMessage] = []  # prior turns — used by widget; ignored in authenticated endpoint
 
 
 class ChatResponse(BaseModel):
@@ -48,7 +57,9 @@ class ChatResponse(BaseModel):
 
 
 @router.post("", response_model=ChatResponse)
+@limiter.limit("20/minute")
 async def chat(
+    request: Request,
     payload: ChatRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
@@ -56,6 +67,8 @@ async def chat(
     msg = payload.message.strip()
     if not msg:
         raise HTTPException(status_code=400, detail="Message cannot be empty")
+    if len(msg) > MAX_MESSAGE_LENGTH:
+        raise HTTPException(status_code=400, detail=f"Message too long (max {MAX_MESSAGE_LENGTH} characters).")
 
     session_id = payload.session_id or str(uuid.uuid4())
     user_id = getattr(current_user, "id", None)
@@ -75,8 +88,24 @@ async def chat(
         user_id, len(raw_chunks), len(chunks), top_score, msg[:80],
     )
 
-    # 2 — Generate response (Groq or context-based fallback)
-    response_text, model_used, tokens_used = _generate(msg, chunks)
+    # 2 — Load recent conversation turns for multi-turn memory
+    _MAX_HISTORY = 6  # last 6 user+assistant exchanges = 12 rows
+    history: list[dict] = []
+    if db is not None:
+        hist_rows = (
+            db.query(ChatHistory)
+            .filter(
+                ChatHistory.session_id == session_id,
+                ChatHistory.user_id == str(user_id),
+            )
+            .order_by(ChatHistory.created_at.desc())
+            .limit(_MAX_HISTORY * 2)
+            .all()
+        )
+        history = [{"role": r.role, "content": r.content} for r in reversed(hist_rows)]
+
+    # 3 — Generate response (Groq with history, or context-based fallback)
+    response_text, model_used, tokens_used = _generate(msg, chunks, history)
 
     latency = round(time.perf_counter() - t0, 3)
     log.info(
@@ -84,14 +113,14 @@ async def chat(
         model_used, tokens_used, latency, session_id,
     )
 
-    # 3 — Collect unique source filenames from retrieved chunks
+    # 4 — Collect unique source filenames from retrieved chunks
     sources = list({
         c.get("source", c.get("doc_id", ""))
         for c in chunks
         if c.get("source") or c.get("doc_id")
     })
 
-    # 4 — Persist conversation turns
+    # 5 — Persist conversation turns
     _save_turns(db, session_id, user_id, msg, response_text)
 
     return ChatResponse(data={
@@ -104,30 +133,43 @@ async def chat(
 
 # ── Generation helpers ─────────────────────────────────────────────────────────
 
-def _generate(user_message: str, chunks: list[dict]) -> tuple[str, str, int | None]:
-    """Try Groq; fall back to context-only response. Returns (text, model, tokens)."""
-    api_key = os.getenv("GROQ_API_KEY", "").strip()
+def _generate(
+    user_message: str,
+    chunks: list[dict],
+    history: list[dict] | None = None,
+) -> tuple[str, str, int | None]:
+    """Try Groq with conversation history; fall back to context-only response."""
+    api_key = settings.GROQ_API_KEY.strip()
     if api_key:
         try:
-            return _groq_response(user_message, chunks, api_key)
+            return _groq_response(user_message, chunks, api_key, history or [])
         except Exception as exc:
             log.warning("[chat] Groq call failed — falling back. Error: %s", exc)
     text = _context_response(user_message, chunks)
     return text, "context-fallback", None
 
 
-def _groq_response(user_message: str, chunks: list[dict], api_key: str) -> tuple[str, str, int]:
+def _groq_response(
+    user_message: str,
+    chunks: list[dict],
+    api_key: str,
+    history: list[dict] | None = None,
+) -> tuple[str, str, int]:
     from groq import Groq
     client = Groq(api_key=api_key)
     model = "llama-3.3-70b-versatile"
     system = get_system_prompt()
     prompt = build_prompt_with_context(user_message, chunks)
+
+    # Build multi-turn message list: system → prior turns → current user message
+    messages: list[dict] = [{"role": "system", "content": system}]
+    if history:
+        messages.extend(history)
+    messages.append({"role": "user", "content": prompt})
+
     resp = client.chat.completions.create(
         model=model,
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user", "content": prompt},
-        ],
+        messages=messages,
         max_tokens=500,
         temperature=0.7,
     )
@@ -167,7 +209,8 @@ def _save_turns(db, session_id: str, user_id, user_msg: str, ai_msg: str) -> Non
 # ── Public widget endpoint (no auth) ──────────────────────────────────────────
 
 @router.post("/widget")
-async def chat_widget(payload: ChatRequest):
+@limiter.limit("10/minute")
+async def chat_widget(request: Request, payload: ChatRequest):
     """
     Public chat endpoint for the homepage widget.
     No authentication required. Does not persist to DB.
@@ -176,6 +219,8 @@ async def chat_widget(payload: ChatRequest):
     msg = payload.message.strip()
     if not msg:
         raise HTTPException(status_code=400, detail="Message cannot be empty")
+    if len(msg) > MAX_MESSAGE_LENGTH:
+        raise HTTPException(status_code=400, detail=f"Message too long (max {MAX_MESSAGE_LENGTH} characters).")
 
     session_id = payload.session_id or str(uuid.uuid4())
     t0 = time.perf_counter()
@@ -189,7 +234,9 @@ async def chat_widget(payload: ChatRequest):
     top_score = round(chunks[0]["score"], 3) if chunks else None
     log.info("[widget] raw=%d  filtered=%d  top_score=%s  query=%r", len(raw_chunks), len(chunks), top_score, msg[:80])
 
-    response_text, model_used, tokens_used = _generate(msg, chunks)
+    # Use conversation history sent by the widget frontend (widget has no DB)
+    history = [{"role": h.role, "content": h.content} for h in payload.history]
+    response_text, model_used, tokens_used = _generate(msg, chunks, history)
 
     latency = round(time.perf_counter() - t0, 3)
     log.info("[widget] model=%s  tokens=%s  latency=%ss", model_used, tokens_used, latency)

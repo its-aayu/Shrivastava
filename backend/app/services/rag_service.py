@@ -9,9 +9,7 @@ Generation: chunks + user_message → LLM prompt
 import json
 from pathlib import Path
 
-_CHAT_PROMPTS_FILE = (
-    Path(__file__).parent.parent.parent.parent / "src" / "mock-data" / "chat-prompts.json"
-)
+_CHAT_PROMPTS_FILE = Path(__file__).parent.parent / "data" / "chat-prompts.json"
 
 
 # ── Config helpers ─────────────────────────────────────────────────────────────

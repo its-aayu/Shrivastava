@@ -6,10 +6,10 @@ from pydantic import BaseModel, Field
 ORDER_STATUSES = {"pending", "proof_review", "processing", "production", "dispatched", "delivered", "cancelled"}
 
 
-# ── Legacy single-item order (keep for backward compat) ───────────────────────
+# ── Legacy single-item order ───────────────────────────────────────────────────
 
-class OrderBase(BaseModel):
-    user_id: str
+class OrderCreate(BaseModel):
+    # user_id is intentionally absent — always injected server-side from the JWT
     product_id: str
     product_title: str
     quantity: int = Field(..., gt=0)
@@ -19,10 +19,6 @@ class OrderBase(BaseModel):
     size: Optional[str] = None
     notes: Optional[str] = None
     artwork_approved: bool = False
-
-
-class OrderCreate(OrderBase):
-    pass
 
 
 class OrderUpdate(BaseModel):

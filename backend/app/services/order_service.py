@@ -8,7 +8,7 @@ import uuid
 from pathlib import Path
 from typing import Optional
 
-_MOCK_FILE = Path(__file__).parent.parent.parent.parent / "src" / "mock-data" / "orders.json"
+_MOCK_FILE = Path(__file__).parent.parent.parent.parent / "frontend" / "src" / "mock-data" / "orders.json"
 
 
 def _load_mock() -> list[dict]:

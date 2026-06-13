@@ -1,8 +1,9 @@
-import os
 import uuid
 from pathlib import Path
 
 from fastapi import HTTPException, UploadFile
+
+from app.core.config import settings
 
 UPLOADS_DIR = Path(__file__).parent.parent / "uploads"
 UPLOADS_DIR.mkdir(exist_ok=True)
@@ -46,9 +47,9 @@ def generate_safe_filename(original: str) -> str:
 
 def _cloudinary_configured() -> bool:
     return bool(
-        os.getenv("CLOUDINARY_CLOUD_NAME")
-        and os.getenv("CLOUDINARY_API_KEY")
-        and os.getenv("CLOUDINARY_API_SECRET")
+        settings.CLOUDINARY_CLOUD_NAME
+        and settings.CLOUDINARY_API_KEY
+        and settings.CLOUDINARY_API_SECRET
     )
 
 
@@ -57,9 +58,9 @@ def _upload_to_cloudinary(contents: bytes, original_filename: str, content_type:
     import cloudinary.uploader
 
     cloudinary.config(
-        cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
-        api_key=os.getenv("CLOUDINARY_API_KEY"),
-        api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+        cloud_name=settings.CLOUDINARY_CLOUD_NAME,
+        api_key=settings.CLOUDINARY_API_KEY,
+        api_secret=settings.CLOUDINARY_API_SECRET,
         secure=True,
     )
 

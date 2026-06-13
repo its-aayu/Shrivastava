@@ -45,10 +45,13 @@ export default function ChatWidget() {
     const msg = (text ?? input).trim();
     if (!msg || loading) return;
     setInput("");
+    // Capture history before adding the new user message — React state update is async.
+    // Cap at last 12 messages (6 exchanges) to stay within Groq token limits.
+    const history = messages.slice(-12).map((m) => ({ role: m.role, content: m.text }));
     setMessages((prev) => [...prev, { role: "user", text: msg }]);
     setLoading(true);
     try {
-      const res = await widgetApi.send(msg, sessionId);
+      const res = await widgetApi.send(msg, sessionId, history);
       const reply = res?.data?.response ?? "Sorry, something went wrong. Please try again.";
       setMessages((prev) => [...prev, { role: "assistant", text: reply }]);
     } catch {

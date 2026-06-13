@@ -35,11 +35,16 @@ def list_orders(
 def get_order(
     order_id: str,
     db: Session = Depends(get_db),
-    _: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
 ):
     order = order_service.get_order_by_id(order_id, db)
     if not order:
         raise HTTPException(status_code=404, detail=f"Order '{order_id}' not found")
+    # Admins see any order; customers only see their own
+    if getattr(current_user, "role", "") != "admin":
+        owner_id = getattr(order, "user_id", None) or (order.get("user_id") if isinstance(order, dict) else None)
+        if str(owner_id) != str(current_user.id):
+            raise HTTPException(status_code=403, detail="Access denied")
     return order
 
 
@@ -47,9 +52,11 @@ def get_order(
 def create_order(
     order: OrderCreate,
     db: Session = Depends(get_db),
-    _: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_user),
 ):
-    return order_service.create_order(order.model_dump(), db)
+    data = order.model_dump()
+    data["user_id"] = str(current_user.id)   # always server-assigned; ignore any client value
+    return order_service.create_order(data, db)
 
 
 @router.post("/create", response_model=MultiOrderResponse, status_code=201, summary="Create multi-item order")
