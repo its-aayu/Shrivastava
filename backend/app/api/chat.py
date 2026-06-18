@@ -34,7 +34,7 @@ from app.utils.auth import get_current_user
 
 MAX_MESSAGE_LENGTH = 1000
 
-log = logging.getLogger("aayu.chat")
+log = logging.getLogger("velora.chat")
 
 router = APIRouter(prefix="/chat", tags=["Chat / AI"])
 
@@ -187,7 +187,7 @@ def _context_response(user_message: str, chunks: list[dict]) -> str:
     return (
         f"Based on our printing guides:\n\n{top_text}\n\n"
         "For a formal quote or specific details, the studio team is available at "
-        "admin@aayuprinting.in — Monday to Saturday, 9 AM to 7 PM IST."
+        "admin@velorastudio.in — Monday to Saturday, 9 AM to 7 PM IST."
     )
 
 

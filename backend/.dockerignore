@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Local uploads — should come from Cloudinary in production
+app/uploads/*
+!app/uploads/.gitkeep
+
+# ChromaDB — seeded at startup via seed_knowledge.py
+app/data/chroma_db/
+
+# Dev/test artefacts
+.pytest_cache/
+htmlcov/
+.coverage
+*.log

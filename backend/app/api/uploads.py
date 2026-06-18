@@ -1,8 +1,9 @@
 import uuid
 
-from fastapi import APIRouter, BackgroundTasks, Depends, File, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Request, UploadFile
 from sqlalchemy.orm import Session
 
+from app.core.limiter import limiter
 from app.db.database import get_db
 from app.models.user import User
 from app.schemas.upload import UploadData, UploadResponse
@@ -33,7 +34,9 @@ def _ingest(doc_id: str, file_path: str, metadata: dict) -> None:
         "Admin uploads are also ingested into the RAG knowledge base."
     ),
 )
+@limiter.limit("10/minute")
 async def upload_file(
+    request: Request,
     background_tasks: BackgroundTasks,
     file: UploadFile = File(..., description="PDF / PNG / JPG, max 10 MB"),
     current_user: User = Depends(get_current_user),

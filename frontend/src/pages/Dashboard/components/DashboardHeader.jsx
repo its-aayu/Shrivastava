@@ -22,7 +22,7 @@ export default function DashboardHeader({ activeTab, onNavigate }) {
     <header className="dash-header">
       <div className="dash-header-left">
         <h1 className="dash-header-title">{TITLES[activeTab] ?? "Dashboard"}</h1>
-        <span className="dash-header-breadcrumb">Aayu Printing Studio</span>
+        <span className="dash-header-breadcrumb">VELORA STUDIO</span>
       </div>
 
       <div className="dash-header-right">

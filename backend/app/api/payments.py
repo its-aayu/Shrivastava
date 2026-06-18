@@ -16,7 +16,7 @@ from app.models.user import User
 from app.services import payment_service
 from app.utils.auth import get_current_user
 
-log = logging.getLogger("aayu.payments")
+log = logging.getLogger("velora.payments")
 
 router = APIRouter(prefix="/payments", tags=["Payments"])
 

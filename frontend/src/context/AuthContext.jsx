@@ -4,12 +4,12 @@ import { authApi } from "../lib/api";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem("aayu_token"));
+  const [token, setToken] = useState(() => localStorage.getItem("velora_token"));
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem("aayu_token");
+    const stored = localStorage.getItem("velora_token");
     if (!stored) {
       setLoading(false);
       return;
@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
       .me()
       .then(setUser)
       .catch(() => {
-        localStorage.removeItem("aayu_token");
+        localStorage.removeItem("velora_token");
         setToken(null);
       })
       .finally(() => setLoading(false));
@@ -30,18 +30,18 @@ export function AuthProvider({ children }) {
       setToken(null);
       setUser(null);
     }
-    window.addEventListener("aayu:unauthorized", onUnauthorized);
-    return () => window.removeEventListener("aayu:unauthorized", onUnauthorized);
+    window.addEventListener("velora:unauthorized", onUnauthorized);
+    return () => window.removeEventListener("velora:unauthorized", onUnauthorized);
   }, []);
 
   const login = useCallback((newToken, userData = null) => {
-    localStorage.setItem("aayu_token", newToken);
+    localStorage.setItem("velora_token", newToken);
     setToken(newToken);
     if (userData) setUser(userData);
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem("aayu_token");
+    localStorage.removeItem("velora_token");
     setToken(null);
     setUser(null);
   }, []);

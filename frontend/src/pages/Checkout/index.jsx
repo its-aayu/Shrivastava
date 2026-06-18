@@ -162,7 +162,7 @@ export default function Checkout({ onNavigate }) {
           key: rzOptions.key_id,
           amount: rzOptions.amount,
           currency: rzOptions.currency || "INR",
-          name: "Aayu Printing Studio",
+          name: "VELORA STUDIO",
           description: `Order ${order.order_id}`,
           order_id: rzOptions.razorpay_order_id,
           prefill: { name: form.name, email: form.email, contact: form.phone },

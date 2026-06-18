@@ -74,7 +74,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
     <aside className="dash-sidebar">
       <div className="dash-sidebar-logo">
         <div className="dash-sidebar-logo-mark">A</div>
-        <div className="dash-sidebar-logo-name">Aayu Printing</div>
+        <div className="dash-sidebar-logo-name">VELORA STUDIO</div>
         <div className="dash-sidebar-logo-sub">
           {isAdmin ? "Admin Panel" : "Studio Dashboard"}
         </div>

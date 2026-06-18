@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { widgetApi } from "../../lib/api";
 
-const WIDGET_SESSION_KEY = "aayu_widget_session";
+const WIDGET_SESSION_KEY = "velora_widget_session";
 
 const GREETING = {
   role: "assistant",
-  text: "Hi! I'm Aayu AI — your print consultant. Ask me anything about our products, turnaround times, pricing, or file preparation. What are you working on?",
+  text: "Hi! I'm Velora AI — your print consultant. Ask me anything about our products, turnaround times, pricing, or file preparation. What are you working on?",
 };
 
 const QUICK_QUESTIONS = [
@@ -57,7 +57,7 @@ export default function ChatWidget() {
     } catch {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", text: "Something went wrong. Email us at admin@aayuprinting.in and we'll get right back to you." },
+        { role: "assistant", text: "Something went wrong. Email us at admin@velorastudio.in and we'll get right back to you." },
       ]);
     } finally {
       setLoading(false);
@@ -77,7 +77,7 @@ export default function ChatWidget() {
         <button
           className="cw-trigger"
           onClick={() => setOpen(true)}
-          aria-label="Chat with Aayu AI"
+          aria-label="Chat with Velora AI"
         >
           <span className="cw-trigger-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} width={22} height={22}>
@@ -90,7 +90,7 @@ export default function ChatWidget() {
 
       {/* Chat panel */}
       {open && (
-        <div className="cw-panel" role="dialog" aria-label="Aayu AI Chat">
+        <div className="cw-panel" role="dialog" aria-label="Velora AI Chat">
 
           {/* Header */}
           <div className="cw-header">
@@ -101,7 +101,7 @@ export default function ChatWidget() {
                 </svg>
               </div>
               <div className="cw-header-info">
-                <span className="cw-header-name">Aayu AI</span>
+                <span className="cw-header-name">Velora AI</span>
                 <span className="cw-header-sub">
                   <span className="cw-status-dot" />
                   Print consultant · Online
@@ -172,7 +172,7 @@ export default function ChatWidget() {
             </button>
           </div>
 
-          <div className="cw-footer">Aayu Printing Studio · admin@aayuprinting.in</div>
+          <div className="cw-footer">VELORA STUDIO · admin@velorastudio.in</div>
         </div>
       )}
     </>

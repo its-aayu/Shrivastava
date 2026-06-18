@@ -7,7 +7,7 @@ import "./style.css";
 
 const contactInfo = [
   { icon: "📞", label: "Phone", value: "+91 546 84272" },
-  { icon: "✉️", label: "Email", value: "aayu.printing@domain.com" },
+  { icon: "✉️", label: "Email", value: "hello@velorastudio.in" },
   { icon: "🕐", label: "Hours", value: "Mon–Sat, 9:00 AM – 7:00 PM" },
   { icon: "📍", label: "Studio", value: "George Tower, Burn Swiss" },
 ];

@@ -15,7 +15,7 @@ function SmartImage({ alt, eager = false, ...props }) {
   );
 }
 
-export function PageHero({ eyebrow = "Aayu Printing", title, copy, image = imageBank.studio }) {
+export function PageHero({ eyebrow = "VELORA STUDIO", title, copy, image = imageBank.studio }) {
   return (
     <section className="pageHero">
       <div className="pageHero__media">
@@ -56,7 +56,7 @@ export function ImagePanel({ src, title, copy, tall = false }) {
 
 export function StatsStrip() {
   return (
-    <section className="statsStrip" aria-label="Aayu Printing results">
+    <section className="statsStrip" aria-label="VELORA STUDIO results">
       {stats.map((item) => (
         <article key={item.label}>
           <strong>{item.value}</strong>
@@ -69,7 +69,7 @@ export function StatsStrip() {
 
 export function TrustStrip() {
   return (
-    <section className="trustStrip" aria-label="Why customers trust Aayu Printing">
+    <section className="trustStrip" aria-label="Why customers trust VELORA STUDIO">
       {trustSignals.map((signal) => (
         <span key={signal}>{signal}</span>
       ))}
@@ -113,7 +113,7 @@ export function ReviewSection() {
       <ImagePanel src={imageBank.cards} title="Premium customer kits" copy="Cards, inserts, stickers, and launch packs." />
       <div>
         <p className="eyebrow">Customer review</p>
-        <h2>"Aayu made our launch feel sharper, faster, and more premium than we imagined."</h2>
+        <h2>"Velora made our launch feel sharper, faster, and more premium than we imagined."</h2>
         <p>
           The team checked every file, suggested the right finish, and delivered a polished print set before our event.
         </p>

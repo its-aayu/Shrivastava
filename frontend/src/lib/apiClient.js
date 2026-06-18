@@ -1,14 +1,14 @@
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api/v1";
 
 function getToken() {
-  return localStorage.getItem("aayu_token");
+  return localStorage.getItem("velora_token");
 }
 
 function handleUnauthorized() {
-  localStorage.removeItem("aayu_token");
-  localStorage.removeItem("aayu_user");
+  localStorage.removeItem("velora_token");
+  localStorage.removeItem("velora_user");
   // Dispatch a custom event so AuthContext can react without a hard import cycle
-  window.dispatchEvent(new CustomEvent("aayu:unauthorized"));
+  window.dispatchEvent(new CustomEvent("velora:unauthorized"));
 }
 
 function normalizeError(status, body) {

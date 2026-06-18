@@ -5,7 +5,7 @@ Run once from backend/ directory:
     python patch_user_passwords.py
 
 Sets every user whose hash starts with "$2b$12$placeholder" to a real
-bcrypt hash of "Aayu@2024". Users who registered via the signup API are
+bcrypt hash of "Velora@2024". Users who registered via the signup API are
 NOT touched (their hashes are already valid bcrypt).
 """
 
@@ -19,7 +19,7 @@ from app.models.user import User
 from app.utils.security import hash_password
 
 BROKEN_PREFIX = "$2b$12$placeholder"
-DEFAULT_PASSWORD = "Aayu@2024"
+DEFAULT_PASSWORD = "Velora@2024"
 
 
 def main():

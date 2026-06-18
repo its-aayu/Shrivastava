@@ -36,7 +36,7 @@ const testimonials = [
   {
     name: "Sarah Patel",
     company: "Nova Studio",
-    review: "Aayu made our launch kits feel sharper and more considered than anything we had printed before.",
+    review: "Velora made our launch kits feel sharper and more considered than anything we had printed before.",
   },
   {
     name: "Arjun Mehta",
@@ -63,7 +63,7 @@ export default function Home({ onNavigate }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <p className="eyebrow">Aayu Printing Studio</p>
+          <p className="eyebrow">VELORA STUDIO</p>
           <h1>
             <span>Beautiful print</span>
             <span>for brands that care</span>
@@ -82,7 +82,7 @@ export default function Home({ onNavigate }) {
             <Button variant="outlineLight" onClick={() => onNavigate("gallery")}>View Work</Button>
             <span>Proof-first production. No print starts until you approve it.</span>
           </div> */}
-          <div className="homeHero__metrics" aria-label="Aayu Printing performance metrics">
+          <div className="homeHero__metrics" aria-label="VELORA STUDIO performance metrics">
             {heroMetrics.map((metric) => (
               <article key={metric.label}>
                 <strong>{metric.value}</strong>
@@ -123,7 +123,7 @@ export default function Home({ onNavigate }) {
         <ImagePanel src={imageBank.studio} title="Color, texture, finish" copy="Every detail chosen for the way your brand should feel." tall />
         <div>
           <SectionHeader
-            eyebrow="Why Aayu"
+            eyebrow="Why Velora"
             title="A print partner for founders, teams, creators, and fast-moving brands."
             copy="We combine file checking, design guidance, material selection, and crisp production so your final prints look thoughtful from the first touch."
           />

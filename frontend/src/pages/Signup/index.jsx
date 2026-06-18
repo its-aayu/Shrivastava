@@ -52,7 +52,7 @@ export default function Signup({ onNavigate }) {
 
         <div className="auth-logo">
           <div className="auth-brand-mark">A</div>
-          <div className="auth-logo-name">Aayu Printing Studio</div>
+          <div className="auth-logo-name">VELORA STUDIO</div>
           <div className="auth-logo-sub">Create Your Account</div>
         </div>
 

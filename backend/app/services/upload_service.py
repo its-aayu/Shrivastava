@@ -65,7 +65,7 @@ def _upload_to_cloudinary(contents: bytes, original_filename: str, content_type:
     )
 
     safe_name = generate_safe_filename(original_filename)
-    public_id = f"aayu-uploads/{Path(safe_name).stem}"
+    public_id = f"velora-uploads/{Path(safe_name).stem}"
 
     # resource_type "auto" handles PDFs and images correctly
     result = cloudinary.uploader.upload(

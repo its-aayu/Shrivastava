@@ -12,7 +12,7 @@ export default function Footer({ onNavigate }) {
         <div className="footer-heading">
 
           <h2 className="footer-brand">
-            Aayu
+            VELORA
           </h2>
 
           <h3 className="footer-title">
@@ -75,7 +75,7 @@ export default function Footer({ onNavigate }) {
           <h4>Contact</h4>
 
           <p>+91 546 84272</p>
-          <p>aayu.printing@domain.com</p>
+          <p>hello@velorastudio.in</p>
           <p>George Tower, Burn Swiss</p>
         </div>
 
@@ -95,7 +95,7 @@ export default function Footer({ onNavigate }) {
 
       {/* BOTTOM */}
       <div className="footer-bottom">
-        <p>&copy; 2026 Aayu. All rights reserved.</p>
+        <p>&copy; 2026 VELORA STUDIO. All rights reserved.</p>
       </div>
 
     </footer>

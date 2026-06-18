@@ -21,9 +21,9 @@ export default function Navbar({ activePage, navItems = [], onNavigate }) {
           className="brand-mark"
           onClick={() => onNavigate("home")}
           type="button"
-          aria-label="Aayu Printing Studio — go to homepage"
+          aria-label="VELORA STUDIO — go to homepage"
         >
-          <span className="brand-script">Aayu</span>
+          <span className="brand-script">VELORA</span>
         </button>
 
         {/* DESKTOP NAVIGATION */}

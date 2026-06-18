@@ -6,7 +6,7 @@ GET /api/v1/admin/stats   — platform-wide aggregates
 PUT /api/v1/admin/users/{user_id}/role  — promote/demote a user
 """
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
@@ -21,12 +21,15 @@ router = APIRouter(prefix="/admin", tags=["Admin"])
 
 @router.get("/users", response_model=UserListResponse)
 async def list_users(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=200),
     db: Session = Depends(get_db),
     _: User = Depends(get_current_admin),
 ):
-    """Return all users, newest first."""
-    users = db.query(User).order_by(User.created_at.desc()).all()
-    return UserListResponse(data=users, count=len(users))
+    """Return users, newest first. Paginated via skip/limit."""
+    total = db.query(User).count()
+    users = db.query(User).order_by(User.created_at.desc()).offset(skip).limit(limit).all()
+    return UserListResponse(data=users, count=total)
 
 
 @router.get("/stats")

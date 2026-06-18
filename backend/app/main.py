@@ -1,4 +1,5 @@
 import logging
+import time
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -24,7 +25,7 @@ from app.api.search import router as search_router
 from app.api.payments import router as payments_router
 
 
-log = logging.getLogger("aayu")
+log = logging.getLogger("velora")
 
 _DEV_SECRET = "dev-only-secret-change-before-deploy"
 
@@ -56,8 +57,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Aayu Printing Studio API",
-    description="Backend API for Aayu Printing Studio — AI-powered print SaaS platform",
+    title="VELORA STUDIO API",
+    description="Backend API for VELORA STUDIO — AI-powered print SaaS platform",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",
@@ -78,10 +79,27 @@ app.add_middleware(
 )
 
 
-# ── Security headers ───────────────────────────────────────────────────────────
+# ── Request logging + security headers ────────────────────────────────────────
+_access_log = logging.getLogger("velora.access")
+
+# Paths too noisy to log every hit
+_SKIP_LOG = {"/", "/health", "/docs", "/redoc", "/openapi.json"}
+
 @app.middleware("http")
-async def security_headers(request: Request, call_next):
+async def request_middleware(request: Request, call_next):
+    t0 = time.perf_counter()
     response = await call_next(request)
+    latency_ms = round((time.perf_counter() - t0) * 1000)
+
+    if request.url.path not in _SKIP_LOG:
+        _access_log.info(
+            "%s %s %s  %dms",
+            request.method,
+            request.url.path,
+            response.status_code,
+            latency_ms,
+        )
+
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
@@ -103,7 +121,7 @@ app.include_router(payments_router, prefix="/api/v1")
 @app.get("/", tags=["Root"])
 async def root():
     return {
-        "service": "Aayu Printing Studio API",
+        "service": "VELORA STUDIO API",
         "version": "1.0.0",
         "docs": "/docs",
         "health": "/health",
@@ -121,9 +139,18 @@ async def health_check():
     else:
         db_status = "error — could not reach database"
 
+    try:
+        from app.services.chroma_service import chunk_count
+        chroma_status = f"ready — {chunk_count()} chunks"
+    except Exception as exc:
+        chroma_status = f"error — {exc}"
+
+    overall = "healthy" if "error" not in db_status and "error" not in chroma_status else "degraded"
+
     return {
-        "status": "healthy",
-        "service": "aayu-printing-api",
+        "status": overall,
+        "service": "velora-studio-api",
         "version": "1.0.0",
         "database": db_status,
+        "vector_store": chroma_status,
     }

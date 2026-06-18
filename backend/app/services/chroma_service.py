@@ -11,10 +11,10 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
-log = logging.getLogger("aayu.chroma")
+log = logging.getLogger("velora.chroma")
 
 CHROMA_DIR = Path(__file__).parent.parent / "data" / "chroma_db"
-COLLECTION_NAME = "aayu_docs"
+COLLECTION_NAME = "velora_docs"
 MODEL_NAME = "all-MiniLM-L6-v2"
 
 _collection = None

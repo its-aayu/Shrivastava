@@ -5,7 +5,7 @@ import { chatApi } from "../../../lib/api";
 const GREETING = {
   role: "assistant",
   text:
-    "Hi! I'm Aayu AI, your print consultant here at Aayu Printing Studio. " +
+    "Hi! I'm Velora AI, your print consultant here at VELORA STUDIO. " +
     "Whether you're planning business cards, packaging, labels, or a full brand launch — " +
     "I can help you choose the right product, finish, and specs. What are you working on?",
 };
@@ -19,7 +19,7 @@ const SUGGESTED = [
   "Do you do rush orders?",
 ];
 
-const SESSION_KEY = "aayu_chat_session";
+const SESSION_KEY = "velora_chat_session";
 
 function getStoredSession() { return localStorage.getItem(SESSION_KEY) || null; }
 function newSession() {

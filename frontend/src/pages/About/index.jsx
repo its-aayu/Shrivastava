@@ -33,7 +33,7 @@ export default function About({ onNavigate }) {
           <SectionHeader
             eyebrow="About us"
             title="From quick prints to complete launch kits, every job gets a studio eye."
-            copy="Aayu is built for teams who need speed without losing taste. We help you choose the right paper, finish, color approach, and delivery path before ink touches stock."
+            copy="VELORA is built for teams who need speed without losing taste. We help you choose the right paper, finish, color approach, and delivery path before ink touches stock."
           />
           <div className="aboutStory__timeline">
             {timelineSteps.map((item, index) => (

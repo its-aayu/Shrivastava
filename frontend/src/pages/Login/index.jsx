@@ -20,7 +20,7 @@ export default function Login({ onNavigate }) {
       const res = await authApi.login(email, password);
       const token = res.data.access_token;
       // Store token first so me() can attach it to the request
-      localStorage.setItem("aayu_token", token);
+      localStorage.setItem("velora_token", token);
       const userData = await authApi.me().catch(() => null);
       login(token, userData);
       const role = userData?.role ?? "customer";
@@ -52,7 +52,7 @@ export default function Login({ onNavigate }) {
 
         <div className="auth-logo">
           <div className="auth-brand-mark">A</div>
-          <div className="auth-logo-name">Aayu Printing Studio</div>
+          <div className="auth-logo-name">VELORA STUDIO</div>
           <div className="auth-logo-sub">Client Dashboard</div>
         </div>
 

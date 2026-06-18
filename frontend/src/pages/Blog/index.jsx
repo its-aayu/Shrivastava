@@ -21,7 +21,7 @@ export default function Blog({ onNavigate }) {
       />
       <section className="blogPage">
         <Reveal>
-          <SectionHeader align="center" eyebrow="Journal" title="Latest thinking from the Aayu studio." />
+          <SectionHeader align="center" eyebrow="Journal" title="Latest thinking from the VELORA studio." />
         </Reveal>
         <div className="blogLayout">
           <Motion.article className="blogFeatured" variants={fadeLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>

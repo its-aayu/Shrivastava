@@ -53,7 +53,7 @@ const useCartStore = create(
       subtotal:   () => get().items.reduce((sum, i) => sum + i.product.price * i.quantity, 0),
     }),
     {
-      name: "aayu-cart",
+      name: "velora-cart",
       partialize: ({ items }) => ({ items }), // don't persist drawerOpen
     }
   )

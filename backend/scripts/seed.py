@@ -33,7 +33,7 @@ from app.models.document import Document
 from app.models.faq import FAQ
 
 # Path to the shared mock-data directory
-DATA_DIR = Path(__file__).parent.parent / "src" / "mock-data"
+DATA_DIR = Path(__file__).parent.parent.parent / "frontend" / "src" / "mock-data"
 
 FORCE = "--force" in sys.argv
 
@@ -103,7 +103,7 @@ def seed_users(db):
 
     rows = load_json("users.json")
     from app.utils.security import hash_password
-    placeholder_hash = hash_password("Aayu@2024")  # default password for all seeded users
+    placeholder_hash = hash_password("Velora@2024")  # default password for all seeded users
 
     for row in rows:
         db.add(User(
@@ -199,7 +199,7 @@ def seed_faqs(db):
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    print("Aayu Printing Studio — database seeder")
+    print("VELORA STUDIO — database seeder")
     print(f"Mode: {'FORCE (clear + re-seed)' if FORCE else 'safe (skip existing)'}")
     print()
 

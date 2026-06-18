@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 import { uploadsApi } from "../../../lib/api";
 
-const STORAGE_KEY = "aayu_uploads";
+const STORAGE_KEY = "velora_uploads";
 
 function loadHistory() {
   try {

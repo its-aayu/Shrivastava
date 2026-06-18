@@ -7,17 +7,20 @@ GET  /api/v1/search/stats               — vector store stats (admin)
 
 import logging
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Request
 
+from app.core.limiter import limiter
 from app.utils.auth import get_current_admin, get_current_user
 
-log = logging.getLogger("aayu.search")
+log = logging.getLogger("velora.search")
 
 router = APIRouter(prefix="/search", tags=["Semantic Search"])
 
 
 @router.get("")
+@limiter.limit("30/minute")
 async def semantic_search(
+    request: Request,
     q: str = Query(..., min_length=1, description="Natural-language search query"),
     top_k: int = Query(5, ge=1, le=20),
     _=Depends(get_current_user),

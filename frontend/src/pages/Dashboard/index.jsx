@@ -42,7 +42,7 @@ const IconAI = (
 // ── helpers ─────────────────────────────────────────────────────────────────
 function getUploadsCount() {
   try {
-    const h = JSON.parse(localStorage.getItem("aayu_uploads") ?? "[]");
+    const h = JSON.parse(localStorage.getItem("velora_uploads") ?? "[]");
     return h.length;
   } catch {
     return 0;
