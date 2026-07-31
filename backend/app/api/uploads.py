@@ -1,12 +1,14 @@
 import uuid
+from datetime import datetime, timezone
 
-from fastapi import APIRouter, BackgroundTasks, Depends, File, Request, UploadFile
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Query, Request, UploadFile
 from sqlalchemy.orm import Session
 
 from app.core.limiter import limiter
 from app.db.database import get_db
+from app.models.document import Document
 from app.models.user import User
-from app.schemas.upload import UploadData, UploadResponse
+from app.schemas.upload import UploadData, UploadListResponse, UploadRecord, UploadResponse
 from app.services.upload_service import save_upload
 from app.utils.auth import get_current_user
 
@@ -14,7 +16,6 @@ router = APIRouter(prefix="/uploads", tags=["Uploads"])
 
 
 def _ingest(doc_id: str, file_path: str, metadata: dict) -> None:
-    """Background task — runs after the upload response is already sent."""
     try:
         from app.services.rag_service import ingest_document
         result = ingest_document(doc_id=doc_id, file_path=file_path, metadata=metadata)
@@ -45,12 +46,28 @@ async def upload_file(
     metadata = await save_upload(file)
 
     is_admin = getattr(current_user, "role", "") == "admin"
+    doc_id = f"upload_{uuid.uuid4().hex[:12]}"
+
+    # Save upload record to the documents table so GET /uploads can list them
+    doc = Document(
+        doc_id=doc_id,
+        title=metadata["original_filename"],
+        category="upload",
+        content="",
+        source="user-upload",
+        file_path=metadata.get("path"),
+        file_size=metadata.get("size"),
+        mime_type=metadata.get("content_type"),
+        uploaded_by=str(getattr(current_user, "id", "")),
+        created_at=datetime.now(timezone.utc).isoformat(),
+    )
+    db.add(doc)
+    db.commit()
 
     # Only admin-uploaded files are ingested into the RAG knowledge base.
     # Customer artwork uploads are saved but never injected into the AI context
     # to prevent knowledge-base poisoning.
     if is_admin and metadata.get("path"):
-        doc_id = f"upload_{uuid.uuid4().hex[:12]}"
         background_tasks.add_task(
             _ingest,
             doc_id,
@@ -58,7 +75,7 @@ async def upload_file(
             {
                 "original_filename": metadata["original_filename"],
                 "content_type": metadata["content_type"],
-                "uploaded_by": getattr(current_user, "id", "unknown"),
+                "uploaded_by": str(getattr(current_user, "id", "unknown")),
             },
         )
 
@@ -71,4 +88,30 @@ async def upload_file(
         success=True,
         message=msg,
         data=UploadData(**metadata),
+    )
+
+
+@router.get(
+    "",
+    response_model=UploadListResponse,
+    summary="List my uploaded files",
+    description="Returns all files uploaded by the authenticated user, newest first.",
+)
+async def list_uploads(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=200),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    user_id = str(getattr(current_user, "id", ""))
+    q = (
+        db.query(Document)
+        .filter(Document.uploaded_by == user_id, Document.category == "upload")
+        .order_by(Document.created_at.desc())
+    )
+    total = q.count()
+    docs = q.offset(skip).limit(limit).all()
+    return UploadListResponse(
+        data=[UploadRecord.model_validate(d) for d in docs],
+        count=total,
     )

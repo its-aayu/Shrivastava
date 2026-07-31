@@ -18,3 +18,22 @@ class UploadResponse(BaseModel):
     success: bool = True
     message: str
     data: UploadData
+
+
+class UploadRecord(BaseModel):
+    doc_id: str
+    title: str
+    category: str
+    file_path: Optional[str] = None
+    file_size: Optional[int] = None
+    mime_type: Optional[str] = None
+    source: Optional[str] = None
+    created_at: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class UploadListResponse(BaseModel):
+    data: list[UploadRecord]
+    count: int

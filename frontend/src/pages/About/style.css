@@ -1,29 +1,51 @@
-/* ── About page enhancements (layered on top of components.css) ── */
+/* ── About page ── */
 
-/* Timeline cards: hover lift + description text */
+/* Section containers */
+.aboutStory {
+  max-width: 1400px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr 0.72fr;
+  align-items: start;
+  gap: clamp(36px, 5vw, 70px);
+  padding: var(--section-padding) var(--page-padding);
+}
+
+.aboutValues {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: var(--section-padding) var(--page-padding);
+}
+
+@media (max-width: 900px) {
+  .aboutStory {
+    grid-template-columns: 1fr;
+  }
+}
+
 .aboutStory__timeline article {
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .aboutStory__timeline article:hover {
-  transform: translateY(-7px);
-  border-color: rgba(254, 180, 167, 0.55);
-  box-shadow: 0 22px 64px rgba(254, 180, 167, 0.16);
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-md);
 }
 
 .aboutStory__timeline article p {
   margin: 10px 0 0;
-  color: var(--text-light);
+  color: var(--ink-muted);
   font-size: 0.9rem;
   line-height: 1.65;
 }
 
-/* ── Mission quote band ── */
+/* ── Mission band ── */
 .aboutMission {
   padding: var(--section-padding) var(--page-padding);
-  background: linear-gradient(135deg, var(--text-dark) 0%, #6b504b 100%);
+  background: var(--bordeaux);
   text-align: center;
-  color: var(--white);
+  color: var(--ivory);
 }
 
 .aboutMission__inner {
@@ -33,23 +55,22 @@
 
 .aboutMission h2 {
   margin: 0;
-  color: var(--white);
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 4.5vw, 4rem);
-  font-weight: 700;
+  color: var(--ivory);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 600;
   line-height: 1.12;
-  letter-spacing: 0;
 }
 
 .aboutMission p:not(.eyebrow) {
   margin-top: 20px;
-  color: rgba(255, 255, 255, 0.76);
+  color: rgba(248, 242, 233, 0.78);
   font-size: 1.05rem;
   line-height: 1.8;
 }
 
 .aboutMission .eyebrow {
-  color: var(--accent);
+  color: var(--gold-soft);
 }
 
 /* ── Values cards ── */
@@ -61,84 +82,45 @@
 }
 
 .aboutValues__cards article {
-  /* base card styles come from components.css .aboutValues article */
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .aboutValues__cards article:hover {
-  transform: translateY(-8px);
-  border-color: rgba(254, 180, 167, 0.55);
-  box-shadow: 0 24px 72px rgba(254, 180, 167, 0.16);
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-md);
 }
 
-/* Icon badge overrides the generic .aboutValues strong number */
 .aboutValues__cards > article > span {
   display: grid;
   width: 46px;
   height: 46px;
   place-items: center;
   margin-bottom: 18px;
-  border-radius: var(--radius-full);
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: var(--white);
-  font-size: 0.82rem;
-  font-weight: 800;
+  border-radius: var(--radius-pill);
+  background: var(--bordeaux);
+  color: var(--ivory);
+  font-size: 1.1rem;
 }
 
 .aboutValues__cards h3 {
   margin: 0 0 10px;
-  color: var(--text-dark);
-  font-size: 1.08rem;
-  font-weight: 700;
+  color: var(--bordeaux);
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: var(--font-display);
 }
 
 .aboutValues__cards p {
   margin: 0;
-  color: var(--text-light);
+  color: var(--ink-muted);
   font-size: 0.93rem;
   line-height: 1.7;
 }
 
-/* ── Stats row below values ── */
-.aboutStats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.aboutStats article {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: var(--shadow-soft);
-  padding: 30px;
-  text-align: center;
-  transition: transform 0.25s ease;
-}
-
-.aboutStats article:hover {
-  transform: translateY(-6px);
-}
-
-.aboutStats strong {
-  display: block;
-  color: var(--primary);
-  font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
-  line-height: 1;
-}
-
-.aboutStats span {
-  display: block;
-  margin-top: 8px;
-  color: var(--text-light);
-  font-weight: 700;
-}
-
 /* ── Responsive ── */
 @media (max-width: 960px) {
-  .aboutValues__cards,
-  .aboutStats {
+  .aboutValues__cards {
     grid-template-columns: 1fr;
   }
 }

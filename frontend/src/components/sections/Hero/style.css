@@ -16,9 +16,9 @@
     ),
     linear-gradient(
       135deg,
-      #5b4742 0%,
-      #705a54 40%,
-      #826761 100%
+      var(--bordeaux-deep) 0%,
+      var(--bordeaux) 40%,
+      var(--claret) 100%
     );
 
   padding:
@@ -45,7 +45,7 @@
   width: 400px;
   height: 400px;
 
-  background: #feb4a7;
+  background: var(--bordeaux);
 }
 
 .hero-blur-2 {
@@ -55,7 +55,7 @@
   width: 420px;
   height: 420px;
 
-  background: #ffc69e;
+  background: var(--gold-soft);
 }
 
 /* CONTAINER */
@@ -95,7 +95,7 @@
 
   backdrop-filter: blur(12px);
 
-  color: #6a5651;
+  color: var(--ink-muted);
 
   font-size: 0.9rem;
   font-weight: 600;
@@ -115,7 +115,7 @@
 
   letter-spacing: -2px;
 
-  color: #4b3b38;
+  color: var(--text-dark);
 }
 
 /* DESCRIPTION */
@@ -128,7 +128,7 @@
 
   line-height: 1.8;
 
-  color: #7d6d69;
+  color: var(--text-light);
 }
 
 /* BUTTONS */
@@ -152,8 +152,8 @@
   background:
     linear-gradient(
       135deg,
-      #f7b0a3,
-      #f6c095
+      var(--bordeaux),
+      var(--gold)
     );
 
   color: white;
@@ -189,7 +189,7 @@
 
   backdrop-filter: blur(10px);
 
-  color: #4b3b38;
+  color: var(--text-dark);
 
   font-weight: 600;
 
@@ -236,11 +236,11 @@
 
   font-size: 1.8rem;
 
-  color: #4b3b38;
+  color: var(--text-dark);
 }
 
 .hero-stat-card p {
-  color: #7d6d69;
+  color: var(--text-light);
 
   font-size: 0.9rem;
 }
@@ -289,13 +289,13 @@
 
   font-size: 2rem;
 
-  color: #4b3b38;
+  color: var(--text-dark);
 }
 
 .preview-content p {
   max-width: 300px;
 
-  color: #7d6d69;
+  color: var(--text-light);
 
   line-height: 1.7;
 }

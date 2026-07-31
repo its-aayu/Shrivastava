@@ -13,16 +13,17 @@ class Product(Base):
 
     # Core info
     title = Column(String, nullable=False)
-    category_id = Column(String, nullable=False, index=True)
-    category = Column(String, nullable=False)
+    category_id = Column(String, nullable=False, index=True)   # cat_men / cat_women / cat_kids / cat_gift
+    category = Column(String, nullable=False)                  # Men / Women / Kids / Gift
+    subcategory = Column(String, index=True)                   # T-Shirt / Hoodie / Mug / Frame …
     description = Column(Text)
 
-    # Pricing (INR, stored as integer paise-free — just rupees)
+    # Pricing (INR, rupees)
     price = Column(Integer, nullable=False)
-    price_unit = Column(String, default="per set")
+    price_unit = Column(String, default="per piece")
     currency = Column(String, default="INR")
 
-    # Print specs
+    # Product specs
     material = Column(String)
     finish = Column(String)
     size = Column(String)
@@ -41,3 +42,4 @@ class Product(Base):
     # Flags
     is_featured = Column(Boolean, default=False, index=True)
     in_stock = Column(Boolean, default=True, index=True)
+    is_new = Column(Boolean, default=False, index=True)

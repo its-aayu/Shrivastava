@@ -1,64 +1,77 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Allura&display=swap");
+/* Bridge layer — maps old variable names to the new Velora token values
+   so all legacy CSS keeps working without a mass-rename.
+   The canonical token names live in tokens.css (imported before this). */
 
 :root {
-  /* COLORS */
-  --primary: #feb4a7;
-  --secondary: #fed5cd;
-  --background: #f8edeb;
-  --cream: #fadbc6;
-  --accent: #ffc69e;
+  /* ── Old palette vars → new token values ── */
+  --primary:      var(--bordeaux);         /* was pink #feb4a7 */
+  --secondary:    var(--cream);            /* was #fed5cd */
+  --background:   var(--ivory);            /* was #f8edeb */
+  --accent:       var(--gold);             /* was #ffc69e */
 
-  --text-dark: #4b3b38;
-  --text-light: #7b6d6a;
+  --text-dark:    var(--ink);              /* was #4b3b38 */
+  --text-light:   var(--ink-muted);        /* was #7b6d6a */
 
-  --white: #ffffff;
-  --black: #000000;
+  --white:        #ffffff;
+  --black:        #000000;
 
-  --border: rgba(75, 59, 56, 0.08);
-  --line: var(--border);
+  --border:       rgba(36, 16, 22, 0.12);  /* warm dark, was rgba(75,59,56,0.08) */
+  --line:         var(--border);
 
-  /* GLASS */
-  --glass-bg: rgba(255, 255, 255, 0.4);
-  --glass-border: rgba(255, 255, 255, 0.3);
+  /* Glass (warm-adjusted) */
+  --glass-bg:     rgba(255, 253, 249, 0.55);  /* --surface tinted */
+  --glass-border: rgba(220, 205, 180, 0.45);  /* --sand tinted */
 
-  /* TYPOGRAPHY */
-  --font-heading: "Cormorant Garamond", serif;
-  --font-body: "Inter", sans-serif;
-  --font-script: "Allura", cursive;
+  /* ── Old font vars → new token values ── */
+  --font-heading: var(--font-display);     /* was Cormorant Garamond */
+  --font-script:  var(--font-display);     /* was Allura; map to display for now */
 
-  /* SPACING */
+  /* ── Spacing ── */
   --section-padding: clamp(70px, 8vw, 120px);
-  --page-padding: clamp(20px, 5vw, 80px);
+  --page-padding:    clamp(20px, 5vw, 80px);
 
-  /* RADIUS */
-  --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 28px;
-  --radius-xl: 42px;
-  --radius-full: 999px;
+  /* Compatibility aliases */
+  --page-pad:           var(--page-padding);
+  --section-space:      var(--section-padding) var(--page-padding);
+  --section-space-mobile: 70px 24px;
+  --ghost:              var(--ivory);
+  --paper:              var(--cream);
+  --ink-compat:         var(--ink);        /* avoid --ink collision */
+  --muted:              var(--ink-muted);
+  --persian:            var(--bordeaux);   /* old purple replaced with bordeaux */
+  --accent-text:        var(--gold);       /* eyebrow / label accent */
+  --green:              var(--success);
 
-  /* SHADOWS */
-  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.06);
-  --shadow-medium: 0 16px 40px rgba(0, 0, 0, 0.08);
-  --shadow-large: 0 25px 60px rgba(0, 0, 0, 0.12);
-  --shadow-hover: var(--shadow-medium);
+  /* ── Old radius vars → new tokens (some kept for compatibility) ── */
+  --radius-xl:   32px;
+  --radius-full: var(--radius-pill);
 
-  /* TRANSITION */
-  --transition: all 0.3s ease;
+  /* ── Old shadow vars → new tokens ── */
+  --shadow-soft:   var(--shadow-sm);
+  --shadow-medium: var(--shadow-md);
+  --shadow-large:  var(--shadow-lg);
+  --shadow-hover:  var(--shadow-md);
 
-  /* CONTAINER */
+  /* ── Transition ── */
+  --transition: all 0.25s ease;
+
+  /* ── Container ── */
   --container-width: 1400px;
 
-  /* Compatibility aliases for existing page markup */
-  --page-pad: var(--page-padding);
-  --section-space: var(--section-padding) var(--page-padding);
-  --section-space-mobile: 70px 24px;
-  --ghost: var(--background);
-  --paper: var(--cream);
-  --ink: var(--text-dark);
-  --muted: var(--text-light);
-  --persian: var(--text-dark);
-  --accent-text: var(--primary);
-  --green: #2f8f5b;
-  --space-3: 24px;
+  /* ── Missing vars that page CSS files reference ── */
+  /* Semantic surface aliases */
+  --surface-1:      var(--surface);        /* card / primary surface */
+  --surface-2:      var(--cream);          /* section / secondary surface */
+
+  /* Text scale aliases */
+  --text-primary:   var(--ink);
+  --text-secondary: var(--ink-muted);
+  --text-tertiary:  rgba(110, 92, 82, 0.7);
+
+  /* Page background alias */
+  --bg-primary:     var(--ivory);
+
+  /* Extended spacing (for pages that use non-token values) */
+  --space-1-5: 6px;
+  --space-2-5: 10px;
 }

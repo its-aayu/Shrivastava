@@ -1,11 +1,7 @@
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading);
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
   line-height: 1.1;
+  color: var(--bordeaux);
 }
 
 .display-title {
@@ -17,13 +13,15 @@ h6 {
   text-align: center;
 }
 
+/* Kept for back-compat; maps to display font */
 .script-text {
-  font-family: var(--font-script);
-  color: var(--primary);
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--bordeaux);
 }
 
 .text-muted {
-  color: var(--text-light);
+  color: var(--ink-muted);
 }
 
 .text-center {

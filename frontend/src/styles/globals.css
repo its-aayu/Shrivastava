@@ -9,8 +9,8 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--text-dark);
+  background: var(--ivory);
+  color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
@@ -22,16 +22,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--secondary);
+  background: var(--cream);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 999px;
+  background: var(--sand);
+  border-radius: var(--radius-pill);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+  background: var(--bordeaux);
 }
 
 /* ── Base resets ── */
@@ -51,7 +51,6 @@ select {
   font-family: inherit;
 }
 
-/* Remove border on native elements */
 input,
 textarea,
 select {
@@ -68,8 +67,6 @@ ul {
 }
 
 /* ── Focus management ── */
-
-/* Hide focus ring for mouse/touch users */
 button:focus:not(:focus-visible),
 input:focus:not(:focus-visible),
 textarea:focus:not(:focus-visible),
@@ -78,22 +75,21 @@ a:focus:not(:focus-visible) {
   outline: none;
 }
 
-/* Visible, branded focus ring for keyboard users */
 :focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--bordeaux);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* ── Skip link (screen reader + keyboard navigation) ── */
+/* ── Skip link ── */
 .skip-link {
   position: fixed;
   top: -100px;
   left: 16px;
   z-index: 9999;
   padding: 12px 24px;
-  background: var(--text-dark);
-  color: var(--white);
+  background: var(--bordeaux);
+  color: var(--ivory);
   border-radius: var(--radius-md);
   font-weight: 600;
   font-size: 0.9rem;
@@ -104,7 +100,7 @@ a:focus:not(:focus-visible) {
   top: 16px;
 }
 
-/* ── Mobile tap targets (touch devices only) ── */
+/* ── Mobile tap targets ── */
 @media (pointer: coarse) {
   button,
   [role="button"],
@@ -115,13 +111,13 @@ a:focus:not(:focus-visible) {
   }
 }
 
-/* ── Image fade-in keyframe ── */
+/* ── Image fade-in ── */
 @keyframes imgFadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
-/* ── Reduced motion: disable ALL transitions + animations ── */
+/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

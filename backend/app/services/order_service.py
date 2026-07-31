@@ -42,11 +42,13 @@ def get_order_by_id(order_id: str, db=None) -> Optional[object]:
 def create_order(order_data: dict, db=None) -> object:
     db = _require_db(db)
     from app.models.order import Order
+    valid_cols = {c.key for c in Order.__table__.columns}
+    data = {k: v for k, v in order_data.items() if k in valid_cols}
     order = Order(
         order_id=f"ord_{uuid.uuid4().hex[:6]}",
-        status=order_data.pop("status", "pending"),
+        status=data.pop("status", "pending"),
         created_at=date.today().isoformat(),
-        **order_data,
+        **data,
     )
     db.add(order)
     db.commit()

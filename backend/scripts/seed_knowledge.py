@@ -11,7 +11,9 @@ replaces the old chunks cleanly without duplication.
 import sys
 from pathlib import Path
 
-KNOWLEDGE_FILE = Path(__file__).parent.parent / "app" / "data" / "aayu_knowledge.txt"
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+KNOWLEDGE_FILE = Path(__file__).parent.parent / "app" / "data" / "velora_knowledge.txt"
 DOC_ID = "velora_knowledge_base"
 
 

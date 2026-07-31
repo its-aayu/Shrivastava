@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="#5B1A26"/>
+  <!-- Decorative gold top rule -->
+  <rect x="96" y="108" width="320" height="3" rx="1.5" fill="#C6A15B"/>
+  <!-- V letterform — two strokes meeting at base -->
+  <polygon points="96,148 176,148 256,340 336,148 416,148 276,388 236,388" fill="#EFE6D6"/>
+  <!-- Decorative gold bottom rule -->
+  <rect x="96" y="400" width="320" height="3" rx="1.5" fill="#C6A15B"/>
+</svg>

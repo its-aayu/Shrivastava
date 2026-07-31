@@ -66,7 +66,9 @@ def create_multi_order(
     current_user: User = Depends(get_current_user),
 ):
     """Create one parent order + order items from a full cart. Returns the order with items attached."""
-    user_id = str(getattr(current_user, "id", "guest"))
+    if not getattr(current_user, "id", None):
+        raise HTTPException(status_code=401, detail="Could not identify authenticated user")
+    user_id = str(current_user.id)
     result = order_service.create_multi_order(payload.model_dump(), user_id, db)
 
     order = result["order"]

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-label="Custom printed apparel">
+  <!-- warm cream background -->
+  <rect width="900" height="700" fill="#EFE6D6"/>
+  <!-- soft bordeaux gradient wash -->
+  <rect width="900" height="700" fill="url(#heroGrad)" opacity="0.55"/>
+  <defs>
+    <linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5B1A26" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#3E0F18" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <!-- large "V" watermark -->
+  <text x="450" y="500" font-family="Georgia,serif" font-size="480" font-weight="700"
+    text-anchor="middle" fill="#C6A15B" opacity="0.12" letter-spacing="-10">V</text>
+  <!-- t-shirt silhouette, centred -->
+  <g transform="translate(450,310)" fill="#E7D3A1" opacity="0.82"
+     stroke="#C6A15B" stroke-width="2" stroke-linejoin="round">
+    <path d="M-120,-90 L-195,-165 L-90,-210 L-45,-150 Q0,-120 45,-150 L90,-210 L195,-165 L120,-90 L120,150 L-120,150 Z"/>
+  </g>
+  <!-- VELORA label -->
+  <text x="450" y="580" font-family="Georgia,serif" font-size="32" font-weight="700"
+    text-anchor="middle" fill="#E7D3A1" letter-spacing="10" opacity="0.9">VELORA</text>
+  <text x="450" y="615" font-family="sans-serif" font-size="14"
+    text-anchor="middle" fill="#E7D3A1" letter-spacing="4" opacity="0.6">CUSTOM APPAREL &amp; GIFTS</text>
+</svg>

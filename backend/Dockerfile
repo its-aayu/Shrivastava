@@ -35,6 +35,8 @@ RUN pip install --no-cache-dir --no-index --find-links=/wheels /wheels/* \
 # Copy application code
 COPY app/ ./app/
 COPY scripts/ ./scripts/
+COPY alembic/ ./alembic/
+COPY alembic.ini ./
 COPY runtime.txt Procfile ./
 
 # Uploads dir owned by appuser so the app can write to it

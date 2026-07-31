@@ -1,0 +1,74 @@
+/* Velora design tokens (v2) — single source of truth.
+   Imported first in App.css. Fonts loaded in index.html. */
+
+:root {
+  /* Brand */
+  --bordeaux: #5B1A26;
+  --bordeaux-deep: #3E0F18;
+  --claret: #8C2F39;
+  --gold: #C6A15B;
+  --gold-soft: #E7D3A1;
+
+  /* Neutrals (warm) */
+  --ivory: #F8F2E9;    /* page background */
+  --cream: #EFE6D6;    /* section bands / secondary surface */
+  --sand: #DCCDB4;     /* borders, muted fills */
+  --surface: #FFFDF9;  /* cards */
+  --ink: #241016;      /* body text */
+  --ink-muted: #6E5C52;
+
+  /* Semantic states */
+  --success: #4F7A57;
+  --error: #B23A3A;
+  --warning: #C9772D;
+  --info: #5A6B7A;
+
+  /* Typography */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Manrope', system-ui, -apple-system, sans-serif;
+
+  /* Radius */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Elevation (warm, soft) */
+  --shadow-sm: 0 2px 8px rgba(36,16,22,0.06);
+  --shadow-md: 0 10px 30px rgba(36,16,22,0.10);
+  --shadow-lg: 0 20px 50px rgba(36,16,22,0.14);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--bordeaux);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+h1 { font-size: clamp(2.5rem, 6vw, 3.5rem); }
+h2 { font-size: clamp(1.75rem, 4vw, 2rem); }
+h3 { font-size: 1.5rem; }
+a { color: var(--bordeaux); }

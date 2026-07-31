@@ -5,8 +5,9 @@
 from app.models.product import Product
 from app.models.user import User
 from app.models.order import Order
+from app.models.order_item import OrderItem
 from app.models.document import Document
 from app.models.chat_history import ChatHistory
 from app.models.faq import FAQ
 
-__all__ = ["Product", "User", "Order", "Document", "ChatHistory", "FAQ"]
+__all__ = ["Product", "User", "Order", "OrderItem", "Document", "ChatHistory", "FAQ"]

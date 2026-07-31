@@ -1,0 +1,8 @@
+/* Reuses .authPage / .authCard / .authField / .authCard__* from Login/style.css */
+/* This file exists so the import resolves — styles are shared via global cascade */
+
+.authField small {
+  font-weight: 400;
+  color: #888;
+  font-size: 0.8rem;
+}

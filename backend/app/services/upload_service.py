@@ -18,6 +18,33 @@ ALLOWED_MIME_TYPES = {
 
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
 
+# (magic bytes, length to check, label)
+_MAGIC_SIGNATURES: list[tuple[bytes, int, str]] = [
+    (b"%PDF", 4, "application/pdf"),
+    (b"\x89PNG\r\n\x1a\n", 8, "image/png"),
+    (b"\xff\xd8\xff", 3, "image/jpeg"),
+]
+
+
+def _validate_magic_bytes(contents: bytes, declared_mime: str) -> None:
+    """Verify file header matches the declared MIME type.
+
+    Clients control the Content-Type header — checking actual bytes prevents
+    a disguised executable from being accepted as an image or PDF.
+    """
+    for signature, length, mime in _MAGIC_SIGNATURES:
+        if contents[:length] == signature:
+            if mime != declared_mime:
+                raise HTTPException(
+                    status_code=400,
+                    detail="File content does not match the declared content type.",
+                )
+            return
+    raise HTTPException(
+        status_code=400,
+        detail="File format not recognised. Upload PDF, PNG, or JPEG only.",
+    )
+
 
 def _validate_extension(filename: str) -> str:
     ext = Path(filename).suffix.lower()
@@ -106,7 +133,7 @@ def _upload_local(contents: bytes, original_filename: str, content_type: str) ->
 
 async def save_upload(file: UploadFile) -> dict:
     """
-    Validate file type/size, then:
+    Validate file type/size/magic bytes, then:
     - If Cloudinary env vars are set: upload to Cloudinary (production-ready)
     - Otherwise: save to local uploads/ directory (dev fallback)
     """
@@ -121,13 +148,15 @@ async def save_upload(file: UploadFile) -> dict:
             detail=f"File exceeds the {max_mb} MB size limit.",
         )
 
+    # Verify actual file bytes — client-supplied Content-Type is untrusted
+    _validate_magic_bytes(contents, file.content_type)
+
     if _cloudinary_configured():
         try:
             return _upload_to_cloudinary(contents, file.filename, file.content_type)
         except Exception as exc:
-            raise HTTPException(
-                status_code=500,
-                detail=f"Cloudinary upload failed: {exc}",
-            )
+            import logging
+            logging.getLogger("velora.uploads").error("Cloudinary upload failed: %s", exc)
+            raise HTTPException(status_code=500, detail="File upload failed. Please try again.")
 
     return _upload_local(contents, file.filename, file.content_type)

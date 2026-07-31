@@ -1,60 +1,60 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
-import { authApi } from "../lib/api";
+import { createContext, useContext, useEffect, useState } from "react";
+import request from "../lib/apiClient";
 
 const AuthContext = createContext(null);
 
+function loadUser() {
+  try { return JSON.parse(localStorage.getItem("velora_user")); } catch { return null; }
+}
+
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem("velora_token"));
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(loadUser);
 
   useEffect(() => {
-    const stored = localStorage.getItem("velora_token");
-    if (!stored) {
-      setLoading(false);
-      return;
-    }
-    authApi
-      .me()
-      .then(setUser)
-      .catch(() => {
-        localStorage.removeItem("velora_token");
-        setToken(null);
-      })
-      .finally(() => setLoading(false));
+    const handler = () => { setUser(null); localStorage.removeItem("velora_user"); localStorage.removeItem("velora_token"); };
+    window.addEventListener("velora:unauthorized", handler);
+    return () => window.removeEventListener("velora:unauthorized", handler);
   }, []);
 
-  // Auto-logout when any API call receives a 401 (token expired/revoked)
-  useEffect(() => {
-    function onUnauthorized() {
-      setToken(null);
-      setUser(null);
-    }
-    window.addEventListener("velora:unauthorized", onUnauthorized);
-    return () => window.removeEventListener("velora:unauthorized", onUnauthorized);
-  }, []);
+  async function login(email, password) {
+    const res = await request("/auth/login", { method: "POST", body: JSON.stringify({ email, password }) });
+    localStorage.setItem("velora_token", res.data.access_token);
+    const me = await request("/auth/me");
+    localStorage.setItem("velora_user", JSON.stringify(me));
+    setUser(me);
+    return me;
+  }
 
-  const login = useCallback((newToken, userData = null) => {
-    localStorage.setItem("velora_token", newToken);
-    setToken(newToken);
-    if (userData) setUser(userData);
-  }, []);
+  async function signup(name, email, password) {
+    const res = await request("/auth/signup", { method: "POST", body: JSON.stringify({ name, email, password }) });
+    const { access_token, user_id, email: userEmail, name: userName, role } = res.data;
+    localStorage.setItem("velora_token", access_token);
+    const me = { id: user_id, email: userEmail, name: userName, role };
+    localStorage.setItem("velora_user", JSON.stringify(me));
+    setUser(me);
+    return me;
+  }
 
-  const logout = useCallback(() => {
+  function logout() {
     localStorage.removeItem("velora_token");
-    setToken(null);
+    localStorage.removeItem("velora_user");
     setUser(null);
-  }, []);
+  }
 
   return (
-    <AuthContext.Provider value={{ user, token, isAuthenticated: !!token, loading, login, logout }}>
+    <AuthContext.Provider value={{
+      user,
+      isAuthenticated: !!user,
+      isAdmin: user?.role === "admin",
+      login,
+      signup,
+      logout,
+    }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
 export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used inside <AuthProvider>");
-  return ctx;
+  return useContext(AuthContext);
 }

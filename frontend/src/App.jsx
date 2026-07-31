@@ -1,98 +1,81 @@
 import { lazy, Suspense, useMemo, useState } from "react";
 import { AnimatePresence, motion as Motion, MotionConfig } from "framer-motion";
+import { Toaster } from "sonner";
+import { AuthProvider } from "./context/AuthContext";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
 import PageLoader from "./components/ui/PageLoader";
 import ScrollTop from "./components/ui/ScrollTop";
-import { Toaster } from "sonner";
-import { AuthProvider } from "./context/AuthContext";
-import { navItems } from "./data/site";
 import ChatWidget from "./components/ui/ChatWidget";
+import { navItems } from "./data/site";
 
-const Home        = lazy(() => import("./pages/Home"));
-const About       = lazy(() => import("./pages/About"));
-const Services    = lazy(() => import("./pages/Services"));
-const Gallery     = lazy(() => import("./pages/Gallery"));
-const Team        = lazy(() => import("./pages/Team"));
-const Blog        = lazy(() => import("./pages/Blog"));
-const Pricing     = lazy(() => import("./pages/Pricing"));
-const Contact     = lazy(() => import("./pages/Contact"));
-const FAQ         = lazy(() => import("./pages/FAQ"));
-const ProductDetail = lazy(() => import("./pages/ProductDetail"));
-const Login       = lazy(() => import("./pages/Login"));
-const Signup      = lazy(() => import("./pages/Signup"));
-const Dashboard   = lazy(() => import("./pages/Dashboard"));
-const Checkout    = lazy(() => import("./pages/Checkout"));
-const Cart        = lazy(() => import("./pages/Cart"));
+const Home           = lazy(() => import("./pages/Home"));
+const Categories     = lazy(() => import("./pages/Categories"));
+const NewArrivals    = lazy(() => import("./pages/NewArrivals"));
+const Gift           = lazy(() => import("./pages/Gift"));
+const About          = lazy(() => import("./pages/About"));
+const Login          = lazy(() => import("./pages/Login"));
+const Signup         = lazy(() => import("./pages/Signup"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const PrivacyPolicy  = lazy(() => import("./pages/PrivacyPolicy"));
+const Terms          = lazy(() => import("./pages/Terms"));
+const RefundPolicy   = lazy(() => import("./pages/RefundPolicy"));
 
 const pages = {
-  home: Home,
-  about: About,
-  services: Services,
-  gallery: Gallery,
-  team: Team,
-  blog: Blog,
-  pricing: Pricing,
-  contact: Contact,
-  faq: FAQ,
-  product: ProductDetail,
-  login: Login,
-  signup: Signup,
-  dashboard: Dashboard,
-  checkout: Checkout,
-  cart: Cart,
+  home:           Home,
+  categories:     Categories,
+  newArrivals:    NewArrivals,
+  gift:           Gift,
+  about:          About,
+  login:          Login,
+  signup:         Signup,
+  adminDashboard: AdminDashboard,
+  privacy:        PrivacyPolicy,
+  terms:          Terms,
+  refundPolicy:   RefundPolicy,
 };
 
-// Pages that replace the full site shell (no Navbar / Footer)
-const FULL_PAGE = new Set(["login", "signup", "dashboard", "checkout"]);
+// Pages that skip the Navbar + Footer shell
+const FULL_PAGE = new Set(["login", "signup", "adminDashboard"]);
 
 const pageTransition = {
-  initial: { opacity: 0, y: 8 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -8 },
-  transition: { duration: 0.22, ease: "easeInOut" },
+  initial:    { opacity: 0, y: 8 },
+  animate:    { opacity: 1, y: 0 },
+  exit:       { opacity: 0, y: -8 },
+  transition: { duration: 0.2, ease: "easeInOut" },
 };
 
 function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage]         = useState("home");
   const [pageData, setPageData] = useState(null);
 
   const CurrentPage = useMemo(() => pages[page] ?? Home, [page]);
-  const isFullPage = FULL_PAGE.has(page);
+  const isFullPage  = FULL_PAGE.has(page);
 
-  const goToPage = (nextPage, data = null) => {
+  function goToPage(nextPage, data = null) {
     setPage(nextPage);
     setPageData(data);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }
 
   const pageContent = (
     <AnimatePresence mode="wait" initial={false}>
       <Motion.div key={page} {...pageTransition}>
         <Suspense fallback={<PageLoader />}>
-          <CurrentPage
-            onNavigate={goToPage}
-            {...(pageData ? { productId: pageData } : {})}
-          />
+          <CurrentPage onNavigate={goToPage} {...(pageData ? { pageData } : {})} />
         </Suspense>
       </Motion.div>
     </AnimatePresence>
   );
 
   if (isFullPage) {
-    return (
-      <MotionConfig reducedMotion="user">
-        {pageContent}
-      </MotionConfig>
-    );
+    return <MotionConfig reducedMotion="user">{pageContent}</MotionConfig>;
   }
 
   return (
     <MotionConfig reducedMotion="user">
       <div className="siteShell">
-        <a className="skip-link" href="#main-content">
-          Skip to content
-        </a>
+        <a className="skip-link" href="#main-content">Skip to content</a>
         <Navbar activePage={page} navItems={navItems} onNavigate={goToPage} />
         <main id="main-content" tabIndex="-1">
           {pageContent}
@@ -111,13 +94,8 @@ export default function AppWithAuth() {
       <App />
       <Toaster
         position="bottom-right"
-        offset={80}
-        toastOptions={{
-          style: {
-            fontFamily: "var(--font-body)",
-            fontSize: "0.875rem",
-          },
-        }}
+        offset={16}
+        toastOptions={{ style: { fontFamily: "var(--font-body)", fontSize: "0.875rem" } }}
       />
     </AuthProvider>
   );

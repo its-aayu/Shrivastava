@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Full bleed bordeaux background (maskable — content within central 80%) -->
+  <rect width="512" height="512" fill="#5B1A26"/>
+  <!-- Gold rules — inset for maskable safe zone -->
+  <rect x="128" y="128" width="256" height="3" rx="1.5" fill="#C6A15B"/>
+  <!-- V letterform — scaled and centred for maskable safe zone -->
+  <polygon points="128,164 196,164 256,316 316,164 384,164 280,356 232,356" fill="#EFE6D6"/>
+  <!-- Gold bottom rule -->
+  <rect x="128" y="376" width="256" height="3" rx="1.5" fill="#C6A15B"/>
+</svg>

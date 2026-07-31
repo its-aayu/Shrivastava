@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     # No default — the app will raise at startup if this is empty in production
     SECRET_KEY: str = "dev-only-secret-change-before-deploy"
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 10080  # 7 days
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440  # 24 hours
 
     # ── AI ─────────────────────────────────────────────────────────────────────
     GROQ_API_KEY: str = ""
@@ -25,8 +25,11 @@ class Settings(BaseSettings):
     CLOUDINARY_API_KEY: str = ""
     CLOUDINARY_API_SECRET: str = ""
 
+    # ── Observability ──────────────────────────────────────────────────────────
+    SENTRY_DSN: str = ""
+
     # ── App ────────────────────────────────────────────────────────────────────
-    DEBUG: bool = True
+    DEBUG: bool = False
     ALLOWED_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
 
     def get_allowed_origins(self) -> list[str]:

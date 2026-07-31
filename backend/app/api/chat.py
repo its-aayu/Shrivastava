@@ -15,7 +15,7 @@ import uuid
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -33,6 +33,7 @@ from app.services.rag_service import (
 from app.utils.auth import get_current_user
 
 MAX_MESSAGE_LENGTH = 1000
+_MAX_WIDGET_HISTORY = 6  # max prior turns accepted from the public widget (prevents prompt-stuffing)
 
 log = logging.getLogger("velora.chat")
 
@@ -40,8 +41,8 @@ router = APIRouter(prefix="/chat", tags=["Chat / AI"])
 
 
 class ChatMessage(BaseModel):
-    role: str      # "user" or "assistant"
-    content: str
+    role: str = Field(..., pattern="^(user|assistant)$")
+    content: str = Field(..., max_length=MAX_MESSAGE_LENGTH)
 
 
 class ChatRequest(BaseModel):
@@ -234,8 +235,9 @@ async def chat_widget(request: Request, payload: ChatRequest):
     top_score = round(chunks[0]["score"], 3) if chunks else None
     log.info("[widget] raw=%d  filtered=%d  top_score=%s  query=%r", len(raw_chunks), len(chunks), top_score, msg[:80])
 
-    # Use conversation history sent by the widget frontend (widget has no DB)
-    history = [{"role": h.role, "content": h.content} for h in payload.history]
+    # Accept only the most recent N turns from the public widget to prevent prompt-stuffing
+    recent_history = payload.history[-_MAX_WIDGET_HISTORY:]
+    history = [{"role": h.role, "content": h.content[:MAX_MESSAGE_LENGTH]} for h in recent_history]
     response_text, model_used, tokens_used = _generate(msg, chunks, history)
 
     latency = round(time.perf_counter() - t0, 3)

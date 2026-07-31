@@ -34,7 +34,7 @@
 
   backdrop-filter: blur(10px);
 
-  color: #7d6d69;
+  color: var(--text-light);
 
   font-size: 0.88rem;
   font-weight: 600;
@@ -50,7 +50,7 @@
 
   line-height: 1.05;
 
-  color: #4b3b38;
+  color: var(--text-dark);
 }
 
 /* GRID */
@@ -99,7 +99,7 @@
 
   line-height: 1;
 
-  color: rgba(247,176,163,0.5);
+  color: var(--bordeaux); opacity: 0.4;
 
   font-family: var(--font-heading);
 }
@@ -108,7 +108,7 @@
 .testimonial-review {
   margin-bottom: 36px;
 
-  color: #6f615d;
+  color: var(--ink-muted);
 
   line-height: 1.9;
 
@@ -137,8 +137,8 @@
   background:
     linear-gradient(
       135deg,
-      #f7b0a3,
-      #f6c095
+      var(--bordeaux),
+      var(--gold)
     );
 
   color: white;
@@ -146,20 +146,20 @@
   font-weight: 700;
 
   box-shadow:
-    0 10px 24px rgba(247,176,163,0.3);
+    0 10px 24px rgba(91, 26, 38, 0.25);
 }
 
 /* USER INFO */
 .testimonial-user h4 {
   margin-bottom: 4px;
 
-  color: #4b3b38;
+  color: var(--text-dark);
 
   font-size: 1rem;
 }
 
 .testimonial-user span {
-  color: #8b7c78;
+  color: var(--ink-muted);
 
   font-size: 0.88rem;
 }

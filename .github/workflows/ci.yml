@@ -39,6 +39,14 @@ jobs:
       - name: Check for syntax errors (py compile)
         run: python -m compileall app/ -q
 
+      - name: Run tests
+        env:
+          DATABASE_URL: ""
+          SECRET_KEY: "ci-test-secret-key-not-used-in-production"
+          GROQ_API_KEY: ""
+          DEBUG: "true"
+        run: pytest tests/ -v --tb=short
+
   # ── Frontend ─────────────────────────────────────────────────────────────────
   frontend:
     name: Frontend — install & build

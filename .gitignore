@@ -6,27 +6,48 @@ Thumbs.db
 .idea/
 *.suo
 *.sw?
+desktop.ini
+
+# ── Docs / planning files (local only) ────────────────────────────────────────
+*.md
+*.MD
+Tokens.css
 
 # ── Environment variables — never commit real values ──────────────────────────
 .env
 .env.local
 .env.*.local
+*.env
 
 # ── Frontend ──────────────────────────────────────────────────────────────────
 frontend/node_modules/
 frontend/dist/
 frontend/dist-ssr/
+frontend/coverage/
+frontend/.eslintcache
+frontend/test-results/
+frontend/playwright-report/
 
 # ── Backend ───────────────────────────────────────────────────────────────────
 backend/__pycache__/
 backend/**/__pycache__/
+**/__pycache__/
 backend/*.py[cod]
+**/*.py[cod]
 backend/.venv/
 backend/venv/
 backend/app/uploads/*
 !backend/app/uploads/.gitkeep
 backend/app/data/chroma_db/
 backend/chroma_store/
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.coverage
+backend/htmlcov/
+backend/coverage.xml
+*.egg-info/
+backend/dist/
+backend/build/
 
 # ── Logs ──────────────────────────────────────────────────────────────────────
 *.log

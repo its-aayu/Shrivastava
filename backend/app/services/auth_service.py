@@ -15,7 +15,7 @@ def _next_user_id(db: Session) -> str:
 
 def register_user(db: Session, payload: UserCreate) -> User:
     if db.query(User).filter(User.email == payload.email).first():
-        raise HTTPException(status_code=400, detail="Email already registered")
+        raise HTTPException(status_code=409, detail="Email already registered")
 
     user = User(
         id=_next_user_id(db),

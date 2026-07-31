@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 
 # ── Ensure app package is importable from backend/ ───────────────────────────
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from app.core.config import settings
 
@@ -36,6 +36,13 @@ from app.models.faq import FAQ
 DATA_DIR = Path(__file__).parent.parent.parent / "frontend" / "src" / "mock-data"
 
 FORCE = "--force" in sys.argv
+
+if FORCE:
+    print("WARNING: --force will DELETE all existing rows and re-seed.")
+    answer = input("Type 'yes' to continue: ").strip().lower()
+    if answer != "yes":
+        print("Aborted.")
+        sys.exit(0)
 
 
 def load_json(filename: str) -> list[dict]:
@@ -73,9 +80,10 @@ def seed_products(db):
             title=row["title"],
             category_id=row["category_id"],
             category=row["category"],
+            subcategory=row.get("subcategory"),
             description=row.get("description"),
             price=row["price"],
-            price_unit=row.get("price_unit", "per set"),
+            price_unit=row.get("price_unit", "per piece"),
             currency=row.get("currency", "INR"),
             material=row.get("material"),
             finish=row.get("finish"),
@@ -89,6 +97,7 @@ def seed_products(db):
             review_count=row.get("review_count", 0),
             is_featured=row.get("is_featured", False),
             in_stock=row.get("in_stock", True),
+            is_new=row.get("is_new", False),
         ))
     db.commit()
     print(f"  OK    {label} — {len(rows)} rows inserted")

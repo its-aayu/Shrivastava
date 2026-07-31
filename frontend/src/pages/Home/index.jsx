@@ -1,58 +1,35 @@
+import { useMemo } from "react";
 import { motion as Motion } from "framer-motion";
-
-import Button from "../../components/ui/Button";
-import { galleryItems, imageBank } from "../../data/site";
 import { handleImageError } from "../../utils/images";
-import { ImagePanel, PromoBand, ReviewSection, SectionHeader, ServiceCards, StatsStrip, TrustStrip } from "../../components/shared";
+import {
+  CategoryCards,
+  ProductCard,
+  PromoBand,
+  SectionHeader,
+  TrustStrip,
+} from "../../components/shared";
+import products from "../../mock-data/products.json";
 import "./style.css";
 
-const heroTrustBadges = ["24h Delivery", "500+ Orders", "Premium Finish"];
+const heroTrustBadges = ["Custom Prints", "Free Design Preview", "Fast Delivery across India"];
 
-const heroMetrics = [
-  { value: "98%", label: "Satisfaction" },
-  { value: "500+", label: "Projects" },
-  { value: "4.9", label: "Rating" },
-];
-
-const introPoints = [
-  {
-    icon: "01",
-    title: "Design-aware checks",
-    copy: "Bleed, trim, color, and finishing reviewed before production.",
-  },
-  {
-    icon: "02",
-    title: "Premium material guidance",
-    copy: "Paper, stock, lamination, and texture selected around your brand.",
-  },
-  {
-    icon: "03",
-    title: "Rush planning",
-    copy: "Urgent jobs get a clear proof, print, and delivery path.",
-  },
-];
-
-const testimonials = [
-  {
-    name: "Sarah Patel",
-    company: "Nova Studio",
-    review: "Velora made our launch kits feel sharper and more considered than anything we had printed before.",
-  },
-  {
-    name: "Arjun Mehta",
-    company: "Table Nine",
-    review: "Menus, inserts, and labels arrived color-accurate, beautifully finished, and right on schedule.",
-  },
-  {
-    name: "Mira Shah",
-    company: "Form & Co.",
-    review: "The proofing process was calm and the final cards had the exact premium texture we wanted.",
-  },
+const whyUs = [
+  { icon: "01", title: "Upload any design", copy: "Send your artwork file — we print it exactly as you want it." },
+  { icon: "02", title: "Premium materials", copy: "180–320 GSM fabrics, safe inks, and quality-checked every run." },
+  { icon: "03", title: "Fast & tracked", copy: "Most orders ship in 5–7 days with full delivery tracking." },
 ];
 
 export default function Home({ onNavigate }) {
+  const newArrivals = useMemo(() => products.filter((p) => p.is_new).slice(0, 4), []);
+  const featured    = useMemo(
+    () => products.filter((p) => p.is_featured && !p.is_new).slice(0, 4),
+    []
+  );
+
   return (
     <div className="homePage">
+
+      {/* HERO */}
       <section className="homeHero">
         <div className="homeHero__mesh homeHero__mesh--one" />
         <div className="homeHero__mesh homeHero__mesh--two" />
@@ -63,72 +40,69 @@ export default function Home({ onNavigate }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <p className="eyebrow">VELORA STUDIO</p>
+          <p className="eyebrow">VELORA</p>
           <h1>
-            <span>Beautiful print</span>
-            <span>for brands that care</span>
-            <span>about every touch.</span>
+            <span>Custom apparel</span>
+            <span>& gifts, printed</span>
+            <span>just for you.</span>
           </h1>
           <p>
-            Premium cards, packaging, apparel, posters, labels, and launch kits produced with sharp color, careful finishing, and calm delivery.
+            T-shirts, hoodies, mugs, frames, and more — all personalised with your design and delivered fast across India.
           </p>
-          <div className="homeHero__trust" aria-label="Studio highlights">
+          <div className="homeHero__trust" aria-label="Highlights">
             {heroTrustBadges.map((badge) => (
               <span key={badge}>{badge}</span>
             ))}
           </div>
-          {/* <div className="homeHero__ctaGlass">
-            <Button onClick={() => onNavigate("contact")}>Request a Quote</Button>
-            <Button variant="outlineLight" onClick={() => onNavigate("gallery")}>View Work</Button>
-            <span>Proof-first production. No print starts until you approve it.</span>
-          </div> */}
-          <div className="homeHero__metrics" aria-label="VELORA STUDIO performance metrics">
-            {heroMetrics.map((metric) => (
-              <article key={metric.label}>
-                <strong>{metric.value}</strong>
-                <span>{metric.label}</span>
-              </article>
-            ))}
+          <div className="homeHero__actions">
+            <button className="btn btn--primary" type="button" onClick={() => onNavigate("categories")}>
+              Shop Now
+            </button>
+            <button className="btn btn--outline" type="button" onClick={() => onNavigate("newArrivals")}>
+              New Arrivals
+            </button>
           </div>
         </Motion.div>
+
         <Motion.div
           className="heroShowcase"
-          aria-label="Featured print work"
+          aria-label="Custom printed apparel"
           initial={{ opacity: 0, x: 36 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
         >
-          <img className="heroShowcase__main" src={imageBank.hero} alt="Modern printing press producing paper" decoding="async" loading="eager" onError={handleImageError} />
+          <img
+            className="heroShowcase__main"
+            src="/images/hero-apparel.svg"
+            alt="Custom printed apparel and gifts"
+            decoding="async"
+            loading="eager"
+            onError={handleImageError}
+          />
           <div className="heroShowcase__shine" />
           <div className="heroShowcase__card heroShowcase__card--top">
-            <span>CMYK checked</span>
-            <strong>Proof-ready files</strong>
+            <span>Design preview</span>
+            <strong>Before every print</strong>
           </div>
           <div className="heroShowcase__card heroShowcase__card--bottom">
-            <span>24h rush slots</span>
-            <strong>Launch without delay</strong>
-          </div>
-          <img className="heroShowcase__thumb" src={imageBank.cards} alt="Printed brand material" decoding="async" loading="lazy" onError={handleImageError} />
-          <div className="heroShowcase__avatars" aria-label="Recent happy clients">
-            {["N", "T", "F"].map((avatar) => (
-              <span key={avatar}>{avatar}</span>
-            ))}
-            <strong>Verified brand teams</strong>
+            <span>Fast delivery</span>
+            <strong>Tracked & on time</strong>
           </div>
         </Motion.div>
       </section>
+
       <TrustStrip />
-      <StatsStrip />
+
+      {/* WHY US */}
       <section className="homeIntro homeSection">
-        <ImagePanel src={imageBank.studio} title="Color, texture, finish" copy="Every detail chosen for the way your brand should feel." tall />
         <div>
           <SectionHeader
-            eyebrow="Why Velora"
-            title="A print partner for founders, teams, creators, and fast-moving brands."
-            copy="We combine file checking, design guidance, material selection, and crisp production so your final prints look thoughtful from the first touch."
+            eyebrow="Why VELORA"
+            title="Your design. Our print. Delivered to your door."
+            copy="We combine top-quality fabrics, vivid custom printing, and fast nationwide delivery so your order looks great and arrives on time."
           />
           <div className="homeIntro__points">
-            {introPoints.map((item) => (
+            {whyUs.map((item) => (
               <article key={item.title}>
                 <span>{item.icon}</span>
                 <h3>{item.title}</h3>
@@ -138,61 +112,54 @@ export default function Home({ onNavigate }) {
           </div>
         </div>
       </section>
-      <section className="homeServices homeSection">
+
+      {/* CATEGORY TILES */}
+      <section className="homeCategories homeSection">
         <SectionHeader
           align="center"
-          eyebrow="Services"
-          title="Everything your brand needs from one modern print studio."
-          copy="From business cards to apparel drops, we keep quality high and timelines calm."
+          eyebrow="Shop by category"
+          title="Men, Women, Kids & Gifts — all under one roof."
+          copy="Click any category to browse products and place your custom order."
         />
-        <ServiceCards onNavigate={onNavigate} />
+        <CategoryCards onNavigate={onNavigate} />
       </section>
-      <section className="homeGallery homeSection">
-        <SectionHeader
-          eyebrow="Recent work"
-          title="Print projects with a tactile, polished finish."
-          copy="A quick look at the print categories that usually sell the quality before a conversation starts."
-        />
-        <div className="homeGallery__grid">
-          {galleryItems.slice(0, 5).map((item, index) => (
-            <article
-              className={index === 0 ? "isLarge" : ""}
-              key={item.title}
-              onClick={() => onNavigate("product", item.id)}
-              style={{ cursor: "pointer" }}
-            >
-              <img src={item.image} alt={item.title} decoding="async" loading="lazy" onError={handleImageError} />
-              <div>
-                <span>{item.category}</span>
-                <h3>{item.title}</h3>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section className="homeTestimonials homeSection" aria-label="Client testimonials">
-        <SectionHeader
-          align="center"
-          eyebrow="Client experience"
-          title="Trusted by teams who notice the finish."
-          copy="Premium print should feel calm before production and impressive after delivery."
-        />
-        <div className="homeTestimonials__grid">
-          {testimonials.map((item) => (
-            <article key={item.name}>
-              <div className="homeTestimonials__stars" aria-label="5 star rating">5.0 rating</div>
-              <p>{item.review}</p>
-              <div>
-                <span>{item.name.charAt(0)}</span>
-                <strong>{item.name}</strong>
-                <small>{item.company} - Verified</small>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+
+      {/* NEW ARRIVALS TEASER */}
+      {newArrivals.length > 0 && (
+        <section className="homeTeaser homeSection">
+          <SectionHeader
+            eyebrow="New arrivals"
+            title="Fresh drops — just added."
+            viewAll="View all"
+            onViewAll={() => onNavigate("newArrivals")}
+          />
+          <div className="productGrid">
+            {newArrivals.map((p) => (
+              <ProductCard key={p.id} product={p} onNavigate={onNavigate} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* FEATURED TEASER */}
+      {featured.length > 0 && (
+        <section className="homeTeaser homeSection">
+          <SectionHeader
+            eyebrow="Best sellers"
+            title="Customer favourites."
+            viewAll="Browse all"
+            onViewAll={() => onNavigate("categories")}
+          />
+          <div className="productGrid">
+            {featured.map((p) => (
+              <ProductCard key={p.id} product={p} onNavigate={onNavigate} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <PromoBand onNavigate={onNavigate} />
-      <ReviewSection />
+
     </div>
   );
 }

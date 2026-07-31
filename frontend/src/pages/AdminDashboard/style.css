@@ -1,0 +1,269 @@
+/* ── Admin page shell ──────────────────────────────────────────────────── */
+.adminPage {
+  min-height: 100vh;
+  background: var(--cream);
+  font-family: var(--font-body, system-ui, sans-serif);
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.adminHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 60px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--sand);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.adminHeader__brand {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 0;
+  font-family: var(--font-script, inherit);
+}
+
+.adminHeader__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.adminHeader__user {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.adminHeader__logout {
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--sand);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.adminHeader__logout:hover { background: var(--cream); }
+
+/* ── Main ────────────────────────────────────────────────────────────────── */
+.adminMain {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.adminMain__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 1.5rem;
+}
+
+.adminLoading { color: var(--ink-muted); font-size: 0.95rem; }
+
+.adminError {
+  background: rgba(178, 58, 58, 0.06);
+  border: 1px solid rgba(178, 58, 58, 0.4);
+  color: var(--error);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.adminError button {
+  border: none;
+  background: none;
+  color: var(--error);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ── Stat cards ──────────────────────────────────────────────────────────── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: var(--surface);
+  border: 1px solid var(--sand);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+}
+
+.statCard__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  margin: 0 0 0.4rem;
+}
+
+.statCard__value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.statCard__sub {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  margin: 0.3rem 0 0;
+}
+
+/* ── Orders section ──────────────────────────────────────────────────────── */
+.adminSection {
+  background: var(--surface);
+  border: 1px solid var(--sand);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.adminSection__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--sand);
+}
+
+.adminSection__head h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.adminSection__head h2 span {
+  font-weight: 400;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+}
+
+.adminRefresh {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--sand);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+.adminRefresh:hover { background: var(--cream); }
+
+.adminEmpty {
+  padding: 2rem 1.5rem;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Orders table ────────────────────────────────────────────────────────── */
+.tableWrap { overflow-x: auto; }
+
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.ordersTable th {
+  text-align: left;
+  padding: 0.6rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-muted);
+  background: var(--ivory);
+  border-bottom: 1px solid var(--sand);
+  white-space: nowrap;
+}
+
+.ordersTable td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--cream);
+  color: var(--ink);
+  vertical-align: middle;
+}
+
+.ordersTable tr:last-child td { border-bottom: none; }
+.ordersTable tr:hover td { background: var(--ivory); }
+
+.ordersTable__id {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+}
+
+.ordersTable__date {
+  white-space: nowrap;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+}
+
+/* ── Status badge ────────────────────────────────────────────────────────── */
+.statusBadge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.statusBadge--pending       { background: #fef3c7; color: #92400e; }
+.statusBadge--proof_review  { background: #dbeafe; color: #1e40af; }
+.statusBadge--in_production { background: #ede9fe; color: #5b21b6; }
+.statusBadge--dispatched    { background: #d1fae5; color: #065f46; }
+.statusBadge--delivered     { background: #dcfce7; color: #166534; }
+.statusBadge--cancelled     { background: #fee2e2; color: #991b1b; }
+
+/* ── Status select ───────────────────────────────────────────────────────── */
+.statusSelect {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--sand);
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.statusSelect:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .adminMain { padding: 1rem 1rem 3rem; }
+  .adminHeader { padding: 0 1rem; }
+  .adminHeader__user { display: none; }
+  .statsRow { grid-template-columns: repeat(2, 1fr); }
+}

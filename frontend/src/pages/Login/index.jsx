@@ -1,107 +1,75 @@
 import { useState } from "react";
-import { motion as Motion } from "framer-motion";
-import { toast } from "sonner";
 import { useAuth } from "../../context/AuthContext";
-import { authApi } from "../../lib/api";
 import "./style.css";
 
 export default function Login({ onNavigate }) {
   const { login } = useAuth();
-  const [email, setEmail] = useState("");
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
     setLoading(true);
     try {
-      const res = await authApi.login(email, password);
-      const token = res.data.access_token;
-      // Store token first so me() can attach it to the request
-      localStorage.setItem("velora_token", token);
-      const userData = await authApi.me().catch(() => null);
-      login(token, userData);
-      const role = userData?.role ?? "customer";
-      const firstName = userData?.name?.split(" ")[0] ?? "back";
-      toast.success(`Welcome ${firstName}!`, {
-        description: role === "admin" ? "Opening admin dashboard…" : "Happy to have you here.",
-      });
-      onNavigate(role === "admin" ? "dashboard" : "home");
+      const user = await login(email, password);
+      onNavigate(user.role === "admin" ? "adminDashboard" : "home");
     } catch (err) {
-      const msg = err.message || "Login failed. Please check your credentials.";
-      setError(msg);
-      toast.error(msg);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="auth-page">
-      <Motion.div
-        className="auth-card"
-        initial={{ opacity: 0, y: 22 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.38, ease: "easeOut" }}
-      >
-        <button className="auth-back" onClick={() => onNavigate("home")}>
-          ← Back to site
+    <div className="authPage">
+      <div className="authCard">
+        <button className="authCard__brand" type="button" onClick={() => onNavigate("home")}>
+          VELORA
         </button>
+        <h1>Sign in</h1>
+        <p className="authCard__sub">Welcome back.</p>
 
-        <div className="auth-logo">
-          <div className="auth-brand-mark">A</div>
-          <div className="auth-logo-name">VELORA STUDIO</div>
-          <div className="auth-logo-sub">Client Dashboard</div>
-        </div>
+        {error && <div className="authCard__error">{error}</div>}
 
-        <h1 className="auth-title">Welcome back</h1>
-        <p className="auth-subtitle">Sign in to manage your orders and uploads</p>
-
-        {error && <div className="auth-error">{error}</div>}
-
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="auth-field">
-            <label className="auth-label" htmlFor="login-email">Email</label>
+        <form onSubmit={handleSubmit} noValidate>
+          <div className="authField">
+            <label htmlFor="login-email">Email</label>
             <input
               id="login-email"
               type="email"
-              className="auth-input"
-              placeholder="you@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
               required
               autoComplete="email"
+              autoFocus
             />
           </div>
-
-          <div className="auth-field">
-            <label className="auth-label" htmlFor="login-password">Password</label>
+          <div className="authField">
+            <label htmlFor="login-password">Password</label>
             <input
               id="login-password"
               type="password"
-              className="auth-input"
-              placeholder="Your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
               required
               autoComplete="current-password"
             />
           </div>
-
-          <button type="submit" className="auth-btn" disabled={loading}>
-            {loading ? "Signing in…" : "Sign In"}
+          <button type="submit" className="authCard__submit" disabled={loading}>
+            {loading ? "Signing in…" : "Sign in"}
           </button>
         </form>
 
-        <div className="auth-footer">
-          Don&apos;t have an account?{" "}
-          <button className="auth-link" onClick={() => onNavigate("signup")}>
-            Create one free
-          </button>
-        </div>
-      </Motion.div>
+        <p className="authCard__switch">
+          Don't have an account?{" "}
+          <button type="button" onClick={() => onNavigate("signup")}>Sign up</button>
+        </p>
+      </div>
     </div>
   );
 }

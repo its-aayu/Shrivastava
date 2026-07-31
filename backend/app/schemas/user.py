@@ -4,15 +4,15 @@ from pydantic import BaseModel, EmailStr, Field
 
 
 class UserBase(BaseModel):
-    name: str
-    email: str
-    phone: Optional[str] = None
-    company: Optional[str] = None
-    city: Optional[str] = None
+    name: str = Field(..., min_length=1, max_length=120)
+    email: EmailStr
+    phone: Optional[str] = Field(None, max_length=20)
+    company: Optional[str] = Field(None, max_length=120)
+    city: Optional[str] = Field(None, max_length=80)
 
 
 class UserCreate(UserBase):
-    password: str = Field(..., min_length=8, description="Plain-text password — hashed before storage")
+    password: str = Field(..., min_length=10, max_length=128, description="Plain-text password — hashed before storage")
     # role is intentionally absent — always assigned server-side as "customer"
 
 

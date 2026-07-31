@@ -1,29 +1,54 @@
 import { motion as Motion } from "framer-motion";
-import { imageBank, stats } from "../../data/site";
+import { imageBank } from "../../data/site";
 import Reveal from "../../components/ui/Reveal";
 import { cardItem, gridContainer } from "../../animations/motion";
-import { ImagePanel, PageHero, PromoBand, ReviewSection, SectionHeader, StatsStrip } from "../../components/shared";
+import { ImagePanel, PageHero, PromoBand, SectionHeader } from "../../components/shared";
 import "./style.css";
 
 const timelineSteps = [
-  { step: "Consult", desc: "We listen to your brief — materials, quantity, timeline, and brand expectations." },
-  { step: "Proof", desc: "A digital proof is prepared and sent to you before a single sheet prints." },
-  { step: "Produce", desc: "Our team prints, finishes, and quality-checks every item in the order." },
-  { step: "Deliver", desc: "Packed and ready for pickup or delivery, on schedule, no chasing required." },
+  {
+    step: "Browse",
+    desc: "Explore our range of custom apparel and personalised gifts across men, women, kids, and gift collections.",
+  },
+  {
+    step: "Design",
+    desc: "Place your order on WhatsApp with your artwork or idea. We'll send a free digital preview before anything goes to print.",
+  },
+  {
+    step: "Print",
+    desc: "Your order is printed on quality fabrics using wash-resistant inks, then quality-checked by our team.",
+  },
+  {
+    step: "Deliver",
+    desc: "Packed securely and shipped fast — most apparel in 5–7 days, gifts in 2–5 days, tracked all the way to your door.",
+  },
 ];
 
 const coreValues = [
-  { num: "01", name: "Proof first", body: "Nothing prints until you approve it. No surprises at delivery, ever." },
-  { num: "02", name: "File care", body: "Bleed, trim, color mode, and resolution reviewed on every single job." },
-  { num: "03", name: "Real materials", body: "Paper weight, texture, and finish guided around your specific brand." },
+  {
+    num: "01",
+    name: "Preview before print",
+    body: "You see a digital proof before we print anything. No surprises, no wasted orders.",
+  },
+  {
+    num: "02",
+    name: "Quality materials",
+    body: "180–320 GSM cotton fabrics and wash-resistant inks. Clothes that look and feel premium.",
+  },
+  {
+    num: "03",
+    name: "Made to order",
+    body: "Every piece is printed fresh for you. No minimum order quantity — one piece is fine.",
+  },
 ];
 
 export default function About({ onNavigate }) {
   return (
     <>
       <PageHero
-        title="A design-led print studio built for modern brands."
-        copy="We bring the discipline of production together with the eye of a brand studio, so every piece feels considered."
+        eyebrow="Our story"
+        title="Custom apparel & gifts, made with care."
+        copy="We started VELORA to make personalised printing simple — your design, on quality products, delivered fast across India."
         image={imageBank.studio}
       />
 
@@ -31,9 +56,9 @@ export default function About({ onNavigate }) {
       <section className="aboutStory">
         <Reveal>
           <SectionHeader
-            eyebrow="About us"
-            title="From quick prints to complete launch kits, every job gets a studio eye."
-            copy="VELORA is built for teams who need speed without losing taste. We help you choose the right paper, finish, color approach, and delivery path before ink touches stock."
+            eyebrow="How it works"
+            title="Browse, design, print — delivered to your door."
+            copy="Ordering custom apparel or a personalised gift with VELORA takes minutes. Here's what happens after you reach out."
           />
           <div className="aboutStory__timeline">
             {timelineSteps.map((item, index) => (
@@ -51,18 +76,21 @@ export default function About({ onNavigate }) {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <ImagePanel src={imageBank.press} title="Production with polish" copy="Fast machines, careful hands, beautiful output." tall />
+          <ImagePanel
+            src={imageBank.studio}
+            title="Printed with care"
+            copy="Quality inks, quality fabrics, delivered fast."
+            tall
+          />
         </Motion.div>
       </section>
-
-      <StatsStrip />
 
       {/* Mission quote */}
       <section className="aboutMission">
         <Reveal y={32} duration={0.7} className="aboutMission__inner">
           <p className="eyebrow">Our mission</p>
-          <h2>"Print should feel calm before production and impressive after delivery."</h2>
-          <p>Every file check, every proof, every material choice exists to remove friction from the process and put quality into the hands of the client.</p>
+          <h2>"Your design deserves to look as good on the product as it does on your screen."</h2>
+          <p>Every preview, every quality check, every careful shipment — we do it so your order arrives exactly as you imagined it.</p>
         </Reveal>
       </section>
 
@@ -71,8 +99,8 @@ export default function About({ onNavigate }) {
         <Reveal>
           <SectionHeader
             align="center"
-            eyebrow="What we care about"
-            title="Print should be fast, but it should never feel careless."
+            eyebrow="What we stand for"
+            title="Custom printing that's fast, honest, and high quality."
           />
         </Reveal>
         <Motion.div
@@ -90,24 +118,9 @@ export default function About({ onNavigate }) {
             </Motion.article>
           ))}
         </Motion.div>
-        <Motion.div
-          className="aboutStats"
-          variants={gridContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {stats.map((item) => (
-            <Motion.article key={item.label} variants={cardItem}>
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </Motion.article>
-          ))}
-        </Motion.div>
       </section>
 
       <PromoBand onNavigate={onNavigate} />
-      <ReviewSection />
     </>
   );
 }

@@ -10,6 +10,20 @@ from slowapi.errors import RateLimitExceeded
 from app.core.config import settings
 from app.core.limiter import limiter
 
+# Sentry — only initialised when SENTRY_DSN is set in the environment
+if settings.SENTRY_DSN:
+    import sentry_sdk
+    from sentry_sdk.integrations.fastapi import FastApiIntegration
+    from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
+
+    sentry_sdk.init(
+        dsn=settings.SENTRY_DSN,
+        integrations=[FastApiIntegration(), SqlalchemyIntegration()],
+        traces_sample_rate=0.1,
+        environment="production" if not settings.DEBUG else "development",
+        send_default_pii=False,
+    )
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s  %(levelname)-8s  %(message)s",
@@ -22,7 +36,6 @@ from app.api.uploads import router as uploads_router
 from app.api.chat import router as chat_router
 from app.api.admin import router as admin_router
 from app.api.search import router as search_router
-from app.api.payments import router as payments_router
 
 
 log = logging.getLogger("velora")
@@ -60,8 +73,8 @@ app = FastAPI(
     title="VELORA STUDIO API",
     description="Backend API for VELORA STUDIO — AI-powered print SaaS platform",
     version="1.0.0",
-    docs_url="/docs",
-    redoc_url="/redoc",
+    docs_url="/docs" if settings.DEBUG else None,
+    redoc_url="/redoc" if settings.DEBUG else None,
     lifespan=lifespan,
 )
 
@@ -104,6 +117,12 @@ async def request_middleware(request: Request, call_next):
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'none'; "
+        "frame-ancestors 'none';"
+    )
+    if not settings.DEBUG:
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     return response
 
 # ── Routers ───────────────────────────────────────────────────────────────────
@@ -114,7 +133,6 @@ app.include_router(uploads_router, prefix="/api/v1")
 app.include_router(chat_router, prefix="/api/v1")
 app.include_router(admin_router, prefix="/api/v1")
 app.include_router(search_router, prefix="/api/v1")
-app.include_router(payments_router, prefix="/api/v1")
 
 
 # ── Root routes ───────────────────────────────────────────────────────────────

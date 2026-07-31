@@ -34,7 +34,7 @@
 
   backdrop-filter: blur(10px);
 
-  color: #7d6d69;
+  color: var(--text-light);
 
   font-size: 0.88rem;
   font-weight: 600;
@@ -50,7 +50,7 @@
 
   line-height: 1.05;
 
-  color: #4b3b38;
+  color: var(--text-dark);
 }
 
 /* GRID */
@@ -129,7 +129,7 @@
   background:
     rgba(255,255,255,0.65);
 
-  color: #7d6d69;
+  color: var(--text-light);
 
   font-size: 0.8rem;
   font-weight: 600;
@@ -147,14 +147,14 @@
 
   line-height: 1.1;
 
-  color: #4b3b38;
+  color: var(--text-dark);
 }
 
 /* DESCRIPTION */
 .product-content p {
   margin-bottom: 28px;
 
-  color: #6f615d;
+  color: var(--ink-muted);
 
   line-height: 1.8;
 }
@@ -171,8 +171,8 @@
   background:
     linear-gradient(
       135deg,
-      #f7b0a3,
-      #f6c095
+      var(--bordeaux),
+      var(--gold)
     );
 
   color: white;
